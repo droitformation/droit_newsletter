@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('backend.layouts.master')
 @section('content')
 
 <div class="row">
@@ -46,18 +46,19 @@
                                            <a class="btn btn-inverse btn-sm" href="{{ url('admin/campagne/'.$campagne->id) }}">Composer</a>
                                         </div>
                                         @else
-                                        <a class="btn btn-success btn-sm" href="{{ url('admin/stats/'.$campagne->id) }}">Statistiques</a>
-                                        <a href="javascript:;" class="btn btn-default btn-sm sendEmailNewsletter" data-campagne="{{ $campagne->id }}">Envoyer par email</a>
+                                            <a class="btn btn-success btn-sm" href="{{ url('admin/stats/'.$campagne->id) }}">Statistiques</a>
+                                            <a href="javascript:;" class="btn btn-default btn-sm sendEmailNewsletter" data-campagne="{{ $campagne->id }}">Envoyer par email</a>
                                         @endif
                                     </td>
                                     <td>
                                         @if($campagne->status == 'brouillon')
-                                            {{ Form::open(array('url' => array('admin/send/campagne') , 'id' => 'sendCampagneForm', 'class' => 'form-inline')) }}
+                                            <form action="{{ url('admin/campagne/send') }}" id="sendCampagneForm" method="POST" class="form-inline">
+                                                {!! csrf_field() !!}
                                                 <input name="id" value="{{ $campagne->id }}" type="hidden">
                                                 <a href="javascript:;" data-campagne="{{ $campagne->id }}" class="btn btn-sm btn-orange" id="bootbox-demo-3">
                                                     <i class="fa fa-exclamation"></i> &nbsp;&nbsp;Envoyer la campagne
                                                 </a>
-                                            {{ Form::close() }}
+                                            </form>
                                         @else
                                             <?php setlocale(LC_ALL, 'fr_FR.UTF-8');  ?>
                                             Le {{ $campagne->updated_at->formatLocalized('%d %B %Y') }} à {{ $campagne->updated_at->toTimeString() }}
@@ -74,9 +75,10 @@
                                     </td>
                                     <td>{{ $campagne->created_at->formatLocalized('%d %B %Y') }}</td>
                                     <td class="text-right">
-                                        {{ Form::open(array('route' => array('admin.campagne.destroy', $campagne->id), 'method' => 'delete')) }}
-                                         <button data-action="campagne {{ $campagne->sujet }}" class="btn btn-danger btn-xs deleteAction">×</button>
-                                        {{ Form::close() }}
+                                        <form action="{{ url('admin/campagne/'.$campagne->id) }}" method="POST" class="form-horizontal">
+                                            <input type="hidden" name="_method" value="DELETE">{!! csrf_field() !!}
+                                            <button data-action="campagne {{ $campagne->sujet }}" class="btn btn-danger btn-sm deleteAction">Supprimer</button>
+                                        </form>
                                     </td>
                                 </tr>
                                 @endforeach

@@ -6,14 +6,17 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Droit\Newsletter\Repo\NewsletterInterface;
+use App\Droit\Newsletter\Worker\MailjetInterface;
 
 class NewsletterController extends Controller
 {
     protected $newsletter;
+    protected $mailjet;
 
-    public function __construct(NewsletterInterface $newsletter)
+    public function __construct(NewsletterInterface $newsletter,MailjetInterface $mailjet )
     {
         $this->newsletter = $newsletter;
+        $this->mailjet    = $mailjet;
     }
 
     /**
@@ -25,7 +28,7 @@ class NewsletterController extends Controller
     {
         $newsletters = $this->newsletter->getAll();
 
-        return view('backend.newsletters.index')->with(compact('newsletters'));
+        return view('backend.newsletter.index')->with(compact('newsletters'));
     }
 
     /**
@@ -35,7 +38,7 @@ class NewsletterController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.newsletter.create');
     }
 
     /**
@@ -46,7 +49,17 @@ class NewsletterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $campagne = $this->campagne->create( ['sujet' => $request->input('sujet'), 'auteurs' => $request->input('auteurs'), 'newsletter_id' => 1] );
+
+        $created  = $this->mailjet->createCampagne($campagne);
+
+        if(!$created)
+        {
+            throw new \App\Exceptions\CampagneCreationException('Problème avec la création de campagne sur mailjet');
+        }
+
+        return redirect('admin/campagne/'.$campagne->id)->with( array('status' => 'success' , 'message' => 'Campagne crée') );
+
     }
 
     /**

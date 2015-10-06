@@ -6,16 +6,28 @@ use App\Droit\Newsletter\Service\Mailjet;
 class MailjetWorker implements MailjetInterface{
 
     protected $mailjet;
-    protected $list = '1499252'; // Testing list if we want another just passe it via the constructor
+    protected $sender = 'info@droitne.ch';
+    protected $list   = '1499252'; // Testing list if we want another just passe it via the constructor
 
     public function __construct(Mailjet $mailjet)
     {
         $this->mailjet = $mailjet;
     }
 
+    /*
+     * Set the ID of list
+    */
     public function setList($list)
     {
         $this->list = $list;
+    }
+
+    /*
+     * Set the ID of list
+    */
+    public function setSenderEmail($email)
+    {
+        $this->sender = $email;
     }
 
     public function getList()
@@ -25,6 +37,21 @@ class MailjetWorker implements MailjetInterface{
 
     /**
      * get Subscribers
+     * Return data json
+     *
+     * {
+     *      "Count" : 1,
+     *      "Data"  : [{
+     *          "Address"         : "g1mmsov99",
+     *          "CreatedAt"       : "2015-10-06T07:48:54Z",
+     *          "ID"              : 1499252,
+     *          "IsDeleted"       : false,
+     *          "Name"            : "Testing",
+     *          "SubscriberCount" : 3
+     *      }],
+     *      "Total" : 1
+     *  }
+     *
      */
     public function getSubscribers(){
 
@@ -35,14 +62,51 @@ class MailjetWorker implements MailjetInterface{
 
         $result = $this->mailjet->contactslist($params);
 
-        if ($this->mailjet->_response_code == 200)
+        if ($this->mailjet->getResponseCode() == 200)
             return $result;
         else
-            return $this->mailjet->_response_code;
+            return $this->mailjet->getResponseCode();
 
     }
 
-    public function getAllSubscribers(){
+    /*
+     * {
+     *   "Count" : 4,
+     *   "Data"  :
+     *    [
+     *      {
+     *        "CreatedAt" : "2015-10-06T07:22:47Z",
+     *        "DeliveredCount" : 0,
+     *        "Email" : "droitformation@droitne.ch",
+     *        "ID" : 1524810482,
+     *        "IsOptInPending" : false,
+     *        "IsSpamComplaining" : false,
+     *        "LastActivityAt" : "2015-10-06T07:22:47Z",
+     *        "LastUpdateAt" : "",
+     *        "Name" : "",
+     *        "UnsubscribedAt" : "",
+     *        "UnsubscribedBy" : ""
+     *      },
+     *      {
+     *        "CreatedAt" : "2015-10-06T07:48:59Z",
+     *        "DeliveredCount" : 0,
+     *        "Email" : "cindy.leschaud@gmail.com",
+     *        "ID" : 1524902722,
+     *        "IsOptInPending" : false,
+     *        "IsSpamComplaining" : false,
+     *        "LastActivityAt" : "2015-10-06T07:48:59Z",
+     *        "LastUpdateAt" : "2015-10-06T07:48:59Z",
+     *        "Name" : "",
+     *        "UnsubscribedAt" : "",
+     *        "UnsubscribedBy" : ""
+     *      }
+     *   ],
+     *   "Total" : 4
+     * }
+     *
+    */
+    public function getAllSubscribers()
+    {
         # Parameters
         $params = array(
             "method"       => "LIST",
@@ -53,7 +117,6 @@ class MailjetWorker implements MailjetInterface{
         $response = $this->mailjet->contact($params);
 
         return $response;
-        //return ($response ? $response->stats : false);
     }
 
     /**
@@ -68,7 +131,7 @@ class MailjetWorker implements MailjetInterface{
 
         $result = $this->mailjet->contact($params);
 
-        if ($this->mailjet->_response_code == 200)
+        if ($this->mailjet->getResponseCode() == 200)
             return $result->Data[0]->ID;
         else
             return $this->getContactByEmail($email);
@@ -84,7 +147,7 @@ class MailjetWorker implements MailjetInterface{
 
         $result = $this->mailjet->contact($params);
 
-        return ($this->mailjet->_response_code == 200 ? $result->Data[0]->ID : $result);
+        return ($this->mailjet->getResponseCode() == 200 ? $result->Data[0]->ID : $result);
     }
 
     public function addContactToList($contactID) {
@@ -98,7 +161,7 @@ class MailjetWorker implements MailjetInterface{
 
         $result = $this->mailjet->listrecipient($params);
 
-        return ($this->mailjet->_response_code == 201 ? $result : false);
+        return ($this->mailjet->getResponseCode() == 201 ? $result : false);
 
     }
 
@@ -110,7 +173,7 @@ class MailjetWorker implements MailjetInterface{
         // Attempt tu subscribe if fails we try to re subscribe
         $result = $this->addContactToList($contactID);
 
-        return ($this->mailjet->_response_code == 201 ? $result : false);
+        return ($this->mailjet->getResponseCode() == 201 ? $result : false);
     }
 
     /**
@@ -131,7 +194,7 @@ class MailjetWorker implements MailjetInterface{
 
         $this->mailjet->listrecipient($params);
 
-        if (($this->mailjet->_response_code == 200) || ($this->mailjet->_response_code == 202) || ($this->mailjet->_response_code == 204))
+        if (($this->mailjet->getResponseCode() == 200) || ($this->mailjet->getResponseCode() == 202) || ($this->mailjet->getResponseCode() == 204))
             return true;
         else
             return false;
@@ -148,7 +211,7 @@ class MailjetWorker implements MailjetInterface{
 
         $listerecipient = $this->mailjet->listrecipient($params);
 
-        if ($this->mailjet->_response_code == 200 && isset($listerecipient->Data[0]))
+        if ($this->mailjet->getResponseCode() == 200 && isset($listerecipient->Data[0]))
             return $listerecipient->Data[0]->ID;
         else
             return false;
@@ -180,7 +243,7 @@ class MailjetWorker implements MailjetInterface{
             'Locale'         => 'fr',
             'Callback'       => url('/api'),
             'HeaderLink'     => url('/'),
-            'SenderEmail'    => 'info@droitdutravail.ch',
+            'SenderEmail'    => $this->sender,
             'Sender'         => $campagne->newsletter->from_name
         );
 
@@ -194,9 +257,6 @@ class MailjetWorker implements MailjetInterface{
 
             return true;
         }
-
-        return false;
-
     }
 
     public function setHtml($html,$id){
@@ -220,7 +280,7 @@ class MailjetWorker implements MailjetInterface{
 
         $params = array(
             "method"  => "POST",
-            "from"    => "info@droitdutravail.ch",
+            "from"    => $this->sender,
             "to"      => $email,
             "subject" => $sujet,
             "html"    => $html
@@ -228,34 +288,12 @@ class MailjetWorker implements MailjetInterface{
 
         $result = $this->mailjet->sendEmail($params);
 
-        if ($this->mailjet->_response_code == 200)
+        if ($this->mailjet->getResponseCode() == 200)
             return $result;
         else
             return $result;
 
     }
-
-/*    function testNewsletter($newsletter_id) {
-
-        $recipients = [
-            ['Email' => 'droitformation@droitne.ch', 'Name' => 'Testing']
-        ];
-
-        $params = [
-            "method" => "POST",
-            "ID" => $newsletter_id,
-            "Recipients" => $recipients
-        ];
-
-        $result = $this->mailjet->newsletterTest($params);
-
-        if ($this->mailjet->getResponseCode() == 201)
-            echo "success - newsletter ". $newsletter_id . " has been sent";
-        else
-            echo "error - ".$this->mailjet->getResponseCode();
-
-        return $result;
-    }*/
 
     public function sendCampagne($id,$CampaignID){
 
@@ -269,7 +307,7 @@ class MailjetWorker implements MailjetInterface{
 
         $result = $this->mailjet->batchjob($params);
 
-        if ($this->mailjet->_response_code == 201)
+        if ($this->mailjet->getResponseCode() == 201)
             return true;
         else
             return $result;
@@ -351,6 +389,5 @@ class MailjetWorker implements MailjetInterface{
         $response = $this->mailjet->openinformation ($params);
 
         return ($response ? $response : false);
-
     }
 }

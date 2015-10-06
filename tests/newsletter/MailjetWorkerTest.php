@@ -43,11 +43,44 @@ class MailjetWorkerTest extends TestCase
      */
     public function testGetNewsletters()
     {
-        $worker = \App::make('App\Droit\Newsletter\Worker\MailjetInterface');
+        $worker = new \App\Droit\Newsletter\Worker\MailjetWorker( $this->mock );
+        $return = [
+            'Count' => 1,
+            'Data'  => [
+                [
+                    "Address"         => "g1mmsov99",
+                    "CreatedAt"       => "2015-10-06T07:48:54Z",
+                    "ID"              => 1499252,
+                    "IsDeleted"       => false,
+                    "Name"            => "Testing",
+                    "SubscriberCount" => 3
+                ]
+            ],
+            'Total' => 1,
+        ];
 
-        $this->mock->shouldReceive('contactslist')->once();
+        $this->mock->shouldReceive('contactslist')->once()->andReturn(json_encode($return));
+        $this->mock->shouldReceive('getResponseCode')->once()->andReturn(200);
 
-        $worker->getSubscribers();
+        $result = $worker->getSubscribers();
+
+    }
+
+    public function testGetAllSubscibers()
+    {
+        $worker = new \App\Droit\Newsletter\Worker\MailjetWorker( $this->mock );
+
+        $return = new stdClass();
+        $return->Count = 1;
+        $return->Total = 1;
+        $return->Data  = [
+            [ "Email"  => "cindy.leschaud@gmail.com" ],[ "Email"  => "cindy.leschaud@unine.ch"]
+        ];
+
+        $this->mock->shouldReceive('contact')->once()->andReturn($return);
+        $this->mock->shouldReceive('getResponseCode')->once()->andReturn(200);
+
+        $result = $worker->getAllSubscribers();
 
     }
 }

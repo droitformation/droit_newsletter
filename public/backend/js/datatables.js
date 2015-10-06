@@ -87,6 +87,13 @@ $(document).ready(function() {
         }
     });
 
+    $('#abonnes').dataTable({
+        "sAjaxSource": "admin/subscribers",
+        "bProcessing": true,
+        "bServerSide": true,
+        language: langues
+    });
+
     $('.dataTables_filter input').addClass('form-control').attr('placeholder','Recherche...');
     $('.dataTables_length select').addClass('form-control');
 });

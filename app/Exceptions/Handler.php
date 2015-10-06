@@ -30,6 +30,10 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $e)
     {
+        //
+        if ($e instanceof \App\Exceptions\CampagneCreationException)
+            return redirect()->back()->with(array('status' => 'warning' , 'message' => 'Problème avec la création de campagne sur mailjet'));
+
         return parent::report($e);
     }
 

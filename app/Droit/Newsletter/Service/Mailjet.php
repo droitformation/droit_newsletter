@@ -98,6 +98,11 @@ class Mailjet
         }
     }
 
+    public function getResponseCode()
+    {
+        return $this->_response_code;
+    }
+
     public function curl_setopt_custom_postfields($curl_handle, $postfields, $headers = null) {
         $algos = hash_algos();
         $hashAlgo = null;

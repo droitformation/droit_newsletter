@@ -32,7 +32,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','administration']], f
     Route::get('search', 'Backend\SearchController@search');
     Route::post('upload', 'Backend\UploadController@upload');
 
-    Route::resource('newsletter', 'Backend\Newsletter\NewsletterController');
+    Route::resource('campagne', 'Backend\Newsletter\CampagneController');
+    Route::resource('subscriber', 'Backend\Newsletter\SubscriberController');
+    Route::get('subscribers', ['uses' => 'Backend\Newsletter\SubscriberController@subscribers']);
 });
 
 /*
@@ -71,3 +73,19 @@ Route::post('password/email', 'Auth\PasswordController@postEmail');
 
 Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
 Route::post('password/reset', 'Auth\PasswordController@postReset');
+
+/*
+|--------------------------------------------------------------------------
+|  Testing Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::get('testcampagne', function()
+{
+    $mailjet = \App::make('App\Droit\Newsletter\Worker\MailjetInterface');
+    $sent    = $mailjet->getAllSubscribers();
+
+    echo '<pre>';
+    print_r($sent->Data);
+    echo '</pre>';
+});

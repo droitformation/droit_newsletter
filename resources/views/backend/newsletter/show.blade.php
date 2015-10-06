@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('backend.layouts.master')
 @section('content')
 
 <div class="row">
@@ -11,13 +11,14 @@
         </div>
     </div>
     <div class="col-md-4">
-        {{ Form::open(array('url' => array('admin/send/test') , 'class' => 'form-inline')) }}
+        <form action="{{ url('admin/campagne/test') }}" enctype="multipart/form-data" method="POST" class="form-inline">
+            {!! csrf_field() !!}
             <div class="form-group">
                 <input required name="email" value="" type="email" class="form-control">
                 <input name="id" value="{{ $infos->id }}" type="hidden">
             </div>
             <button type="submit" class="btn btn-brown"><i class="fa fa-question-circle"></i>  &nbsp;&nbsp;Envoyer un test</button>
-        {{ Form::close() }}
+        </form>
     </div>
 </div>
 
@@ -41,7 +42,7 @@
                             @if(!empty($campagne))
                                 @foreach($campagne as $bloc)
                                     <div class="bloc_rang" id="bloc_rang_{{ $bloc->idItem }}" data-rel="{{ $bloc->idItem }}">
-                                        <?php echo View::make('newsletter/build/edit/'.$bloc->type->partial)->with(array('bloc' => $bloc))->__toString(); ?>
+                                        <?php echo view('newsletter/build/edit/'.$bloc->type->partial)->with(array('bloc' => $bloc))->__toString(); ?>
                                     </div>
                                 @endforeach
                             @endif
@@ -54,7 +55,7 @@
                     @if(!empty($blocs))
                         @foreach($blocs as $bloc)
                             <div class="create_bloc" id="create_{{ $bloc->id }}">
-                                <?php echo View::make('newsletter/build/create/'.$bloc->template)->with(array('bloc' => $bloc, 'infos' => $infos))->__toString(); ?>
+                                <?php echo view('newsletter/build/create/'.$bloc->template)->with(array('bloc' => $bloc, 'infos' => $infos))->__toString(); ?>
                             </div>
                         @endforeach
                     @endif
@@ -65,7 +66,7 @@
                         <div class="component-bloc">
                             @if(!empty($blocs))
                                 @foreach($blocs as $bloc)
-                                      <?php echo View::make('newsletter/build/blocs')->with(array('bloc' => $bloc))->__toString(); ?>
+                                      <?php echo view('newsletter/build/blocs')->with(array('bloc' => $bloc))->__toString(); ?>
                                 @endforeach
                             @endif
                         </div>
