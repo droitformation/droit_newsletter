@@ -63,7 +63,7 @@
                         <p class="copyright">Copyright &copy; . Tous droits réservés.</p>
                     </div><!--END ONE-->
                     <div class="col-md-4 text-right">
-                        <a class="btn btn-xs btn-default" href="{{ url('admin/dashboard') }}">administration</a>
+                        <a class="btn btn-xs btn-default" href="{{ url('admin') }}">administration</a>
                     </div>
                 </div><!--END SECTION-->
             </footer><!--END FOOTER-->

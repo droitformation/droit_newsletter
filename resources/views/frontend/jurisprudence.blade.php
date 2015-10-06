@@ -8,6 +8,8 @@
 
         <h1>Jurisprudence</h1>
 
+        <hr/>
+
         <div class="col-md-8 col-xs-12">
             <div id="filtering">
                 <div class="arrets">

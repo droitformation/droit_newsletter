@@ -1,4 +1,4 @@
-<?php namespace Droit\Newsletter\Worker;
+<?php namespace App\Droit\Newsletter\Worker;
 
 interface CampagneInterface {
 

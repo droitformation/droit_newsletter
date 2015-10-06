@@ -1,16 +1,26 @@
-<?php namespace Droit\Newsletter\Worker;
+<?php namespace App\Droit\Newsletter\Worker;
 
-use Droit\Newsletter\Worker\MailjetInterface;
+use App\Droit\Newsletter\Worker\MailjetInterface;
+use App\Droit\Newsletter\Service\Mailjet;
 
 class MailjetWorker implements MailjetInterface{
 
     protected $mailjet;
-    protected $list;
+    protected $list = '1499252'; // Testing list if we want another just passe it via the constructor
 
-    public function __construct()
+    public function __construct(Mailjet $mailjet)
     {
-        $this->mailjet  = new \Droit\Newsletter\Service\Mailjet();
-        $this->list     = '1';
+        $this->mailjet = $mailjet;
+    }
+
+    public function setList($list)
+    {
+        $this->list = $list;
+    }
+
+    public function getList()
+    {
+        return $this->list;
     }
 
     /**
@@ -224,6 +234,28 @@ class MailjetWorker implements MailjetInterface{
             return $result;
 
     }
+
+/*    function testNewsletter($newsletter_id) {
+
+        $recipients = [
+            ['Email' => 'droitformation@droitne.ch', 'Name' => 'Testing']
+        ];
+
+        $params = [
+            "method" => "POST",
+            "ID" => $newsletter_id,
+            "Recipients" => $recipients
+        ];
+
+        $result = $this->mailjet->newsletterTest($params);
+
+        if ($this->mailjet->getResponseCode() == 201)
+            echo "success - newsletter ". $newsletter_id . " has been sent";
+        else
+            echo "error - ".$this->mailjet->getResponseCode();
+
+        return $result;
+    }*/
 
     public function sendCampagne($id,$CampaignID){
 

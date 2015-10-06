@@ -1,4 +1,4 @@
-<?php namespace Droit\Newsletter\Repo;
+<?php namespace App\Droit\Newsletter\Repo;
 
 interface NewsletterUserInterface {
 

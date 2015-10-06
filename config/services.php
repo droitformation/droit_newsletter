@@ -29,8 +29,13 @@ return [
         'region' => 'us-east-1',
     ],
 
+    'mailjet' => [
+        'api'    => env('MAILJET_API'),
+        'secret' => env('MAILJET_SECRET'),
+    ],
+
     'stripe' => [
-        'model'  => App\User::class,
+        'model'  => App\Droit\User\Entities\User::class,
         'key'    => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],

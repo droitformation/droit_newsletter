@@ -1,0 +1,91 @@
+.datepicker {
+    z-index: 1450;
+}
+
+.navbar-fixed-top {
+    z-index: 1080;
+}
+
+.table-responsive {
+    overflow: hidden;
+}
+
+table.dataTable thead .sorting_asc::after{
+    content: "▲";
+    opacity: 0.3;
+}
+
+table.dataTable thead .sorting::after{
+    content: "▼";
+    opacity: 0.3;
+}
+
+.pagination > li > a, .pagination > li span {
+    padding: 5px 12px;
+}
+
+select.form-control + .chosen-container .chosen-results li, select.form-control + .chosen-container .chosen-results li.active-result {
+    white-space: pre-wrap;
+}
+
+.ui-widget-content {
+    border: 1px solid #aaa;
+    color: #222;
+    display: inline-block;
+    list-style: outside none none;
+    padding: 3px;
+}
+
+.ui-widget-content li a span{
+    display: block;
+    font-size: 12px;
+}
+
+.normalTable p{
+    margin-bottom: 0;
+}
+
+.ui-widget-content li a{
+    padding:0;
+    margin: 0;
+}
+.ui-widget-content li.ui-state-focus{
+    background: #f5f5f5;
+    border: 1px solid transparent;
+}
+
+.ms-container {
+    width: 550px;
+}
+
+.single-dropzone .dz-image-preview, .dz-file-preview {
+    display: none;
+}
+
+.form-horizontal .checkbox-inline.centre{
+    margin: 5px;
+}
+
+.stepy-header li {
+    display: inline-block;
+    width: 220px;
+    background: #e2eaf3;
+    padding: 5px 10px;
+}
+
+/*
+    Upload dropzone
+*/
+
+.dropzone {
+    background: white none repeat scroll 0 0;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    min-height: 50px;
+    padding: 0px;
+}
+
+.list-group-item .form-group {
+    margin-bottom: 0px;
+}
+
+.form-control

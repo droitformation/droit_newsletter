@@ -1,8 +1,7 @@
-<?php namespace Droit\Newsletter\Repo;
+<?php namespace App\Droit\Newsletter\Repo;
 
-use Droit\Newsletter\Repo\NewsletterTypesInterface;
-
-use Droit\Newsletter\Entities\Newsletter_types as M;
+use App\Droit\Newsletter\Repo\NewsletterTypesInterface;
+use App\Droit\Newsletter\Entities\Newsletter_types as M;
 
 class NewsletterTypesEloquent implements NewsletterTypesInterface{
 

@@ -1,10 +1,10 @@
-<?php namespace Droit\Newsletter\Worker;
+<?php namespace App\Droit\Newsletter\Worker;
 
-use Droit\Newsletter\Repo\NewsletterContentInterface;
-use Droit\Newsletter\Repo\NewsletterCampagneInterface;
-use Droit\Content\Repo\ArretInterface;
-use Droit\Categorie\Repo\CategorieInterface;
-use Droit\Content\Repo\GroupeInterface;
+use App\Droit\Newsletter\Repo\NewsletterContentInterface;
+use App\Droit\Newsletter\Repo\NewsletterCampagneInterface;
+use App\Droit\Content\Repo\ArretInterface;
+use App\Droit\Categorie\Repo\CategorieInterface;
+use App\Droit\Content\Repo\GroupeInterface;
 use \InlineStyle\InlineStyle;
 use Illuminate\Support\Collection;
 

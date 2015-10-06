@@ -1,8 +1,7 @@
-<?php namespace Droit\Newsletter\Repo;
+<?php namespace App\Droit\Newsletter\Repo;
 
-use Droit\Newsletter\Repo\NewsletterContentInterface;
-
-use Droit\Newsletter\Entities\Newsletter_contents as M;
+use App\Droit\Newsletter\Repo\NewsletterContentInterface;
+use App\Droit\Newsletter\Entities\Newsletter_contents as M;
 
 class NewsletterContentEloquent implements NewsletterContentInterface{
 

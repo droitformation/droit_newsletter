@@ -1,8 +1,8 @@
-<?php namespace Droit\Newsletter\Entities;
+<?php namespace App\Droit\Newsletter\Entities;
 
-use Droit\Common\BaseModel as BaseModel;
+use Illuminate\Database\Eloquent\Model;
 
-class Newsletter extends BaseModel {
+class Newsletter extends Model {
 
 	protected $fillable = ['titre','from_name','from_email','return_email','unsuscribe','preview','logos','header'];
 

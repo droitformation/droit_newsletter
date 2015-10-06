@@ -1,10 +1,8 @@
-<?php namespace Droit\Newsletter\Entities;
+<?php namespace App\Droit\Newsletter\Entities;
 
-use Laracasts\Commander\Events\EventGenerator;
+use Illuminate\Database\Eloquent\Model;
 
-class Newsletter_users extends \Eloquent {
-
-    use EventGenerator;
+class Newsletter_users extends Model {
 
     protected $dates    = ['activated_at'];
 	protected $fillable = ['email','activation_token','activated_at'];
@@ -16,12 +14,12 @@ class Newsletter_users extends \Eloquent {
 
     public function subscription(){
 
-        return $this->hasMany('Droit\Newsletter\Entities\Newsletter_subscriptions', 'user_id', 'id');
+        return $this->hasMany('App\Droit\Newsletter\Entities\Newsletter_subscriptions', 'user_id', 'id');
     }
 
     public function newsletter(){
 
-        return $this->belongsToMany('Droit\Newsletter\Entities\Newsletter', 'newsletter_subscriptions', 'user_id', 'newsletter_id')->withTimestamps();
+        return $this->belongsToMany('App\Droit\Newsletter\Entities\Newsletter', 'newsletter_subscriptions', 'user_id', 'newsletter_id')->withTimestamps();
     }
 
 }

@@ -1,7 +1,7 @@
-<?php namespace Droit\Newsletter\Repo;
+<?php namespace App\Droit\Newsletter\Repo;
 
-use Droit\Newsletter\Entities\Newsletter_subscriptions as M;
-use Droit\Newsletter\Repo\NewsletterSubscriptionInterface;
+use App\Droit\Newsletter\Entities\Newsletter_subscriptions as M;
+use App\Droit\Newsletter\Repo\NewsletterSubscriptionInterface;
 
 class NewsletterSubscriptionEloquent implements NewsletterSubscriptionInterface{
 

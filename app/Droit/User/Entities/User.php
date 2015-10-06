@@ -24,7 +24,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['first_name','last_name','email', 'password'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -35,7 +35,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function roles()
     {
-        return $this->belongsToMany('App\Droit\User\Entities\Role', 'user_roles', 'user_id', 'role_id');
+        return $this->belongsToMany('App\Droit\User\Entities\Role', 'users_roles', 'user_id', 'role_id');
     }
 }
 

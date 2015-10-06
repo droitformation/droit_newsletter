@@ -10,7 +10,8 @@
         "intervention/image": "dev-master",
         "inlinestyle/inlinestyle": "1.*",
         "illuminate/html": "5.*",
-        "guzzlehttp/guzzle": "5.1.0"
+        "guzzlehttp/guzzle": "5.1.0",
+        "torann/registry": "0.2.*@dev"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

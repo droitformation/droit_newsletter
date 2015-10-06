@@ -1,6 +1,8 @@
-<?php namespace Droit\Newsletter\Entities;
+<?php namespace App\Droit\Newsletter\Entities;
 
-class Newsletter_subscriptions extends \Eloquent {
+use Illuminate\Database\Eloquent\Model;
+
+class Newsletter_subscriptions extends Model {
 
 	protected $fillable = ['user_id','newsletter_id'];
 

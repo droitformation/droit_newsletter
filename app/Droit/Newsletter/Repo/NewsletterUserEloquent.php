@@ -1,8 +1,7 @@
-<?php namespace Droit\Newsletter\Repo;
+<?php namespace App\Droit\Newsletter\Repo;
 
-use Droit\Newsletter\Entities\Newsletter_users as M;
-use Droit\Newsletter\Repo\NewsletterUserInterface;
-use Droit\Event\UserWasSubscribed;
+use App\Droit\Newsletter\Entities\Newsletter_users as M;
+use App\Droit\Newsletter\Repo\NewsletterUserInterface;
 
 class NewsletterUserEloquent implements NewsletterUserInterface{
 
@@ -141,8 +140,6 @@ class NewsletterUserEloquent implements NewsletterUserInterface{
 		{
 			return false;
 		}
-
-        $user->raise(new UserWasSubscribed($user));
 
 		return $user;
 		
