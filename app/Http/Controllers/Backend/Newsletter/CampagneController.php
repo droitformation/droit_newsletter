@@ -5,18 +5,18 @@ namespace App\Http\Controllers\Backend\Newsletter;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Droit\Newsletter\Repo\NewsletterInterface;
+use App\Droit\Newsletter\Repo\NewsletterCampagneInterface;
 use App\Droit\Newsletter\Worker\MailjetInterface;
 
 class CampagneController extends Controller
 {
-    protected $newsletter;
+    protected $campagne;
     protected $mailjet;
 
-    public function __construct(NewsletterInterface $newsletter,MailjetInterface $mailjet )
+    public function __construct(NewsletterCampagneInterface $campagne,MailjetInterface $mailjet )
     {
-        $this->newsletter = $newsletter;
-        $this->mailjet    = $mailjet;
+        $this->campagne = $campagne;
+        $this->mailjet  = $mailjet;
     }
 
     /**
@@ -26,9 +26,9 @@ class CampagneController extends Controller
      */
     public function index()
     {
-        $newsletters = $this->newsletter->getAll();
+        $campagnes = $this->campagne->getAll();
 
-        return view('backend.newsletter.index')->with(compact('newsletters'));
+        return view('backend.newsletter.campagne.index')->with(compact('campagnes'));
     }
 
     /**
@@ -38,7 +38,7 @@ class CampagneController extends Controller
      */
     public function create()
     {
-        return view('backend.newsletter.create');
+        return view('backend.newsletter.campagne.create');
     }
 
     /**
@@ -53,7 +53,7 @@ class CampagneController extends Controller
         print_r($request->all());
         echo '</pre>';exit;
 
-        $campagne = $this->campagne->create( ['sujet' => $request->input('sujet'), 'auteurs' => $request->input('auteurs'), 'newsletter_id' => 1] );
+        $campagne = $this->campagne->create( ['sujet' => $request->input('sujet'), 'auteurs' => $request->input('auteurs'), 'template' => 1] );
 
         $created  = $this->mailjet->createCampagne($campagne);
 

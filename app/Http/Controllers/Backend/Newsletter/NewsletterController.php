@@ -5,18 +5,21 @@ namespace App\Http\Controllers\Backend\Newsletter;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+
 use App\Droit\Newsletter\Repo\NewsletterInterface;
-use App\Droit\Newsletter\Worker\MailjetInterface;
+use App\Droit\Service\UploadWorker;
 
 class NewsletterController extends Controller
 {
     protected $newsletter;
-    protected $mailjet;
+    protected $upload;
 
-    public function __construct(NewsletterInterface $newsletter,MailjetInterface $mailjet )
+    public function __construct(NewsletterInterface $newsletter, UploadWorker $upload )
     {
         $this->newsletter = $newsletter;
-        $this->mailjet    = $mailjet;
+        $this->upload     = $upload;
+
+        setlocale(LC_ALL, 'fr_FR.UTF-8');
     }
 
     /**
@@ -28,7 +31,7 @@ class NewsletterController extends Controller
     {
         $newsletters = $this->newsletter->getAll();
 
-        return view('backend.newsletter.index')->with(compact('newsletters'));
+        return view('backend.newsletter.template.index')->with(compact('newsletters'));
     }
 
     /**
@@ -38,7 +41,7 @@ class NewsletterController extends Controller
      */
     public function create()
     {
-        return view('backend.newsletter.create');
+        return view('backend.newsletter.template.create');
     }
 
     /**
@@ -49,17 +52,16 @@ class NewsletterController extends Controller
      */
     public function store(Request $request)
     {
-        $campagne = $this->campagne->create( ['sujet' => $request->input('sujet'), 'auteurs' => $request->input('auteurs'), 'newsletter_id' => 1] );
+        $newsletter = $this->newsletter->create($request->except('logos','header'));
 
-        $created  = $this->mailjet->createCampagne($campagne);
+        $logos  = $this->upload->upload($request->file('logos'), 'newsletter');
+        $header = $this->upload->upload($request->file('header'), 'newsletter');
 
-        if(!$created)
-        {
-            throw new \App\Exceptions\CampagneCreationException('Problème avec la création de campagne sur mailjet');
-        }
+        $newsletter->logos  = $logos['name'];
+        $newsletter->header = $header['name'];
+        $newsletter->save();
 
-        return redirect('admin/campagne/'.$campagne->id)->with( array('status' => 'success' , 'message' => 'Campagne crée') );
-
+        return redirect('admin/newsletter/'.$newsletter->id)->with(array('status' => 'success', 'message' => 'Newsletter crée' ));
     }
 
     /**
@@ -70,7 +72,9 @@ class NewsletterController extends Controller
      */
     public function show($id)
     {
-        //
+        $newsletter = $this->newsletter->find($id);
+
+        return view('backend.newsletter.template.show')->with(compact('newsletter'));
     }
 
     /**

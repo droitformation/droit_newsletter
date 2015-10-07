@@ -24,7 +24,6 @@ class CreateNewsletterContentsTable extends Migration {
             $table->integer('categorie_id')->nullable();
             $table->integer('newsletter_campagne_id');
             $table->integer('rang');
-			$table->timestamps();
 
 		});
 	}

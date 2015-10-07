@@ -5,8 +5,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <!-- Responsive Meta Tag -->
         <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
-        <title>Droit du travail</title><!-- Responsive Styles and Valid Styles -->
-        <link rel="stylesheet" href="<?php echo asset('css/newsletter.css'); ?>">
+        <title>{{ $title or '' }}</title><!-- Responsive Styles and Valid Styles -->
+        <link rel="stylesheet" href="<?php echo asset('newsletter/css/newsletter.css'); ?>">
     </head>
 
     <body>

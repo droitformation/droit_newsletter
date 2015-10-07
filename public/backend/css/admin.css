@@ -88,4 +88,7 @@ select.form-control + .chosen-container .chosen-results li, select.form-control 
     margin-bottom: 0px;
 }
 
-.form-control
+.btn-block {
+    padding-left: 5px;
+    padding-right: 5px;
+}

@@ -24,6 +24,8 @@ class CreateNewslettersTable extends Migration {
             $table->string('preview');
             $table->string('logos');
             $table->string('header');
+            $table->timestamps();
+            $table->softDeletes();
 
 		});
 	}

@@ -14,7 +14,7 @@ class NewsletterEloquent implements NewsletterInterface{
 	
 	public function getAll(){
 		
-		return $this->newsletter->orderBy('id','DESC')->get();
+		return $this->newsletter->with(['campagnes'])->get();
 	}
 
 	public function find($id){
@@ -31,8 +31,8 @@ class NewsletterEloquent implements NewsletterInterface{
             'return_email' => $data['return_email'],
             'unsuscribe'   => $data['unsuscribe'],
             'preview'      => $data['preview'],
-            'logos'        => $data['logos'],
-            'header'       => $data['header'],
+            'logos'        => (isset($data['logos']) ? $data['logos'] : ''),
+            'header'       => (isset($data['header']) ? $data['header'] : ''),
 			'created_at'   => date('Y-m-d G:i:s'),
 			'updated_at'   => date('Y-m-d G:i:s')
 		));
@@ -55,15 +55,8 @@ class NewsletterEloquent implements NewsletterInterface{
 			return false;
 		}
 
-        $newsletter->titre        = $data['titre'];
-		$newsletter->from_name    = $data['from_name'];
-        $newsletter->from_email   = $data['from_email'];
-        $newsletter->return_email = $data['return_email'];
-        $newsletter->unsuscribe   = $data['unsuscribe'];
-        $newsletter->preview      = $data['preview'];
-        $newsletter->logos        = $data['logos'];
-        $newsletter->header       = $data['header'];
-		$newsletter->updated_at   = date('Y-m-d G:i:s');
+        $newsletter->fill($data);
+		$newsletter->updated_at = date('Y-m-d G:i:s');
 
 		$newsletter->save();
 		

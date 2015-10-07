@@ -6,17 +6,7 @@ class Newsletter_contents extends Model {
 
 	protected $fillable = ['type_id','titre','contenu','image','lien','arret_id','categorie_id','newsletter_campagne_id','rang','groupe_id'];
 
-    /*
-     * Validation rules
-    */
-    protected static $rules = array(
-    );
-
-    /*
-     * Validation messages
-    */
-    protected static $messages = array(
-    );
+    public $timestamps = false;
 
     public function campagne(){
 
