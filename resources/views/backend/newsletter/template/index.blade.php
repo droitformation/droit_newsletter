@@ -18,37 +18,39 @@
 
         @if(!empty($newsletters))
             @foreach($newsletters as $newsletter)
-                
-                <?php
-                echo '<pre>';
-                print_r($newsletter);
-                echo '</pre>';
-                ?>
 
                 <div class="panel panel-info">
                     <div class="panel-body">
 
                         <div class="row">
-                            <div class="col-md-3 col-xs-12">
+                            <div class="col-md-4 col-xs-4">
                                 <h3>{{ $newsletter->titre }}</h3>
+                            </div>
+                            <div class="col-md-4 col-xs-4">
                                 <p><i class="fa fa-user"></i> &nbsp; {{ $newsletter->from_name }}</p>
                                 <p><i class="fa fa-envelope"></i> &nbsp; {{ $newsletter->from_email }}</p>
+                            </div>
+                            <div class="col-md-4 col-xs-4 text-right">
                                 <div class="btn-group" role="group">
                                     <a href="{{ url('newsletter/'.$newsletter->id) }}" class="btn btn-sm btn-info">éditer</a>
                                     <a href="{{ url('newsletter/'.$newsletter->id) }}" class="btn btn-sm btn-danger">Supprimer</a>
                                 </div>
                             </div>
-                            <div class="col-md-9 col-xs-12">
+                        </div>
+                        <br/>
+                        <div class="row">
+
+                            <div class="col-md-12 col-xs-12">
                                 @if(!$newsletter->campagnes->isEmpty())
-                                    <table class="table table-striped">
+                                    <table class="table table-bordered table-striped">
                                        <thead>
                                            <tr>
-                                               <th>Sujet</th>
-                                               <th>Auteurs</th>
-                                               <th>Status</th>
-                                               <th>Création</th>
+                                               <th class="col-md-3">Sujet</th>
+                                               <th class="col-md-2">Auteurs</th>
+                                               <th class="col-md-1">Status</th>
+                                               <th class="col-md-1">Création</th>
                                                <th class="col-md-2"></th>
-                                               <th class="col-md-1"></th>
+                                               <th class="col-md-2">Envoyé</th>
                                                <th class="col-md-1"></th>
                                            </tr>
                                        </thead>
@@ -86,7 +88,7 @@
                                                             </form>
                                                         @else
                                                             <?php setlocale(LC_ALL, 'fr_FR.UTF-8');  ?>
-                                                            Le {{ $campagne->updated_at->formatLocalized('%d %B %Y') }} à {{ $campagne->updated_at->toTimeString() }}
+                                                            Le {{ $campagne->updated_at->formatLocalized('%d %b %Y') }} à {{ $campagne->updated_at->toTimeString() }}
                                                         @endif
                                                     </td>
                                                     <td class="text-right">
