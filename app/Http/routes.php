@@ -9,6 +9,7 @@
 Route::get('/', array('as' => 'home', 'uses' => 'Frontend\HomeController@index'));
 Route::get('auteur', 'Frontend\HomeController@auteur');
 Route::get('contact', 'Frontend\HomeController@contact');
+Route::get('newsletter', 'Frontend\NewsletterController@index');
 Route::get('jurisprudence', 'Frontend\JurisprudenceController@index');
 Route::get('unsubscribe', 'Frontend\HomeController@unsubscribe');
 
