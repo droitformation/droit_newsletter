@@ -34,6 +34,22 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','administration']], f
 
     Route::resource('newsletter', 'Backend\Newsletter\NewsletterController');
     Route::resource('campagne', 'Backend\Newsletter\CampagneController');
+
+    /**
+     * API
+     */
+    Route::post('campagne/send', 'Backend\Newsletter\CampagneController@send');
+    Route::post('campagne/test', 'Backend\Newsletter\CampagneController@test');
+    Route::post('campagne/sorting', 'Backend\Newsletter\CampagneController@sorting');
+    Route::post('campagne/process', 'Backend\Newsletter\CampagneController@addContent');
+    Route::post('campagne/editContent', 'Backend\Newsletter\CampagneController@editContent');
+    Route::post('campagne/remove', 'Backend\Newsletter\CampagneController@remove');
+
+    Route::get('arrets/{id}', 'Backend\ArretController@simple');
+    Route::get('analyses/{id}', 'Backend\AnalyseController@simple');
+    Route::get('arrets', 'Backend\ArretController@arrets');
+    Route::get('categories', 'Backend\CategorieController@categories');
+
     Route::resource('subscriber', 'Backend\Newsletter\SubscriberController');
     Route::get('subscribers', ['uses' => 'Backend\Newsletter\SubscriberController@subscribers']);
 });

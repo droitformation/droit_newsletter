@@ -1,15 +1,6 @@
 <?php namespace App\Droit\Arret\Worker;
 
-use App\Droit\Arret\Repo\GroupeInterface;
-
 class ArretWorker{
-
-    protected $custom;
-
-    public function __construct()
-    {
-        $this->custom  = new \Custom;
-    }
 
     public function getAnalyseForArret($arret){
 

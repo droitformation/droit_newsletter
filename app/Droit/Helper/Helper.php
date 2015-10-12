@@ -415,6 +415,22 @@ class Helper {
 		return $url;
 	}
 
+    public function prepareCategories($data){
+
+        $categories = array();
+
+        if(!empty($data))
+        {
+            foreach($data as $index => $key){
+                $categories[$key] = ['sorting' => $index];
+            }
+        }
+
+        return $categories;
+
+    }
+
+
     /**
      * Content fonctions
      */

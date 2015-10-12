@@ -6,16 +6,22 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Droit\Newsletter\Repo\NewsletterCampagneInterface;
+use App\Droit\Newsletter\Repo\NewsletterTypesInterface;
+use App\Droit\Newsletter\Worker\CampagneInterface;
 use App\Droit\Newsletter\Worker\MailjetInterface;
 
 class CampagneController extends Controller
 {
     protected $campagne;
     protected $mailjet;
+    protected $types;
+    protected $worker;
 
-    public function __construct(NewsletterCampagneInterface $campagne,MailjetInterface $mailjet )
+    public function __construct(NewsletterCampagneInterface $campagne,MailjetInterface $mailjet, NewsletterTypesInterface $types, CampagneInterface $worker )
     {
         $this->campagne = $campagne;
+        $this->types    = $types;
+        $this->worker   = $worker;
         $this->mailjet  = $mailjet;
     }
 
@@ -74,16 +80,39 @@ class CampagneController extends Controller
      */
     public function show($id)
     {
+        $blocs    = $this->types->getAll();
+        $infos    = $this->campagne->find($id);
+        $campagne = $this->worker->prepareCampagne($id);
+
+        return view('backend.newsletter.campagne.show')->with(['isNewsletter' => true, 'campagne' => $campagne , 'infos' => $infos, 'blocs' => $blocs]);
+    }
+
+    /**
+     * Send campagne
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function send()
+    {
         //
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Send test campagne
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function test()
+    {
+        //
+    }
+
+    /**
+     * sorting blocs campagne
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function sorting()
     {
         //
     }

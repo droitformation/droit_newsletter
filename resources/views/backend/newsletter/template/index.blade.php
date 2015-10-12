@@ -1,6 +1,7 @@
 @extends('backend.layouts.master')
 @section('content')
 
+    {{--
 <div class="row">
     <div class="col-md-6">
         <h3>Liste des newsletter</h3>
@@ -13,42 +14,42 @@
         </div>
     </div>
 </div>
+--}}
 <div class="row">
     <div class="col-md-12">
 
         @if(!empty($newsletters))
             @foreach($newsletters as $newsletter)
-                
-                <?php
-                echo '<pre>';
-                print_r($newsletter);
-                echo '</pre>';
-                ?>
 
                 <div class="panel panel-info">
                     <div class="panel-body">
 
                         <div class="row">
-                            <div class="col-md-3 col-xs-12">
+                            <div class="col-md-8">
                                 <h3>{{ $newsletter->titre }}</h3>
+                            </div>
+                            <div class="col-md-3">
                                 <p><i class="fa fa-user"></i> &nbsp; {{ $newsletter->from_name }}</p>
                                 <p><i class="fa fa-envelope"></i> &nbsp; {{ $newsletter->from_email }}</p>
-                                <div class="btn-group" role="group">
-                                    <a href="{{ url('newsletter/'.$newsletter->id) }}" class="btn btn-sm btn-info">éditer</a>
-                                    <a href="{{ url('newsletter/'.$newsletter->id) }}" class="btn btn-sm btn-danger">Supprimer</a>
+                            </div>
+                            <div class="col-md-1 text-right">
+                                <div class="btn-group-vertical" role="group">
+                                    <a href="{{ url('newsletter/'.$newsletter->id) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
+                                    <a href="{{ url('newsletter/'.$newsletter->id) }}" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></a>
                                 </div>
                             </div>
-                            <div class="col-md-9 col-xs-12">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
                                 @if(!$newsletter->campagnes->isEmpty())
                                     <table class="table table-striped">
                                        <thead>
                                            <tr>
-                                               <th>Sujet</th>
-                                               <th>Auteurs</th>
-                                               <th>Status</th>
-                                               <th>Création</th>
+                                               <th class="col-md-3">Sujet</th>
+                                               <th class="col-md-3">Auteurs</th>
+                                               <th class="col-md-1">Status</th>
                                                <th class="col-md-2"></th>
-                                               <th class="col-md-1"></th>
+                                               <th class="col-md-2"></th>
                                                <th class="col-md-1"></th>
                                            </tr>
                                        </thead>
@@ -64,7 +65,6 @@
                                                             <span class="label label-success">Envoyé</span>
                                                         @endif
                                                     </td>
-                                                    <td>{{ $campagne->created_at->formatLocalized('%d %B %Y') }}</td>
                                                     <td>
                                                         @if($campagne->status == 'brouillon')
                                                             <a class="btn btn-inverse btn-sm" href="{{ url('admin/campagne/'.$campagne->id) }}">Composer</a>
@@ -86,13 +86,13 @@
                                                             </form>
                                                         @else
                                                             <?php setlocale(LC_ALL, 'fr_FR.UTF-8');  ?>
-                                                            Le {{ $campagne->updated_at->formatLocalized('%d %B %Y') }} à {{ $campagne->updated_at->toTimeString() }}
+                                                           Envoyé le {{ $campagne->updated_at->formatLocalized('%d %b %Y') }} à {{ $campagne->updated_at->toTimeString() }}
                                                         @endif
                                                     </td>
                                                     <td class="text-right">
                                                         <form action="{{ url('admin/campagne/'.$campagne->id) }}" method="POST">
                                                             <input type="hidden" name="_method" value="DELETE">{!! csrf_field() !!}
-                                                            <button data-action="campagne {{ $campagne->sujet }}" class="btn btn-danger btn-sm deleteAction">x</button>
+                                                            <button data-action="campagne {{ $campagne->sujet }}" class="btn btn-danger btn-sm deleteAction"><i class="fa fa-remove"></i></button>
                                                         </form>
                                                     </td>
                                                 </tr>

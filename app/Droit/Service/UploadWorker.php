@@ -26,7 +26,7 @@ class UploadWorker implements UploadInterface {
             //resize
             if($type)
             {
-                $sizes = \Config::get('size.'.$type);
+                $sizes = config('size.'.$type);
                 $this->resize( $path, $image_name, $sizes['width'], $sizes['height']);
             }
 

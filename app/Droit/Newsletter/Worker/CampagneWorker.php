@@ -2,9 +2,9 @@
 
 use App\Droit\Newsletter\Repo\NewsletterContentInterface;
 use App\Droit\Newsletter\Repo\NewsletterCampagneInterface;
-use App\Droit\Content\Repo\ArretInterface;
+use App\Droit\Arret\Repo\ArretInterface;
+use App\Droit\Arret\Repo\GroupeInterface;
 use App\Droit\Categorie\Repo\CategorieInterface;
-use App\Droit\Content\Repo\GroupeInterface;
 use \InlineStyle\InlineStyle;
 use Illuminate\Support\Collection;
 
@@ -24,7 +24,7 @@ class CampagneWorker implements CampagneInterface{
         $this->arret     = $arret;
         $this->categorie = $categorie;
         $this->groupe    = $groupe;
-        $this->worker    = new \Droit\Content\Worker\ArretWorker();
+        $this->worker    = new \App\Droit\Arret\Worker\ArretWorker();
 	}
 
     public function getSentCampagneArrets(){
@@ -77,15 +77,17 @@ class CampagneWorker implements CampagneInterface{
         return $this->campagne->find($id);
     }
 
-    public function getCategoriesArrets(){
-        return $this->categorie->getAll(195)->lists('title','id');
+    public function getCategoriesArrets()
+    {
+        return $this->categorie->getAll()->lists('title','id')->all();
     }
 
-    public function getCategoriesImagesArrets(){
-        return $this->categorie->getAll(195)->lists('image','id');
+    public function getCategoriesImagesArrets()
+    {
+        return $this->categorie->getAll()->lists('image','id')->all();
     }
 
-	public function findCampagneById($id){
+	public function prepareCampagne($id){
 
         $content = $this->content->getByCampagne($id);
 

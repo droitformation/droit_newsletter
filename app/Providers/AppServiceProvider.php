@@ -28,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
         $this->registerAnalyseService();
         $this->registerCategorieService();
         $this->registerGroupeService();
+        $this->registerUploadService();
     }
 
     /**
@@ -84,6 +85,17 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('App\Droit\Arret\Repo\GroupeInterface', function()
         {
             return new \App\Droit\Arret\Repo\GroupeEloquent( new \App\Droit\Arret\Entities\Groupe );
+        });
+    }
+
+    /**
+     * Upload service
+     */
+    protected function registerUploadService(){
+
+        $this->app->bind('App\Droit\Service\UploadInterface', function()
+        {
+            return new \App\Droit\Service\UploadWorker();
         });
     }
 }

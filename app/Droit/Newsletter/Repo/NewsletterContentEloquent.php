@@ -14,7 +14,7 @@ class NewsletterContentEloquent implements NewsletterContentInterface{
 	public function __construct(M $contents)
 	{
 		$this->contents = $contents;
-        $this->custom   = new \Custom;
+        $this->upload   = new \App\Droit\Service\UploadWorker();
 	}
 	
 	public function getByCampagne($newsletter_campagne_id){
@@ -112,7 +112,7 @@ class NewsletterContentEloquent implements NewsletterContentInterface{
         if(isset($data['image'])){
 
             $type = $contents->type_id;
-            $this->custom->resizeImage($data['image'],$type);
+            $this->upload->resizeImage($data['image'],$type);
 
             $contents->image = $data['image'];
         }
