@@ -70,7 +70,7 @@
                                                             <a class="btn btn-inverse btn-sm" href="{{ url('admin/campagne/'.$campagne->id) }}">Composer</a>
                                                         @else
                                                             <div class="btn-group">
-                                                                <a class="btn btn-success btn-sm" href="{{ url('admin/stats/'.$campagne->id) }}">Stats</a>
+                                                                <a class="btn btn-primary btn-sm" href="{{ url('admin/stats/'.$campagne->id) }}">Stats</a>
                                                                 <a href="javascript:;" class="btn btn-default btn-sm sendEmailNewsletter" data-campagne="{{ $campagne->id }}">Envoyer par email</a>
                                                             </div>
                                                         @endif
@@ -81,7 +81,7 @@
                                                                 {!! csrf_field() !!}
                                                                 <input name="id" value="{{ $campagne->id }}" type="hidden">
                                                                 <a href="javascript:;" data-campagne="{{ $campagne->id }}" class="btn btn-sm btn-warning btn-block" id="bootbox-demo-3">
-                                                                    &nbsp;<i class="fa fa-exclamation"></i> &nbsp;&nbsp;Envoyer la campagne&nbsp;
+                                                                    <i class="fa fa-exclamation"></i> &nbsp;Envoyer la campagne
                                                                 </a>
                                                             </form>
                                                         @else
