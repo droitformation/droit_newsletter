@@ -7,15 +7,16 @@ var App = angular.module('newsletter', ["angular-redactor","flow","ngSanitize","
         redactorOptions.minHeight      = 120;
         redactorOptions.maxHeight      = 240;
         redactorOptions.formattingTags = ['p', 'h2', 'h3','h4'];
-        redactorOptions.fileUpload     = 'uploadRedactor';
+        redactorOptions.fileUpload     = 'admin/uploadRedactor';
         redactorOptions.lang           = 'fr';
         redactorOptions.buttons        = ['html','|','formatting','bold','italic','|','unorderedlist','orderedlist','outdent','indent','|','image','file','link','alignment'];
 }).config(['flowFactoryProvider', function (flowFactoryProvider) {
         /* Flow image upload configuration */
         flowFactoryProvider.defaults = {
-            target: 'uploadJS',
+            target: 'admin/uploadJS',
             testChunks:false,
             singleFile: true,
+            query:{ _token : $("meta[name='_token']").attr('content') } ,
             permanentErrors: [404, 500, 501],
             simultaneousUploads: 4
         };

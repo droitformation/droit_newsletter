@@ -13,7 +13,8 @@
     <link rel="stylesheet" type="text/css" href="<?php echo asset('backend/css/styles.css?=121');?>">
 
     @if(isset($isNewsletter))
-        <link rel="stylesheet" href="<?php echo asset('newsletter/css/newsletter.css'); ?>">
+        <link rel="stylesheet" href="<?php echo asset('newsletter/css/backend/newsletter.css'); ?>">
+        <link rel="stylesheet" href="<?php echo asset('newsletter/css/frontend/newsletter.css'); ?>">
     @endif
 
     <link rel="stylesheet" type="text/css" href="<?php echo asset('backend/js/vendor/redactor/redactor.css'); ?>">

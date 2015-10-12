@@ -42,12 +42,13 @@
                             @if(!empty($campagne))
                                 @foreach($campagne as $bloc)
                                     <div class="bloc_rang" id="bloc_rang_{{ $bloc->idItem }}" data-rel="{{ $bloc->idItem }}">
-                                        <?php echo view('backend.newsletter/build/edit/'.$bloc->type->partial)->with(array('bloc' => $bloc))->__toString(); ?>
+                                        <?php echo view('backend.newsletter/build/edit/'.$bloc->type->partial)->with(array('bloc' => $bloc, 'categories' => $categories, 'imgcategories' => $imgcategories))->__toString(); ?>
                                     </div>
                                 @endforeach
                             @endif
                         </div>
                     </div>
+
                 </div>
 
                 <div id="build"><!-- Start build -->
@@ -55,7 +56,7 @@
                     @if(!empty($blocs))
                         @foreach($blocs as $bloc)
                             <div class="create_bloc" id="create_{{ $bloc->id }}">
-                                <?php echo view('backend.newsletter/build/create/'.$bloc->template)->with(array('bloc' => $bloc, 'infos' => $infos))->__toString(); ?>
+                                <?php echo view('backend/newsletter/build/create/'.$bloc->template)->with(array('bloc' => $bloc, 'infos' => $infos, 'categories' => $categories, 'imgcategories' => $imgcategories))->__toString(); ?>
                             </div>
                         @endforeach
                     @endif
@@ -66,7 +67,7 @@
                         <div class="component-bloc">
                             @if(!empty($blocs))
                                 @foreach($blocs as $bloc)
-                                      <?php echo view('backend.newsletter/build/blocs')->with(array('bloc' => $bloc))->__toString(); ?>
+                                      <?php echo view('backend/newsletter/build/blocs')->with(array('bloc' => $bloc))->__toString(); ?>
                                 @endforeach
                             @endif
                         </div>

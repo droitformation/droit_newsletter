@@ -19,6 +19,7 @@ Route::get('unsubscribe', 'Frontend\HomeController@unsubscribe');
 */
 
 Route::post('unsubscribe', 'Newsletter\InscriptionController@unsubscribe');
+Route::get('campagne/{id}', 'Frontend\CampagneController@show');
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','administration']], f
     Route::resource('config', 'Backend\ConfigController');
     Route::get('search', 'Backend\SearchController@search');
     Route::post('upload', 'Backend\UploadController@upload');
+    Route::post('uploadJS', 'Backend\UploadController@uploadJS');
+    Route::post('uploadRedactor', 'Backend\UploadController@uploadRedactor');
 
     Route::resource('newsletter', 'Backend\Newsletter\NewsletterController');
     Route::resource('campagne', 'Backend\Newsletter\CampagneController');
@@ -41,7 +44,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','administration']], f
     Route::post('campagne/send', 'Backend\Newsletter\CampagneController@send');
     Route::post('campagne/test', 'Backend\Newsletter\CampagneController@test');
     Route::post('campagne/sorting', 'Backend\Newsletter\CampagneController@sorting');
-    Route::post('campagne/process', 'Backend\Newsletter\CampagneController@addContent');
+    Route::post('campagne/process', 'Backend\Newsletter\CampagneController@process');
     Route::post('campagne/editContent', 'Backend\Newsletter\CampagneController@editContent');
     Route::post('campagne/remove', 'Backend\Newsletter\CampagneController@remove');
 

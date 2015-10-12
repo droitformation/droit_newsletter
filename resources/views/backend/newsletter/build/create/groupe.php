@@ -1,7 +1,7 @@
-<form class="row form-horizontal" name="arretForm" method="post" action="<?php echo url('process'); ?>">
-    <?php echo Form::token(); ?>
+<form class="row form-horizontal" name="arretForm" method="post" action="<?php echo url('admin/campagne/process'); ?>">
+    <?php echo csrf_field(); ?>
 
-    <div class="col-md-7" id="bailNewsletterCreate">
+    <div class="col-md-7" id="StyleNewsletterCreate">
 
     </div>
     <div class="col-md-5 create_content_form">
@@ -12,11 +12,12 @@
                     <label for="categories" class="control-label">Catégorie</label>
                     <div class="row">
                         <div class="col-sm-8">
+
                             <select name="categorie_id" class="form-control">
                                 <?php
-                                if(!empty($allcategories))
+                                if(!empty($categories))
                                 {
-                                    foreach($allcategories as $idcat => $categorie)
+                                    foreach($categories as $idcat => $categorie)
                                     {
                                         $haystack = ['CO','CCT','LEg','LTr','Fonction publique'];
 

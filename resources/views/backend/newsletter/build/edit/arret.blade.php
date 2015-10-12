@@ -17,8 +17,8 @@
                         setlocale(LC_ALL, 'fr_FR.UTF-8');
                     ?>
                     <h3 style="text-align: left;">{{ $title }}{{ $bloc->reference }} du {{ $bloc->pub_date->formatLocalized('%d %B %Y') }}</h3>
-                    <p class="abstract">{{ $bloc->abstract }}</p>
-                    <div>{{ $bloc->pub_text }}</div>
+                    <p class="abstract">{!! $bloc->abstract !!}</p>
+                    <div>{!! $bloc->pub_text !!}</div>
                     <p><a href="{{ asset('files/arrets/'.$bloc->file) }}">Télécharger en pdf</a></p>
 
                 </div>
@@ -77,7 +77,7 @@
                                        @endforeach
                                     @endif
 
-                                    <p class="abstract">{{ $analyse->abstract }}</p>
+                                    <p class="abstract">{!! $analyse->abstract !!}</p>
                                     <p><a href="{{ asset('files/analyses/'.$analyse->file) }}">Télécharger en pdf</a></p>
                                 </td>
                             </tr>

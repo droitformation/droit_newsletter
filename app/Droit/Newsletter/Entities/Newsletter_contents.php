@@ -25,7 +25,7 @@ class Newsletter_contents extends Model {
 
     public function arrets(){
 
-        return $this->hasMany('App\Droit\Content\Entities\Arret', 'id', 'arret_id');
+        return $this->hasMany('App\Droit\Arret\Entities\Arret', 'id', 'arret_id');
     }
 
 }

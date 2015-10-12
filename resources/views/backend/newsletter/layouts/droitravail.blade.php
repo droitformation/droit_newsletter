@@ -6,11 +6,12 @@
         <!-- Responsive Meta Tag -->
         <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
         <title>{{ $title or '' }}</title><!-- Responsive Styles and Valid Styles -->
-        <link rel="stylesheet" href="<?php echo asset('newsletter/css/newsletter.css'); ?>">
+        <link rel="stylesheet" href="<?php echo asset('newsletter/backend/css/newsletter.css'); ?>">
+        <link rel="stylesheet" href="<?php echo asset('newsletter/frontend/css/newsletter.css'); ?>">
     </head>
 
     <body>
-        <div id="bailNewsletter">
+        <div id="StyleNewsletter">
             <!-- Main table -->
             <table border="0" width="600" cellpadding="0" cellspacing="0" bgcolor="#ffffff">
                 <!-- Main content wrapper -->
@@ -33,9 +34,9 @@
                 <!-- End see in browser -->
 
                 <!-- Logos -->
-                @include('newsletter.send.logos')
+                @include('backend.newsletter.send.logos')
                 <!-- Header -->
-                @include('newsletter.send.header')
+                @include('backend.newsletter.send.header')
 
                 <tr>
                     <td id="sortable" class="newsletterborder" width="560" align="center" valign="top">

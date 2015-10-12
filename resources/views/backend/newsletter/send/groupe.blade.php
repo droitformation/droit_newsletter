@@ -6,10 +6,10 @@
         </tr><!-- space -->
         <tr bgcolor="ffffff" class="blocBorder">
             <td width="400" align="left" class="resetMarge contentForm" valign="top">
-                <h3 style="text-align: left;font-family: sans-serif;">{{ $allcategories[$bloc->categorie] }}</h3>
+                <h3 style="text-align: left;font-family: sans-serif;">{{ $categories[$bloc->categorie] }}</h3>
             </td>
             <td width="160" align="center" valign="top" class="resetMarge">
-                <img width="130" border="0" src="{{ asset('newsletter/pictos/'.$bloc->image) }}" alt="{{ $allcategories[$bloc->categorie] }}" />
+                <img width="130" border="0" src="{{ asset('newsletter/pictos/'.$bloc->image) }}" alt="{{ $categories[$bloc->categorie] }}" />
             </td>
         </tr><!-- space -->
     </table>

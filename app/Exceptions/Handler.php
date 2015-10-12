@@ -34,6 +34,9 @@ class Handler extends ExceptionHandler
         if ($e instanceof \App\Exceptions\CampagneCreationException)
             return redirect()->back()->with(array('status' => 'warning' , 'message' => 'Problème avec la création de campagne sur mailjet'));
 
+        if ($e instanceof \App\Exceptions\ContentCreationException)
+            return redirect()->back()->with(array('status' => 'warning' , 'message' => 'Problème avec la création du contenu pour la campagne'));
+
         if ($e instanceof \App\Exceptions\FileUploadException)
             return redirect()->back()->with(array('status' => 'warning' , 'message' => 'Problème avec l\'upload '.$e->getMessage() ));
 

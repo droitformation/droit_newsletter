@@ -18,13 +18,13 @@ $(function() {
         var $this  = $(this);
         var action = $this.data('action');
         var id     = $this.data('id');
-        var _token = $("meta[name='token']").attr('content');
+        var _token = $("meta[name='_token']").attr('content');
         var answer = confirm('Voulez-vous vraiment supprimer : '+ action +' ?');
 
         if (answer)
         {
             $.ajax({
-                url     : 'remove',
+                url     : 'admin/campagne/remove',
                 data    : { id: id , _token : _token},
                 type    : "POST",
                 success : function(data) {
@@ -58,8 +58,8 @@ $(function() {
         $('#edit_'+id).show();
 
         // height
-        var h = $('#edit_'+id).height();
-        $('#bloc_rang_'+ id).css("height",h);
+        //var h = $('#edit_'+id).height();
+        //$('#bloc_rang_'+ id).css("height",h);
 
         $( "#sortable" ).sortable( "disable" );
         $( "#sortGroupe" ).sortable( "enable" );
