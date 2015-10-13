@@ -3,7 +3,7 @@
         <li><a class="{{ Request::is( '/') ? 'active' : '' }}" href="{{ url('/') }}">Accueil</a></li>
         <li><a class="{{ Request::is( 'jurisprudence') ? 'active' : '' }}" href="{{ url('jurisprudence') }}">Jurisprudence</a></li>
 
-        @if(!$newsletters->isEmpty())
+        @if(isset($newsletters) && !$newsletters->isEmpty())
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Newsletters <span class="caret"></span></a>
             <ul class="dropdown-menu">

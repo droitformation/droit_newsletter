@@ -29,47 +29,40 @@ class CampagneWorker implements CampagneInterface{
 
     public function getSentCampagneArrets(){
 
-        $campagnes = $this->campagne->getAllSent();
+        $campagnes = $this->campagne->getAll()->where('status','envoyé');
 
         if(!$campagnes->isEmpty())
         {
-            foreach($campagnes as $campagne){
-                $sent[] = $campagne->id;
-            }
+            $sent = $campagnes->lists('id')->all();
 
             $all_arrets = [];
 
-            foreach($sent as $send)
+            foreach($sent as $campagne_id)
             {
-                $content = $this->content->getArretsByCampagne($send);
-
+                $content = $this->content->getArretsByCampagne($campagne_id);
                 $arrets  = $content->map(function($item)
                 {
                     if ($item->arret_id > 0)
                     {
                         return $item->arret_id;
                     }
-                    elseif($item->groupe_id > 0){
 
+                    if($item->groupe_id > 0)
+                    {
                         $groupe = $this->groupe->find($item->groupe_id);
 
-                        if(isset($groupe->arrets_groupes)){
-                            foreach($groupe->arrets_groupes as $arretId){
-                                $arrets[] = $arretId->id;
-                            }
+                        if(isset($groupe->arrets_groupes))
+                        {
+                            return $groupe->arrets_groupes->lists('id')->all();
                         }
-
-                        return $arrets;
                     }
                 });
 
-                $all_arrets = array_merge($all_arrets, $arrets->toArray()) ;
-
+                $all_arrets = $all_arrets + $arrets->toArray();
             }
 
-            return $all_arrets;
+            return array_filter(array_flatten($all_arrets));
         }
-
     }
 
     public function getCampagne($id){

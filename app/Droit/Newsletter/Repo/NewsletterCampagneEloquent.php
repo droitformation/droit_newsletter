@@ -12,9 +12,9 @@ class NewsletterCampagneEloquent implements NewsletterCampagneInterface{
 		$this->campagne = $campagne;
 	}
 	
-	public function getAll($sent = null){
+	public function getAll(){
 		
-		return $this->campagne->orderBy('id','DESC')->get();
+		return $this->campagne->orderBy('created_at','DESC')->get();
 	}
 
     public function getAllSent(){

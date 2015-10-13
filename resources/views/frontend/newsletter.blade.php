@@ -12,7 +12,9 @@
         @if(!$newsletter->campagnes->isEmpty())
             <ul class="list-group">
                 @foreach($newsletter->campagnes as $campagne)
-                    <a href="{{ url('newsletter/campagne/'.$campagne->id) }}" class="list-group-item">{{ $campagne->sujet }}</a>
+                    @if($campagne->status == 'envoyé')
+                        <a href="{{ url('newsletter/campagne/'.$campagne->id) }}" class="list-group-item">{{ $campagne->sujet }}</a>
+                    @endif
                 @endforeach
             </ul>
         @endif

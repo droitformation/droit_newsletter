@@ -25,6 +25,11 @@ class GroupeEloquent implements GroupeInterface{
 		return $this->groupe->where('id', '=' ,$id)->with(array('arrets_groupes'))->get()->first();
 	}
 
+    public function findAll($ids)
+    {
+        return $this->groupe->whereIn('id',$ids)->with(array('arrets_groupes'))->get();
+    }
+
 	public function create(array $data){
 
 		$groupe = $this->groupe->create(array(
@@ -37,7 +42,6 @@ class GroupeEloquent implements GroupeInterface{
 		}
 		
 		return $groupe;
-		
 	}
 	
 	public function update(array $data){

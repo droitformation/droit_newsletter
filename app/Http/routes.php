@@ -107,16 +107,16 @@ Route::post('password/reset', 'Auth\PasswordController@postReset');
 
 Route::get('testcampagne', function()
 {
-    $mailjet = \App::make('App\Droit\Newsletter\Worker\MailjetInterface');
+/*    $mailjet = \App::make('App\Droit\Newsletter\Worker\MailjetInterface');
     $sent    = $mailjet->getAllSubscribers();
-
     $subscription = \App::make('App\Droit\Newsletter\Repo\NewsletterUserInterface');
-
     $user = $subscription->findByEmail( 'cindy.leschaud@gmail.com' );
+    $user->subscriptions()->detach(3);*/
 
-    $user->subscriptions()->detach(3);
+    $campagne  = \App::make('App\Droit\Newsletter\Worker\CampagneInterface');
+    $campagnes = $campagne->getSentCampagneArrets();
 
     echo '<pre>';
-    print_r($user);
+    print_r($campagnes);
     echo '</pre>';
 });

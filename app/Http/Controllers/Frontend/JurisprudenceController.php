@@ -39,7 +39,7 @@ class JurisprudenceController extends Controller
         $analyses   = $this->jurisprudence->preparedAnalyses();
         $annees     = $this->jurisprudence->preparedAnnees();
 
-        $categories =  $this->categorie ->getAll();
+        $categories =  $this->categorie->getAll();
 
         return view('frontend.jurisprudence')->with(array('arrets' => $arrets, 'analyses' => $analyses, 'annees' => $annees, 'categories' => $categories ));
     }

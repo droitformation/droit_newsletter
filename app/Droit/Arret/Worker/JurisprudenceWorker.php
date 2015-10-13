@@ -3,6 +3,7 @@
 use App\Droit\Categorie\Repo\CategorieInterface;
 use App\Droit\Arret\Repo\ArretInterface;
 use App\Droit\Analyse\Repo\AnalyseInterface;
+use App\Droit\Newsletter\Worker\CampagneInterface;
 use App\Droit\Helper\Helper;
 
 class JurisprudenceWorker{
@@ -11,11 +12,13 @@ class JurisprudenceWorker{
     protected $arret;
     protected $analyse;
     protected $custom;
+    protected $campagne;
 
     /* Inject dependencies */
-    public function __construct(CategorieInterface $categories, ArretInterface $arret, AnalyseInterface $analyse)
+    public function __construct(CategorieInterface $categories, ArretInterface $arret, AnalyseInterface $analyse, CampagneInterface $campagne)
     {
         $this->categories = $categories;
+        $this->campagne   = $campagne;
         $this->arret      = $arret;
         $this->analyse    = $analyse;
         $this->custom     = new \App\Droit\Helper\Helper();
@@ -44,10 +47,6 @@ class JurisprudenceWorker{
 
         $arrets = $this->campagne->getSentCampagneArrets();
 
-        $arrets = $this->custom->array_flatten($arrets, array());
-
-        $arrets = array_filter($arrets);
-
         return ($arrets ? $arrets : []);
     }
 
@@ -72,11 +71,8 @@ class JurisprudenceWorker{
     public function preparedArrets()
     {
 
-        //$include  = $this->showArrets();
-
-        //$arrets   = $this->arret->getAllActives(195,[]);
-
-        $arrets   = $this->arret->getAll();
+        $include  = $this->showArrets();
+        $arrets   = $this->arret->getAllActives($include);
 
         $prepared = $arrets->filter(function($arret)
         {
@@ -120,8 +116,8 @@ class JurisprudenceWorker{
     public function preparedAnalyses()
     {
 
-        //$include  = $this->showAnalyses();
-        $analyses = $this->analyse->getAll();
+        $include  = $this->showAnalyses();
+        $analyses = $this->analyse->getAll($include);
 
         $prepared = $analyses->filter(function($analyse)
         {
