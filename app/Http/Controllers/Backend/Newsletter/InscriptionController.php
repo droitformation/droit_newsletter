@@ -28,7 +28,6 @@ class InscriptionController extends Controller
      */
     public function activation($token)
     {
-
         // Activate the email on the website
         $user = $this->subscription->activate($token);
 
@@ -51,6 +50,20 @@ class InscriptionController extends Controller
      */
     public function subscribe(SubscribeRequest $request)
     {
+        $email = $this->subscription->findByEmail($request->email);
+
+        if($email)
+        {
+            $messages = ['status' => 'warning', 'message' => 'Cet email existe déjà'];
+
+            if($email->activated_at == NULL)
+            {
+                $messages['resend'] = true;
+            }
+
+            return redirect('/')->with($messages);
+        }
+
         // Subscribe user with activation token to website list and sync newsletter abos
         $suscribe = $this->subscription->create(['email' => $request->email, 'activation_token' => md5($request->email.\Carbon\Carbon::now()) ]);
 
@@ -73,10 +86,8 @@ class InscriptionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function unsubscribe(Request $request)
+    public function unsubscribe(SubscribeRequest $request)
     {
-        $this->validate($request, ['email' => 'required|email' ]);
-
         // find the abo
         $abonne = $this->subscription->findByEmail( $request->email );
 

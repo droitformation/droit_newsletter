@@ -8,18 +8,24 @@ use App\Http\Controllers\Controller;
 use App\Droit\Arret\Repo\ArretInterface;
 use App\Droit\Arret\Worker\JurisprudenceWorker;
 use App\Droit\Categorie\Repo\CategorieInterface;
+use App\Droit\Newsletter\Repo\NewsletterInterface;
 
 class JurisprudenceController extends Controller
 {
     protected $arret;
     protected $categorie;
     protected $jurisprudence;
+    protected $newsletter;
 
-    public function __construct(ArretInterface $arret, CategorieInterface $categorie, JurisprudenceWorker $jurisprudence )
+    public function __construct(ArretInterface $arret, CategorieInterface $categorie, JurisprudenceWorker $jurisprudence, NewsletterInterface $newsletter)
     {
         $this->arret         = $arret;
         $this->categorie     = $categorie;
         $this->jurisprudence = $jurisprudence;
+        $this->newsletter    = $newsletter;
+
+        $newsletters = $this->newsletter->getAll();
+        view()->share('newsletters', $newsletters);
     }
 
     /**

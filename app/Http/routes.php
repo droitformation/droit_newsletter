@@ -12,6 +12,9 @@ Route::get('contact', 'Frontend\HomeController@contact');
 Route::get('jurisprudence', 'Frontend\JurisprudenceController@index');
 Route::get('unsubscribe/{id}', 'Frontend\HomeController@unsubscribe');
 
+Route::resource('newsletter', 'Frontend\NewsletterController');
+Route::get('newsletter/campagne/{id}', 'Frontend\NewsletterController@campagne');
+
 /*
 |--------------------------------------------------------------------------
 | Subscriptions Routes

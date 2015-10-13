@@ -19,7 +19,7 @@ class NewsletterEloquent implements NewsletterInterface{
 
 	public function find($id){
 				
-		return $this->newsletter->findOrFail($id);
+		return $this->newsletter->find($id);
 	}
 
 	public function create(array $data){

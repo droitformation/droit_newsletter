@@ -17,14 +17,12 @@ class AppServiceProvider extends ServiceProvider
         {
             $email = \DB::table('newsletter_users')->where('email','=',$value)->first();
 
-            if($email && $email->activated_at)
+            if($email)
             {
-                return true;
+                return (!$email->activated_at ? false  : true);
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
         });
     }
 

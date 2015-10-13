@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
+use Illuminate\Validation\Validator;
 
 class SubscribeRequest extends Request
 {
@@ -24,7 +25,8 @@ class SubscribeRequest extends Request
     public function rules()
     {
         return [
-            'email' => 'required|email|emailconfirmed'
+            'email' => 'required|email'
         ];
     }
+
 }

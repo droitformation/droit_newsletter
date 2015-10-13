@@ -5,30 +5,30 @@ namespace App\Http\Controllers\Backend\Newsletter;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Droit\Newsletter\Repo\NewsletterCampagneInterface;
 use App\Droit\Newsletter\Repo\NewsletterTypesInterface;
 use App\Droit\Newsletter\Repo\NewsletterContentInterface;
 use App\Droit\Arret\Repo\GroupeInterface;
+use App\Droit\Newsletter\Repo\NewsletterCampagneInterface;
 use App\Droit\Newsletter\Worker\CampagneInterface;
 use App\Droit\Newsletter\Worker\MailjetInterface;
 
 class CampagneController extends Controller
 {
     protected $campagne;
+    protected $worker;
     protected $content;
     protected $mailjet;
     protected $types;
     protected $groupe;
-    protected $worker;
     protected $helper;
 
     public function __construct(NewsletterCampagneInterface $campagne, NewsletterContentInterface $content, GroupeInterface $groupe, MailjetInterface $mailjet, NewsletterTypesInterface $types, CampagneInterface $worker )
     {
         $this->campagne = $campagne;
+        $this->worker   = $worker;
         $this->content  = $content;
         $this->types    = $types;
         $this->groupe   = $groupe;
-        $this->worker   = $worker;
         $this->mailjet  = $mailjet;
         $this->helper   = new \App\Droit\Helper\Helper();
     }

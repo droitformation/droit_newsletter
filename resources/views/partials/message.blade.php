@@ -11,7 +11,7 @@
                 @endforeach
 
                 @if(Session::has('message'))
-                    {!! Session::get('message') !!}
+                    <p>{!! Session::get('message') !!}</p>
                 @endif
 
                 @if( Session::has('jeton') || Session::has('resend') )
@@ -20,7 +20,7 @@
                         {!! csrf_field() !!}
                         <input type="hidden" value="{{ Input::old('email') }}" name="email" />
                         <input type="hidden" value="{{ Input::old('newsletter_id') }}" name="newsletter_id" />
-                        <button class="button small grey" type="submit">Renvoyer le lien d'activation</button>
+                        <button class="btn btn-xs btn-warning" type="submit">Renvoyer le lien d'activation</button>
                    </form>
 
                 @endif

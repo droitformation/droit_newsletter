@@ -11,7 +11,7 @@
 
     </div><!--END POST-TITLE-->
     <div class="post-entry">
-        {{ $bloc->contenu }}
+        {!! $bloc->contenu !!}
     </div>
     <span class="clear"></span>
  </div>
