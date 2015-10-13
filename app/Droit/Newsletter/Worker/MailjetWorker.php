@@ -173,7 +173,12 @@ class MailjetWorker implements MailjetInterface{
         // Attempt tu subscribe if fails we try to re subscribe
         $result = $this->addContactToList($contactID);
 
-        return ($this->mailjet->getResponseCode() == 201 ? $result : false);
+        if(!$this->mailjet->getResponseCode() == 201 )
+        {
+            throw new \App\Exceptions\SubscribeUserException('Erreur synchronisation email vers mailjet');
+        }
+
+        return $result;
     }
 
     /**
@@ -183,7 +188,8 @@ class MailjetWorker implements MailjetInterface{
 
         $listRecipientID = $this->getListRecipient($email);
 
-        if(!$listRecipientID){
+        if(!$listRecipientID)
+        {
             return false;
         }
 

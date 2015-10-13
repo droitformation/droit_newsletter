@@ -3,7 +3,7 @@
 
     @if(!empty($content))
         @foreach($content as $bloc)
-            <?php  echo View::make('backend/newsletter/send/'.$bloc->type->partial)->with(array('bloc' => $bloc,'categories' => $categories, 'imgcategories' => $imgcategories))->__toString(); ?>
+            {!! view('backend/newsletter/send/'.$bloc->type->partial)->with(['bloc' => $bloc,'categories' => $categories, 'imgcategories' => $imgcategories]) !!}
         @endforeach
     @endif
 

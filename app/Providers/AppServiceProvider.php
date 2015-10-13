@@ -13,7 +13,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->app['validator']->extend('emailconfirmed', function ($attribute, $value, $parameters)
+        {
+            $email = \DB::table('newsletter_users')->where('email','=',$value)->first();
+
+            if($email && $email->activated_at)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        });
     }
 
     /**

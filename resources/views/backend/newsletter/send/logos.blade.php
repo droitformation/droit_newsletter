@@ -6,12 +6,12 @@
             <tr class="resetMarge" style="display:block;">
                 <td width="600" style="margin: 0;padding: 0;display:block;border: 1px solid #ededed; border-bottom: 0;">
                     <a href="{{ url('/') }}">
-                        <img alt="{{ $infos->newsletter->from_name }}" src="{{ asset('newsletter/'.$infos->newsletter->logos ) }}" />
+                        <img style="display:block;margin: 0;padding: 0;" alt="{{ $infos->newsletter->from_name }}" src="{{ asset('newsletter/'.$infos->newsletter->logos ) }}" />
                     </a>
                 </td>
             </tr>
             <tr class="resetMarge" style="display:block;">
-                <td width="600" class="resetMarge" style="display:block;">
+                <td width="600" class="resetMarge" style="margin: 0;padding: 0;display:block;border: 1px solid #ededed; ">
                     <img alt="{{ $infos->newsletter->from_name }}" src="{{ asset('newsletter/'.$infos->newsletter->header ) }}" />
                 </td>
             </tr>

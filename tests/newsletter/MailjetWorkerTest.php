@@ -66,7 +66,7 @@ class MailjetWorkerTest extends TestCase
 
     }
 
-    public function testGetAllSubscibers()
+    public function testGetAllSubscribers()
     {
         $worker = new \App\Droit\Newsletter\Worker\MailjetWorker( $this->mock );
 
@@ -78,7 +78,6 @@ class MailjetWorkerTest extends TestCase
         ];
 
         $this->mock->shouldReceive('contact')->once()->andReturn($return);
-        $this->mock->shouldReceive('getResponseCode')->once()->andReturn(200);
 
         $result = $worker->getAllSubscribers();
 

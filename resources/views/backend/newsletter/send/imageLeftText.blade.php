@@ -18,7 +18,7 @@
                     <td width="25" class="resetMarge"></td><!-- space -->
                     <td valign="top" width="375" class="resetMarge">
                         <h2 style="font-family: sans-serif;">{{ $bloc->titre }}</h2>
-                        <div>{{ $bloc->contenu }}</div>
+                        <div>{!! $bloc->contenu !!}</div>
                     </td>
                 </tr>
             </table>

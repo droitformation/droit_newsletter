@@ -47,9 +47,9 @@ class HomeController extends Controller
      * Unsubcribe page newsletter
      * @return Response
      */
-    public function unsubscribe()
+    public function unsubscribe($id)
     {
-        return view('frontend.unsubscribe');
+        return view('frontend.unsubscribe')->with(['id' => $id]);
     }
 
 }

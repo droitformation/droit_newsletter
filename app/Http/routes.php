@@ -10,7 +10,7 @@ Route::get('/', array('as' => 'home', 'uses' => 'Frontend\HomeController@index')
 Route::get('auteur', 'Frontend\HomeController@auteur');
 Route::get('contact', 'Frontend\HomeController@contact');
 Route::get('jurisprudence', 'Frontend\JurisprudenceController@index');
-Route::get('unsubscribe', 'Frontend\HomeController@unsubscribe');
+Route::get('unsubscribe/{id}', 'Frontend\HomeController@unsubscribe');
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +18,9 @@ Route::get('unsubscribe', 'Frontend\HomeController@unsubscribe');
 |--------------------------------------------------------------------------
 */
 
-Route::post('unsubscribe', 'Newsletter\InscriptionController@unsubscribe');
+Route::post('unsubscribe', 'Backend\Newsletter\InscriptionController@unsubscribe');
+Route::post('subscribe', 'Backend\Newsletter\InscriptionController@subscribe');
+Route::get('activation/{token}', 'Backend\Newsletter\InscriptionController@activation');
 Route::get('campagne/{id}', 'Frontend\CampagneController@show');
 
 /*
@@ -105,7 +107,13 @@ Route::get('testcampagne', function()
     $mailjet = \App::make('App\Droit\Newsletter\Worker\MailjetInterface');
     $sent    = $mailjet->getAllSubscribers();
 
+    $subscription = \App::make('App\Droit\Newsletter\Repo\NewsletterUserInterface');
+
+    $user = $subscription->findByEmail( 'cindy.leschaud@gmail.com' );
+
+    $user->subscriptions()->detach(3);
+
     echo '<pre>';
-    print_r($sent->Data);
+    print_r($user);
     echo '</pre>';
 });

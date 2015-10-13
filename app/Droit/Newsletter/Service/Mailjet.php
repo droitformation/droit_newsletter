@@ -83,7 +83,21 @@ class Mailjet
 
         $environment = app('env');
 
-        $this->debug = ($environment != 'production' ? 1 : 0);
+        switch($environment){
+            case 'testing':
+                $debug = 0;
+                break;
+            case 'production':
+                $debug = 0;
+                break;
+            case 'local':
+                $debug = 1;
+                break;
+            default:
+                $debug = 1;
+        }
+
+        $this->debug = $debug;
     }
 
     private function getApiUrl ($preprod)

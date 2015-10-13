@@ -26,8 +26,8 @@
                     <div>
                         <?php setlocale(LC_ALL, 'fr_FR.UTF-8');?>
                         <h3 style="text-align: left;font-family: sans-serif;">{{ $arret->reference }} du {{ $arret->pub_date->formatLocalized('%d %B %Y') }}</h3>
-                        <p class="abstract">{{ $arret->abstract }}</p>
-                        <div>{{ $arret->pub_text }}</div>
+                        <p class="abstract">{!! $arret->abstract !!}</p>
+                        <div>{!! $arret->pub_text !!}</div>
                         <p><a href="{{ asset('files/arrets/'.$arret->file) }}">Télécharger en pdf</a></p>
                     </div>
                 </td>

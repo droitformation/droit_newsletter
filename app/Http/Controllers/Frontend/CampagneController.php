@@ -53,10 +53,10 @@ class CampagneController extends Controller
      */
     public function show($id)
     {
-       /*
-       * Urls
-       */
-        $unsubscribe  = url('/unsubscribe');
+        /*
+        * Urls
+        */
+        $unsubscribe  = url('/unsubscribe/'.$id);
         $browser      = url('/campagne/'.$id);
 
         $infos         = $this->campagne->find($id);

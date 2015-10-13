@@ -12,14 +12,9 @@ class Newsletter_users extends Model {
         return ( ! starts_with($timestamp, '0000')) ? $this->asDateTime($timestamp) : false;
     }
 
-    public function subscription(){
+    public function subscriptions(){
 
-        return $this->hasMany('App\Droit\Newsletter\Entities\Newsletter_subscriptions', 'user_id', 'id');
-    }
-
-    public function newsletter(){
-
-        return $this->belongsToMany('App\Droit\Newsletter\Entities\Newsletter', 'newsletter_subscriptions', 'user_id', 'newsletter_id')->withTimestamps();
+        return $this->belongsToMany('App\Droit\Newsletter\Entities\Newsletter', 'newsletter_subscriptions', 'user_id', 'newsletter_id');
     }
 
 }

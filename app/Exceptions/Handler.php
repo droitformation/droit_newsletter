@@ -40,6 +40,9 @@ class Handler extends ExceptionHandler
         if ($e instanceof \App\Exceptions\FileUploadException)
             return redirect()->back()->with(array('status' => 'warning' , 'message' => 'Problème avec l\'upload '.$e->getMessage() ));
 
+        if ($e instanceof \App\Exceptions\SubscribeUserException)
+            return redirect('/')->with(array('status' => 'warning' , 'message' => 'Erreur synchronisation email vers mailjet'));
+
         return parent::report($e);
     }
 

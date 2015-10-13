@@ -20,6 +20,7 @@
 
     <!-- Sidebar  -->
     <div class="col-md-4 col-xs-12">
+        @include('partials.subscribe')
         @include('partials.sidebar')
     </div>
     <!-- END Sidebar  -->
