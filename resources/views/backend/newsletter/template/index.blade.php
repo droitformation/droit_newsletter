@@ -34,8 +34,8 @@
                             </div>
                             <div class="col-md-1 text-right">
                                 <div class="btn-group-vertical" role="group">
-                                    <a href="{{ url('newsletter/'.$newsletter->id) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
-                                    <a href="{{ url('newsletter/'.$newsletter->id) }}" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></a>
+                                    <a href="{{ url('admin/newsletter/'.$newsletter->id) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
+                                    <a href="{{ url('admin/newsletter/'.$newsletter->id) }}" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></a>
                                 </div>
                             </div>
                         </div>

@@ -25,6 +25,7 @@
                 <div class="panel-footer mini-footer ">
                     <div class="col-sm-3"></div>
                     <div class="col-sm-6">
+                        <input type="hidden" name="newsletter_id" value="{{ $newsletter }}">
                         <button class="btn btn-primary" type="submit">Envoyer</button>
                     </div>
                 </div>

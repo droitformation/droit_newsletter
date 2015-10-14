@@ -38,11 +38,6 @@
     background: #fff;
 }
 
-#StyleNewsletter .redBail,
-#StyleNewsletterCreate .redBail{
-    color: #dd0330;
-}
-
 #StyleNewsletter .header,
 #StyleNewsletterCreate .header{
     color: #ffffff;
@@ -73,22 +68,6 @@
 #StyleNewsletterCreate .contentForm ul li{
     margin: 0 0 10px 0;
     padding: 0;
-}
-
-#StyleNewsletter h2,
-#StyleNewsletterCreate h2{
-    font-size:14px;
-    font-weight:bold;
-    color: #dd0330;
-}
-
-#StyleNewsletter .contentForm h3,
-#StyleNewsletterCreate .contentForm h3,
-#StyleNewsletter .contentForm h4,
-#StyleNewsletterCreate .contentForm h4{
-    font-size:13px;
-    font-weight:bold;
-    color: #dd0330;
 }
 
 #StyleNewsletter .abstract,

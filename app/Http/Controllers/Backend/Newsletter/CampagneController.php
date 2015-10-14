@@ -12,6 +12,8 @@ use App\Droit\Newsletter\Repo\NewsletterCampagneInterface;
 use App\Droit\Newsletter\Worker\CampagneInterface;
 use App\Droit\Newsletter\Worker\MailjetInterface;
 
+use App\Http\Requests\SendTestRequest;
+
 class CampagneController extends Controller
 {
     protected $campagne;
@@ -46,13 +48,28 @@ class CampagneController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creation a campagne for newsletter.
+     * GET /admin/campagne/create/{newsletter}
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($newsletter)
     {
-        return view('backend.newsletter.campagne.create');
+        return view('backend.newsletter.campagne.create')->with(['newsletter' => $newsletter]);
+    }
+
+    /**
+     * Show the form for editing the campagne.
+     * GET /admin/campagne/{id}/edit
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $campagne = $this->campagne->find($id);
+
+        return view('backend.newsletter.campagne.edit')->with(array( 'campagne' => $campagne ));
     }
 
     /**
@@ -67,7 +84,7 @@ class CampagneController extends Controller
         print_r($request->all());
         echo '</pre>';exit;
 
-        $campagne = $this->campagne->create( ['sujet' => $request->input('sujet'), 'auteurs' => $request->input('auteurs'), 'template' => 1] );
+        $campagne = $this->campagne->create( ['sujet' => $request->input('sujet'), 'auteurs' => $request->input('auteurs'), 'newsletter_id' => $request->input('newsletter_id') ] );
 
         $created  = $this->mailjet->createCampagne($campagne);
 
@@ -114,32 +131,25 @@ class CampagneController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function test(Request $request)
+    public function test(SendTestRequest $request)
     {
-
-        $id    = $request->input('id');
-        $email = $request->input('email');
-
-        $campagne = $this->campagne->getCampagne($id);
+        $id       = $request->input('id');
+        $campagne = $this->campagne->find($id);
         $sujet    = ($campagne->status == 'brouillon' ? 'TEST | '.$campagne->sujet : $campagne->sujet );
 
         // GET html
-        $html = $this->campagne->html($campagne->id);
+        $html = $this->worker->html($campagne->id);
 
-        echo '<pre>';
-        print_r($html);
-        echo '</pre>';exit;
+        // Send the email
+        $this->mailjet->sendTest($request->input('email'),$html,$sujet);
 
-        $this->worker->sendTest($email,$html,$sujet);
-
+        // If we want to send via ajax just add a send_type "ajax
         $ajax = $request->input('send_type', 'normal');
 
-        if($ajax == 'ajax'){
-            echo 'ok';
-            exit;
-        }
+        if($ajax == 'ajax')
+            echo 'ok'; exit;
 
-        return redirect('admin/campagne/'.$id)->with( array('status' => 'success' , 'message' => 'Email de test envoyé!' ) );
+        return redirect('admin/campagne/'.$id)->with( ['status' => 'success' , 'message' => 'Email de test envoyé!'] );
     }
 
 

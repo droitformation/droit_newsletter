@@ -7,9 +7,10 @@ var App = angular.module('newsletter', ["angular-redactor","flow","ngSanitize","
         redactorOptions.minHeight      = 120;
         redactorOptions.maxHeight      = 240;
         redactorOptions.formattingTags = ['p', 'h2', 'h3','h4'];
-        redactorOptions.fileUpload     = 'admin/uploadRedactor';
+        redactorOptions.fileUpload     = 'admin/uploadRedactor?_token=' + $('meta[name="_token"]').attr('content');
         redactorOptions.lang           = 'fr';
         redactorOptions.buttons        = ['html','|','formatting','bold','italic','|','unorderedlist','orderedlist','outdent','indent','|','image','file','link','alignment'];
+
 }).config(['flowFactoryProvider', function (flowFactoryProvider) {
         /* Flow image upload configuration */
         flowFactoryProvider.defaults = {
@@ -101,12 +102,44 @@ App.factory('Arrets', ['$http', '$q', function($http, $q) {
 /**
  * Form controller, controls the form for creating new content blocs
  */
+App.controller("CreateController",['$scope','$http','myService', function($scope,$http,myService){
+
+    $scope.$on('flow::fileError', function (event, $flow, flowFile) {
+        event.preventDefault();//prevent file from uploading
+        $flow.removeFile(flowFile);
+        $('.errorUpload').html('Le fichier est trop volumineux').show();
+    });
+
+    $scope.$on('flow::fileAdded', function (event, $flow, flowFile) {
+        $('.errorUpload').hide();
+    });
+
+}]);
+
+
+/**
+ * Form controller, controls the form for creating new content blocs
+ */
 App.controller("EditController",['$scope','$http','myService', function($scope,$http,myService){
+
+    $scope.$on('flow::fileError', function (event, $flow, flowFile) {
+        event.preventDefault();//prevent file from uploading
+        $flow.removeFile(flowFile);
+        $('.errorUpload').html('Le fichier est trop volumineux').show();
+    });
+
+    $scope.$on('flow::fileAdded', function (event, $flow, flowFile) {
+        $('.errorUpload').hide();
+    });
 
     $scope.editable = 0;
 
     this.onedit = function(id){
         return id == $scope.editable;
+    };
+
+    this.handleErrorsUpload = function($file, $message, $flow){
+        console.log($message);
     };
 
     this.close = function(){

@@ -6,8 +6,25 @@
         <!-- Responsive Meta Tag -->
         <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
         <title>{{ $title or '' }}</title><!-- Responsive Styles and Valid Styles -->
-        <link rel="stylesheet" href="<?php echo asset('newsletter/css/backend/newsletter.css'); ?>">
         <link rel="stylesheet" href="<?php echo asset('newsletter/css/frontend/newsletter.css'); ?>">
+
+        <style type="text/css">
+
+            #StyleNewsletter h2,
+            #StyleNewsletterCreate h2{
+                font-size:14px;
+                font-weight:bold;
+                color: {{ $infos->newsletter->color }};
+            }
+
+            #StyleNewsletter .contentForm h3,
+            #StyleNewsletter .contentForm h4{
+                font-size:13px;
+                font-weight:bold;
+                color: {{ $infos->newsletter->color }};
+            }
+
+        </style>
     </head>
 
     <body>

@@ -247,7 +247,7 @@ class MailjetWorker implements MailjetInterface{
             'Subject'        => $campagne->sujet,
             'ContactsListID' => $this->list,
             'Locale'         => 'fr',
-            'Callback'       => url('/api'),
+            'Callback'       => url('/'),
             'HeaderLink'     => url('/'),
             'SenderEmail'    => $this->sender,
             'Sender'         => $campagne->newsletter->from_name

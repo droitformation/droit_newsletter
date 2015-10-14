@@ -46,6 +46,12 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="message" class="col-sm-3 control-label">Couleur principale</label>
+                        <div class="col-sm-3">
+                            {!! Form::text('color', null , array('required' => 'required','class' => 'form-control colorpicker') ) !!}
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="message" class="col-sm-3 control-label">Bannière avec logos</label>
                         <div class="col-sm-6">
                             <input type="file" required name="logos">

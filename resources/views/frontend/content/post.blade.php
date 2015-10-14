@@ -10,7 +10,7 @@
                 </div><!--END POST-TITLE-->
                 <div class="post-entry">
                     <a class="anchor" name="{{ $post->reference }}"></a>
-                    {{ $post->parsedText }}
+                    {!! $post->parsedText !!}
 
                     @if(!empty($post->file ))
                     <p><a target="_blank" href="{{ asset('files/arrets/'.$post->file) }}">

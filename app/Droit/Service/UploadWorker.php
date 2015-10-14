@@ -51,7 +51,8 @@ class UploadWorker implements UploadInterface {
 	 * resize file 
 	 * @return instance
 	*/	
-	public function resize( $path, $name , $width = null , $height = null){
+	public function resize( $path, $name , $width = null , $height = null)
+    {
 
         $img = \Image::make($path);
 

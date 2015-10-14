@@ -21,7 +21,7 @@
                                         @endforeach
                                     </ul>
                                 @endif
-                                <p>{{ $analyse->abstract }}</p>
+                                <p>{!! $analyse->abstract !!}</p>
                             </div><!--END POST-TITLE-->
                             <div class="post-entry">
                                 @if(!empty($analyse->file ))

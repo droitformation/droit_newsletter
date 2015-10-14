@@ -19,7 +19,7 @@
                     <div class="post-title">
                         <?php setlocale(LC_ALL, 'fr_FR.UTF-8');  ?>
                         <h2 class="title">{{ $arret->reference }} du {{ $arret->pub_date->formatLocalized('%d %B %Y') }}</h2>
-                        <p>{{ $arret->abstract }}</p>
+                        <p>{!! $arret->abstract !!}</p>
                     </div><!--END POST-TITLE-->
                     <div class="post-entry">
                         {!! $arret->pub_text !!}

@@ -1,4 +1,6 @@
 <form flow-init flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"
+      ng-controller="CreateController as creation"
+      flow-fileError="handleErrorsUpload( $file, $message, $flow )"
       flow-files-submitted="$flow.upload()"
       class="row" name="blocForm" class="form-horizontal"
       method="post" action="<?php echo url('admin/campagne/process'); ?>">
@@ -17,6 +19,7 @@
                         <span class="btn btn-xs btn-danger" ng-show="$flow.files.length" ng-click="$flow.cancel()">Supprimer</span>
                     </div>
                     <p style="visibility: hidden;height: 1px;margin: 0;"><input type="text" class="uploadImage" name="image" value="{[{ $flow.files[0].name }]}"></p>
+                    <p class="errorUpload bg-danger text-danger" style="display: none;"></p>
                 </td>
                 <td width="25" class="resetMarge"></td><!-- space -->
                 <td valign="top" width="375" class="resetMarge contentForm">

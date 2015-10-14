@@ -1,5 +1,6 @@
 <div class="edit_content" ng-controller="EditController as edit"
      flow-init
+     flow-fileError="handleErrorsUpload( $file, $message, $flow )"
      flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"
      flow-complete="netedited = true"
      flow-files-submitted="$flow.upload()">
@@ -31,6 +32,7 @@
                 <div class="thumbnail big" ng-show="$flow.files.length">
                     <img flow-img="$flow.files[0]" />
                 </div>
+                <p class="errorUpload bg-danger text-danger" style="display: none;"></p>
             </td>
         </tr>
         <tr bgcolor="ffffff">

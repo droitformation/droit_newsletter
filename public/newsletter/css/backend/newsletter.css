@@ -426,3 +426,7 @@ div#fieldChooser,div#fieldChooser2 {
     background-color: #dff0d8;
     color: #3c763d;
 }
+
+.errorUpload{
+    text-align: center !important;
+}

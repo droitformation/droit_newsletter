@@ -58,10 +58,16 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="message" class="col-sm-3 control-label">Couleur principale</label>
+                            <div class="col-sm-3">
+                                {!! Form::text('color',  $newsletter->color , array('required' => 'required','class' => 'form-control colorpicker') ) !!}
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="message" class="col-sm-3 control-label">Bannière avec logos</label>
                             <div class="col-sm-6">
                                 <p><img src="{{ $newsletter->banniere_logos }}" alt="Logos" /></p>
-                                <input type="file" required name="logos">
+                                <input type="file" name="logos">
                                 <p class="help-block">Taille max 600x130px</p>
                             </div>
                         </div>
@@ -69,7 +75,7 @@
                             <label for="message" class="col-sm-3 control-label">Bannière de titre</label>
                             <div class="col-sm-6">
                                 <p><img src="{{ $newsletter->banniere_header }}" alt="Header" /></p>
-                                <input type="file" required name="header">
+                                <input type="file" name="header">
                                 <p class="help-block">Taille max 600x160px</p>
                             </div>
                         </div>
@@ -78,6 +84,7 @@
                     <div class="panel-footer mini-footer ">
                         <div class="col-sm-3"></div>
                         <div class="col-sm-6">
+                            <input type="hidden" name="id" value="{{ $newsletter->id }}">
                             <button class="btn btn-primary" type="submit">Envoyer</button>
                         </div>
                     </div>

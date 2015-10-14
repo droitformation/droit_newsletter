@@ -127,6 +127,7 @@
 <script type='text/javascript' src="<?php echo asset('backend/js/selectize.js');?>"></script>
 <script type='text/javascript' src="<?php echo asset('backend/plugins/form-stepy/jquery.stepy.js');?>"></script>
 <script type='text/javascript' src="<?php echo asset('backend/js/formwizard.js');?>"></script>
+<script type='text/javascript' src="<?php echo asset('backend/js/jqColorPicker.min.js');?>"></script>
 
 <script type="text/javascript" src="<?php echo asset('backend/js/admin.js');?>"></script>
 <script type="text/javascript" src="<?php echo asset('backend/js/upload.js');?>"></script>

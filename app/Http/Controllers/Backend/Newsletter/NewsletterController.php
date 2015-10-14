@@ -97,7 +97,28 @@ class NewsletterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $newsletter = $this->newsletter->update($request->except('logos','header'));
+
+        $logos  = $request->file('logos',null);
+        $header = $request->file('header',null);
+
+        if($logos)
+        {
+            $logos  = $this->upload->upload($request->file('logos'), 'newsletter');
+
+            $newsletter->logos  = $logos['name'];
+            $newsletter->save();
+        }
+
+        if($header)
+        {
+            $header = $this->upload->upload($request->file('header'), 'newsletter');
+
+            $newsletter->header = $header['name'];
+            $newsletter->save();
+        }
+
+        return redirect('admin/newsletter/'.$newsletter->id)->with(array('status' => 'success', 'message' => 'Newsletter édité' ));
     }
 
     /**

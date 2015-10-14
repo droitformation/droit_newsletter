@@ -31,7 +31,8 @@ class JurisprudenceWorker{
      */
     public function preparedAnnees()
     {
-        $arrets   = $this->arret->getAll();
+        $include  = $this->showArrets();
+        $arrets   = $this->arret->getAllActives($include);
         $prepared = $arrets->lists('pub_date');
 
         foreach($prepared as $arret)

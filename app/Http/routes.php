@@ -41,10 +41,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','administration']], f
     Route::post('uploadRedactor', 'Backend\UploadController@uploadRedactor');
 
     Route::resource('newsletter', 'Backend\Newsletter\NewsletterController');
-    Route::resource('campagne', 'Backend\Newsletter\CampagneController');
 
     /**
-     * API
+     * Campagne
      */
     Route::post('campagne/send', 'Backend\Newsletter\CampagneController@send');
     Route::post('campagne/test', 'Backend\Newsletter\CampagneController@test');
@@ -52,6 +51,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','administration']], f
     Route::post('campagne/process', 'Backend\Newsletter\CampagneController@process');
     Route::post('campagne/editContent', 'Backend\Newsletter\CampagneController@editContent');
     Route::post('campagne/remove', 'Backend\Newsletter\CampagneController@remove');
+    Route::get('campagne/create/{newsletter}', 'Backend\Newsletter\CampagneController@create');
+    Route::resource('campagne', 'Backend\Newsletter\CampagneController');
 
     Route::get('arrets/{id}', 'Backend\ArretController@simple');
     Route::get('analyses/{id}', 'Backend\AnalyseController@simple');
@@ -117,6 +118,8 @@ Route::get('testcampagne', function()
     $campagnes = $campagne->getSentCampagneArrets();
 
     echo '<pre>';
-    print_r($campagnes);
+    print_r(config('size.newsletter'));
     echo '</pre>';
+
+
 });
