@@ -5,7 +5,7 @@
     <div class="col-md-4">
         <div class="options" style="margin-bottom: 10px;">
             <div class="btn-toolbar">
-                <a href="{{ url('admin/campagne') }}" class="btn btn-default"><i class="fa fa-list"></i>  &nbsp;&nbsp;Retour aux campagnes</a>
+                <a href="{{ url('admin/newsletter') }}" class="btn btn-default"><i class="fa fa-list"></i>  &nbsp;&nbsp;Retour aux campagnes</a>
                 <a href="{{ url('admin/campagne/'.$infos->id.'/edit') }}" class="btn btn-sky"><i class="fa fa-pencil"></i>  &nbsp;&Eacute;diter la campagne</a>
             </div>
         </div>
@@ -23,6 +23,18 @@
 </div>
 
 <div id="main" ng-app="newsletter"><!-- main div for app-->
+
+    <style type="text/css">
+
+        #StyleNewsletter h2, #StyleNewsletterCreate h2{
+            color: {{ $infos->newsletter->color }};
+        }
+
+        #StyleNewsletter .contentForm h3, #StyleNewsletter .contentForm h4{
+            color: {{ $infos->newsletter->color }};
+        }
+
+    </style>
 
     <div class="row">
         <div class="col-md-12">

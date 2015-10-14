@@ -1,7 +1,6 @@
 @extends('backend.layouts.master')
 @section('content')
 
-    {{--
 <div class="row">
     <div class="col-md-6">
         <h3>Liste des newsletter</h3>
@@ -14,7 +13,7 @@
         </div>
     </div>
 </div>
---}}
+
 <div class="row">
     <div class="col-md-12">
 
@@ -25,17 +24,18 @@
                     <div class="panel-body">
 
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                 <h3>{{ $newsletter->titre }}</h3>
+                                <small><a class="text-danger" href="{{ url('admin/newsletter/'.$newsletter->id) }}">supprimer</a></small>
                             </div>
                             <div class="col-md-3">
                                 <p><i class="fa fa-user"></i> &nbsp; {{ $newsletter->from_name }}</p>
                                 <p><i class="fa fa-envelope"></i> &nbsp; {{ $newsletter->from_email }}</p>
                             </div>
-                            <div class="col-md-1 text-right">
+                            <div class="col-md-2 text-right">
                                 <div class="btn-group-vertical" role="group">
-                                    <a href="{{ url('admin/newsletter/'.$newsletter->id) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
-                                    <a href="{{ url('admin/newsletter/'.$newsletter->id) }}" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></a>
+                                    <a href="{{ url('admin/newsletter/'.$newsletter->id) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i> &nbsp;éditer</a>
+                                    <a href="{{ url('admin/campagne/create/'.$newsletter->id) }}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> &nbsp;campagne</a>
                                 </div>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                                                             <a class="btn btn-inverse btn-sm" href="{{ url('admin/campagne/'.$campagne->id) }}">Composer</a>
                                                         @else
                                                             <div class="btn-group">
-                                                                <a class="btn btn-primary btn-sm" href="{{ url('admin/stats/'.$campagne->id) }}">Stats</a>
+                                                                <a class="btn btn-primary btn-sm" href="{{ url('admin/statistics/'.$campagne->id) }}">Stats</a>
                                                                 <a href="javascript:;" class="btn btn-default btn-sm sendEmailNewsletter" data-campagne="{{ $campagne->id }}">Envoyer par email</a>
                                                             </div>
                                                         @endif

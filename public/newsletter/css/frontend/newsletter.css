@@ -177,3 +177,15 @@
 #StyleNewsletterCreate .contentForm .centerText,#StyleNewsletterCreate p.centerText,#StyleNewsletterCreate p.centerText a{
     text-align: center;
 }
+
+#StyleNewsletter h2,
+#StyleNewsletterCreate h2{
+    font-size:14px;
+    font-weight:bold;
+}
+
+#StyleNewsletter .contentForm h3,
+#StyleNewsletter .contentForm h4{
+    font-size:13px;
+    font-weight:bold;
+}

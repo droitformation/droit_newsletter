@@ -16,4 +16,8 @@ class Newsletter_campagnes extends Model {
         return $this->belongsTo('App\Droit\Newsletter\Entities\Newsletter', 'newsletter_id', 'id');
     }
 
+    public function content(){
+
+        return $this->hasMany('App\Droit\Newsletter\Entities\Newsletter_contents', 'newsletter_campagne_id');
+    }
 }

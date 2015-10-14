@@ -15,6 +15,7 @@ class NewsletterContentEloquent implements NewsletterContentInterface{
 	public function __construct(M $contents)
 	{
 		$this->contents = $contents;
+
         $this->upload   = new \App\Droit\Service\UploadWorker();
         $this->helper   = new \App\Droit\Helper\Helper();
 	}

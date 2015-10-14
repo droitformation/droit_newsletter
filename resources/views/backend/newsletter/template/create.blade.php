@@ -18,6 +18,21 @@
                             {!! Form::text('titre', null , array('required' => 'required','class' => 'form-control') ) !!}
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label for="message" class="col-sm-3 control-label">Nom de la liste</label>
+                        <div class="col-sm-5">
+                            <select class="form-control" name="list_id">
+                                <option value="">Choix de la liste</option>
+                                @if(!empty($lists))
+                                    @foreach($lists as $list)
+                                        <option value="{{ $list->ID }}">{{ $list->Name }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label for="message" class="col-sm-3 control-label">Envoyé par</label>
                         <div class="col-sm-5">

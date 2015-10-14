@@ -143,25 +143,6 @@
     margin-bottom: 0px;
 }
 
-#alertMessage{
-    left: 50%;
-    margin-left: -200px;
-    position: absolute;
-    text-align: center;
-    top: -12px;
-    width: 500px;
-}
-
-#messageAlert{
-    display: none;
-    margin-left: -200px;
-    position: absolute;
-    right: 20px;
-    text-align: center;
-    top: 50px;
-    width: 500px;
-}
-
 .onBuild{
     margin: 0 !important;
 }

@@ -80,11 +80,9 @@ class CampagneController extends Controller
      */
     public function store(Request $request)
     {
-        echo '<pre>';
-        print_r($request->all());
-        echo '</pre>';exit;
-
         $campagne = $this->campagne->create( ['sujet' => $request->input('sujet'), 'auteurs' => $request->input('auteurs'), 'newsletter_id' => $request->input('newsletter_id') ] );
+
+        $this->mailjet->setList($campagne->newsletter->list_id);
 
         $created  = $this->mailjet->createCampagne($campagne);
 
@@ -94,7 +92,6 @@ class CampagneController extends Controller
         }
 
         return redirect('admin/campagne/'.$campagne->id)->with( array('status' => 'success' , 'message' => 'Campagne crée') );
-
     }
 
     /**
@@ -121,9 +118,32 @@ class CampagneController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function send()
+    public function send(Request $request)
     {
-        //
+        // Get campagne
+        $campagne = $this->campagne->find($request->id);
+
+        //set or update html
+        $html = $this->worker->html($campagne->id);
+
+        // Sync html content to api service and send!
+        $this->mailjet->setHtml($html,$campagne->api_campagne_id);
+
+        $result = $this->mailjet->sendCampagne($campagne->api_campagne_id,$campagne->id);
+
+        if(!$result)
+        {
+            throw new \App\Exceptions\CampagneSendException('Problème avec l\'envoi');
+        }
+
+        // Update campagne status
+        $campagne->status     = 'envoyé';
+        $campagne->updated_at = date('Y-m-d G:i:s');
+
+        $campagne->save();
+
+        return redirect('admin/newsletter')->with(['status' => 'success' , 'message' => 'Campagne envoyé!']);
+
     }
 
     /**
@@ -146,10 +166,11 @@ class CampagneController extends Controller
         // If we want to send via ajax just add a send_type "ajax
         $ajax = $request->input('send_type', 'normal');
 
-        if($ajax == 'ajax')
+        if($ajax == 'ajax'){
             echo 'ok'; exit;
+        }
 
-        return redirect('admin/campagne/'.$id)->with( ['status' => 'success' , 'message' => 'Email de test envoyé!'] );
+        return redirect('admin/campagne/'.$campagne->id)->with( ['status' => 'success' , 'message' => 'Email de test envoyé!'] );
     }
 
 
@@ -256,6 +277,15 @@ class CampagneController extends Controller
 
     }
 
+    /**
+     * Campagne
+     * AJAX
+     * @return Response
+     */
+    public function simple($id){
+
+        return $this->campagne->find($id);
+    }
 
     /**
      * Remove bloc from newsletter
@@ -291,6 +321,10 @@ class CampagneController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $campagne = $this->campagne->find($id);
+        $campagne->content()->delete();
+        $this->campagne->delete($id);
+
+        return redirect()->back()->with(array('status' => 'success', 'message' => 'Campagne supprimée' ));
     }
 }

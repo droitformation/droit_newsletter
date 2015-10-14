@@ -31,6 +31,19 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="message" class="col-sm-3 control-label">Nom de la liste</label>
+                            <div class="col-sm-5">
+                                <select class="form-control" name="list_id">
+                                    <option value="">Choix de la liste</option>
+                                    @if(!empty($lists))
+                                        @foreach($lists as $list)
+                                            <option {{ $newsletter->list_id == $list->ID ? 'selected' :'' }} value="{{ $list->ID }}">{{ $list->Name }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="message" class="col-sm-3 control-label">Envoyé par</label>
                             <div class="col-sm-5">
                                 {!! Form::text('from_name', $newsletter->from_name , array('required' => 'required','class' => 'form-control') ) !!}
@@ -66,7 +79,7 @@
                         <div class="form-group">
                             <label for="message" class="col-sm-3 control-label">Bannière avec logos</label>
                             <div class="col-sm-6">
-                                <p><img src="{{ $newsletter->banniere_logos }}" alt="Logos" /></p>
+                                <p><img style="border: 1px solid #ddd;" src="{{ $newsletter->banniere_logos }}" alt="Logos" /></p>
                                 <input type="file" name="logos">
                                 <p class="help-block">Taille max 600x130px</p>
                             </div>
@@ -74,7 +87,7 @@
                         <div class="form-group">
                             <label for="message" class="col-sm-3 control-label">Bannière de titre</label>
                             <div class="col-sm-6">
-                                <p><img src="{{ $newsletter->banniere_header }}" alt="Header" /></p>
+                                <p><img style="border: 1px solid #ddd;" src="{{ $newsletter->banniere_header }}" alt="Header" /></p>
                                 <input type="file" name="header">
                                 <p class="help-block">Taille max 600x160px</p>
                             </div>

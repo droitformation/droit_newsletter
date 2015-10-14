@@ -10,17 +10,11 @@
 
         <style type="text/css">
 
-            #StyleNewsletter h2,
-            #StyleNewsletterCreate h2{
-                font-size:14px;
-                font-weight:bold;
+            #StyleNewsletter h2, #StyleNewsletterCreate h2{
                 color: {{ $infos->newsletter->color }};
             }
 
-            #StyleNewsletter .contentForm h3,
-            #StyleNewsletter .contentForm h4{
-                font-size:13px;
-                font-weight:bold;
+            #StyleNewsletter .contentForm h3, #StyleNewsletter .contentForm h4{
                 color: {{ $infos->newsletter->color }};
             }
 

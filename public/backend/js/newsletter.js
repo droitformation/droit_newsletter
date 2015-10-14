@@ -17,8 +17,8 @@ $(function() {
                 message.show();
 
                 $.ajax({
-                    url     : 'admin/send/test',
-                    data    : { id: campagneId , email: result, send_type : 'ajax'},
+                    url     : 'admin/campagne/test',
+                    data    : { id: campagneId , email: result, send_type : 'ajax', _token : $("meta[name='_token']").attr('content')},
                     type    : "POST",
                     success : function(data) {
                         if(data)
