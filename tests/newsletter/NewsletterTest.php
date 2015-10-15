@@ -29,6 +29,8 @@ class NewsletterTest extends TestCase
         $this->campagne = Mockery::mock('App\Droit\Newsletter\Repo\NewsletterCampagneInterface');
         $this->app->instance('App\Droit\Newsletter\Repo\NewsletterCampagneInterface', $this->campagne);
 
+        $this->helper = Mockery::mock('App\Droit\Helper\Helper');
+
         $user = App\Droit\User\Entities\User::find(1);
         $this->be($user);
 

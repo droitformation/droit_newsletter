@@ -11,7 +11,7 @@ use App\Droit\Arret\Repo\GroupeInterface;
 use App\Droit\Newsletter\Repo\NewsletterCampagneInterface;
 use App\Droit\Newsletter\Worker\CampagneInterface;
 use App\Droit\Newsletter\Worker\MailjetInterface;
-
+use App\Droit\Helper\Helper;
 use App\Http\Requests\SendTestRequest;
 
 class CampagneController extends Controller
@@ -24,7 +24,15 @@ class CampagneController extends Controller
     protected $groupe;
     protected $helper;
 
-    public function __construct(NewsletterCampagneInterface $campagne, NewsletterContentInterface $content, GroupeInterface $groupe, MailjetInterface $mailjet, NewsletterTypesInterface $types, CampagneInterface $worker )
+    public function __construct(
+        NewsletterCampagneInterface $campagne,
+        NewsletterContentInterface $content,
+        GroupeInterface $groupe,
+        MailjetInterface $mailjet,
+        NewsletterTypesInterface $types,
+        CampagneInterface $worker,
+        Helper $helper
+    )
     {
         $this->campagne = $campagne;
         $this->worker   = $worker;
@@ -32,7 +40,7 @@ class CampagneController extends Controller
         $this->types    = $types;
         $this->groupe   = $groupe;
         $this->mailjet  = $mailjet;
-        $this->helper   = new \App\Droit\Helper\Helper();
+        $this->helper   = $helper;
     }
 
     /**
@@ -191,7 +199,7 @@ class CampagneController extends Controller
 
         $this->content->create($data);
 
-        return redirect()->to('admin/campagne/'.$data['campagne'].'#componant')->with(['status' => 'success', 'message' => 'Bloc ajouté' ]);
+        return redirect('admin/campagne/'.$data['campagne'].'#componant')->with(['status' => 'success', 'message' => 'Bloc ajouté' ]);
 
     }
 
@@ -202,22 +210,9 @@ class CampagneController extends Controller
      */
     public function editContent(Request $request){
 
-        $data     = $request->all();
-        $contents = $this->content->update($data);
+        $contents = $this->content->update($request->all());
 
-        // image resize
-        if(isset($data['image']) && !empty($data['image']))
-        {
-            $this->helper->resizeImage($data['image'],$data['type_id']);
-        }
-
-        if($contents)
-        {
-            return redirect()->back()->with(array('status' => 'success', 'message' => 'Bloc édité' ));
-        }
-
-        return redirect()->back()->with(array('status' => 'error', 'message' => 'Problème avec l\'édition' ));
-
+        return redirect('admin/campagne/'.$contents->newsletter_campagne_id.'#componant')->with(array('status' => 'success', 'message' => 'Bloc édité' ));
     }
 
     /**

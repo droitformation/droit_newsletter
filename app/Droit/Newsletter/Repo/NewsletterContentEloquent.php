@@ -115,16 +115,15 @@ class NewsletterContentEloquent implements NewsletterContentInterface{
 		
 		if( ! $contents )
 		{
-			return false;
+            throw new \App\Exceptions\CampagneUpdateException('Update of content failed');
 		}
 
         $contents->fill($data);
 
         // if we changed the image
-        if(isset($data['image'])){
-
-            $type = $contents->type_id;
-            $this->helper->resizeImage($data['image'],$type);
+        if(isset($data['image']))
+        {
+            $this->helper->resizeImage($data['image'],$contents->type_id);
 
             $contents->image = $data['image'];
         }
