@@ -185,12 +185,12 @@ App.controller("EditController",['$scope','$http','myService', function($scope,$
         $( "#sortGroupe_" + groupe_id ).sortable({
             axis: 'y',
             update: function (event, ui) {
-                var data = $(this).sortable('serialize') +"&groupe_id="+ groupe_id;
+                var data = $(this).sortable('serialize') +"&groupe_id="+ groupe_id + "&_token=" + $("meta[name='_token']").attr('content');
                 // POST to server using $.post or $.ajax
                 $.ajax({
                     data: data,
                     type: 'POST',
-                    url: url+ 'sortingGroup'
+                    url: url+ 'admin/sortingGroup'
                 });
             }
         });

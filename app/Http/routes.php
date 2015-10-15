@@ -40,6 +40,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','administration']], f
     Route::post('upload', 'Backend\UploadController@upload');
     Route::post('uploadJS', 'Backend\UploadController@uploadJS');
     Route::post('uploadRedactor', 'Backend\UploadController@uploadRedactor');
+    Route::post('sorting', 'Backend\Newsletter\CampagneController@sorting');
+    Route::post('sortingGroup', 'Backend\Newsletter\CampagneController@sortingGroup');
 
     Route::resource('newsletter', 'Backend\Newsletter\NewsletterController');
 
@@ -124,7 +126,7 @@ Route::get('testcampagne', function()
     //$campagne  = \App::make('App\Droit\Newsletter\Worker\CampagneInterface');
     //$campagnes = $campagne->getSentCampagneArrets();
 
-    $campagnes  = \App::make('App\Droit\Newsletter\Repo\NewsletterCampagneInterface');
+    $campagnes  = \App::make('App\Droit\Newsletter\Repo\NewsletterContentInterface');
     $campagne = $campagnes->find(2);
 
     echo '<pre>';

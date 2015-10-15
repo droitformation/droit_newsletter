@@ -13,7 +13,11 @@
         #StyleNewsletter h2, #StyleNewsletterCreate h2{
             color: {{ $infos->newsletter->color }};
         }
-        #StyleNewsletter .contentForm h3, #StyleNewsletter .contentForm h4{
+        #StyleNewsletter .contentForm h3,
+        #StyleNewsletter .contentForm h4,
+        #StyleNewsletterCreate .contentForm h3,
+        #StyleNewsletterCreate .contentForm h4
+        {
             color: {{ $infos->newsletter->color }};
         }
     </style>

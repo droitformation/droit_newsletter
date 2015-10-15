@@ -14,7 +14,7 @@
             </tr><!-- space -->
             <tr bgcolor="ffffff" class="blocBorder">
                 <td width="400" align="left" class="resetMarge contentForm" valign="top">
-                    <h3 style="text-align: left;">{{ $categories[$bloc->categorie] }}</h3>
+                    <h3 style="text-align: left;">{{ $categories[$bloc->categorie_id] }}</h3>
                 </td>
                 <td width="160" align="center" valign="top" class="resetMarge">
                     <img width="130" border="0" src="{{ asset('newsletter/pictos/'.$bloc->image) }}" alt="{{ $categories[$bloc->categorie] }}" />

@@ -8,6 +8,7 @@ class NewsletterContentEloquent implements NewsletterContentInterface{
 	protected $contents;
     protected $upload;
     protected $helper;
+    protected $groupe;
 
 	/**
 	 * Construct a new SentryUser Object
@@ -18,6 +19,7 @@ class NewsletterContentEloquent implements NewsletterContentInterface{
 
         $this->upload   = new \App\Droit\Service\UploadWorker();
         $this->helper   = new \App\Droit\Helper\Helper();
+        $this->groupe   = new \App\Droit\Arret\Entities\Groupe();
 	}
 	
 	public function getByCampagne($newsletter_campagne_id){
@@ -79,18 +81,29 @@ class NewsletterContentEloquent implements NewsletterContentInterface{
             'image'                  => (isset($data['image']) ? $data['image'] : null),
             'lien'                   => (isset($data['lien']) ? $this->helper->sanitizeUrl($data['lien']) : null),
             'arret_id'               => (isset($data['arret_id']) ? $data['arret_id'] : 0),
-            'categorie_id'           => $data['categorie_id'],
+            'categorie_id'           => (isset($data['categorie_id']) ? $data['categorie_id'] : 0),
             'groupe_id'              => (isset($data['groupe_id']) ? $data['groupe_id'] : null),
-            'newsletter_campagne_id' => $data['newsletter_campagne_id'],
+            'newsletter_campagne_id' => $data['campagne'],
             'rang'                   => $this->getRang($data['campagne']),
 			'created_at'             => date('Y-m-d G:i:s'),
 			'updated_at'             => date('Y-m-d G:i:s')
 		));
 		
-		if( ! $contents )
+		if(!$contents)
 		{
             throw new \App\Exceptions\ContentCreationException('Creation of new content failed');
 		}
+
+        if($data['type_id'] == 7)
+        {
+            $arrets = $this->helper->prepareCategories($data['arrets']);
+
+            $groupe = $this->groupe->create(['categorie_id' => $data['categorie_id']]);
+            $groupe->arrets_groupes()->sync($arrets);
+
+            $contents->groupe_id = $groupe->id;
+            $contents->save();
+        }
 		
 		return $contents;
 		
@@ -105,14 +118,8 @@ class NewsletterContentEloquent implements NewsletterContentInterface{
 			return false;
 		}
 
-        // if there is a content
-        if(isset($data['titre'])) {
-            $contents->titre = $data['titre'];
-        }
-        // if there is a content
-        if(isset($data['contenu'])) {
-            $contents->contenu = $data['contenu'];
-        }
+        $contents->fill($data);
+
         // if we changed the image
         if(isset($data['image'])){
 
@@ -121,15 +128,11 @@ class NewsletterContentEloquent implements NewsletterContentInterface{
 
             $contents->image = $data['image'];
         }
+
         // if we changed the lien
         if(isset($data['lien']))
         {
             $contents->lien = $this->helper->sanitizeUrl($data['lien']);
-        }
-        // if we changed the group
-        if(isset($data['groupe_id']))
-        {
-            $contents->groupe_id = $data['groupe_id'];
         }
 
         $contents->updated_at = date('Y-m-d G:i:s');

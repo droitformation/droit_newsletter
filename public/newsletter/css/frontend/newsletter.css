@@ -185,7 +185,10 @@
 }
 
 #StyleNewsletter .contentForm h3,
-#StyleNewsletter .contentForm h4{
+#StyleNewsletter .contentForm h4,
+#StyleNewsletterCreate .contentForm h3,
+#StyleNewsletterCreate .contentForm h4
+{
     font-size:13px;
     font-weight:bold;
 }

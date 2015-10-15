@@ -425,9 +425,7 @@ class Helper {
         }
 
         return $categories;
-
     }
-
 
     /**
      * Content fonctions

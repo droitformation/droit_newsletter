@@ -183,18 +183,6 @@ class CampagneController extends Controller
 
         $data = $request->all();
 
-        $data['categorie_id']           = (isset($data['categorie_id']) ? $data['categorie_id'] : 0);
-        $data['newsletter_campagne_id'] = $data['campagne'];
-
-        if($data['type_id'] == 7)
-        {
-            $arrets = $this->helper->prepareCategories($data['arrets']);
-            $groupe = $this->groupe->create(array('categorie_id' => $data['categorie_id']));
-            $groupe->arrets_groupes()->sync($arrets);
-
-            $data['groupe_id'] = $groupe->id;
-        }
-
         // image resize
         if(isset($data['image']) && !empty($data['image']))
         {
@@ -203,7 +191,7 @@ class CampagneController extends Controller
 
         $this->content->create($data);
 
-        return redirect()->to('admin/campagne/'.$data['campagne'].'#componant')->with(array('status' => 'success', 'message' => 'Bloc ajouté' ));
+        return redirect()->to('admin/campagne/'.$data['campagne'].'#componant')->with(['status' => 'success', 'message' => 'Bloc ajouté' ]);
 
     }
 
@@ -214,21 +202,14 @@ class CampagneController extends Controller
      */
     public function editContent(Request $request){
 
-        $data = $request->all();
+        $data     = $request->all();
+        $contents = $this->content->update($data);
 
-        $new  = array('id' => $data['id']);
-
-        if(!empty($data))
+        // image resize
+        if(isset($data['image']) && !empty($data['image']))
         {
-            foreach($data as $key => $input)
-            {
-                if(!empty($input)){
-                    $new[$key] = $input;
-                }
-            }
+            $this->helper->resizeImage($data['image'],$data['type_id']);
         }
-
-        $contents = $this->content->update($new);
 
         if($contents)
         {

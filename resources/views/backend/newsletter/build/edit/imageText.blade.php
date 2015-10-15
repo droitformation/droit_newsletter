@@ -66,7 +66,10 @@
                     <div class="form-group">
                         <div class="btn-group">
                             <input type="hidden" value="{{ $bloc->idItem }}" name="id">
-                            <p style="visibility: hidden;height: 1px;margin: 0;"><input type="text" class="uploadImage" name="image" value="{[{ $flow.files[0].name }]}"></p>
+                            <input type="hidden" value="{{ $bloc->type_id }}" name="type_id">
+                            <p style="visibility: hidden;height: 1px;margin: 0;" ng-if="$flow.files.length">
+                                <input type="text" class="uploadImage" name="image" value="{[{ $flow.files[0].name }]}">
+                            </p>
                             <button type="submit" class="btn btn-sm btn-orange">Envoyer</button>
                             <button type="button" data-id="{{ $bloc->idItem }}" class="btn btn-sm btn-default cancelEdit">Annuler</button>
                         </div>
