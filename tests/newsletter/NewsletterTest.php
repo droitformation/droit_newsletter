@@ -29,6 +29,9 @@ class NewsletterTest extends TestCase
         $this->campagne = Mockery::mock('App\Droit\Newsletter\Repo\NewsletterCampagneInterface');
         $this->app->instance('App\Droit\Newsletter\Repo\NewsletterCampagneInterface', $this->campagne);
 
+        $user = App\Droit\User\Entities\User::find(1);
+        $this->be($user);
+
     }
 
     public function tearDown()
@@ -53,6 +56,24 @@ class NewsletterTest extends TestCase
         $response = $this->call('POST', 'admin/campagne/send', ['id' => '1']);
 
         $this->assertRedirectedTo('admin/newsletter');
+
+    }
+
+    /**
+     *
+     * @return void
+     */
+    public function testSendTestCampagne()
+    {
+        $campagne   = factory(App\Droit\Newsletter\Entities\Newsletter_campagnes::class)->make();
+
+        $this->campagne->shouldReceive('find')->once()->andReturn($campagne);
+        $this->worker->shouldReceive('html')->once()->andReturn('<html><header></header><body></body></html>');
+        $this->mailjet->shouldReceive('sendTest')->once()->andReturn(true);
+
+        $response = $this->call('POST', 'admin/campagne/test', ['id' => '1', 'email' => 'cindy.leschaud@gmail.com']);
+
+        $this->assertRedirectedTo('admin/campagne/'.$campagne->id);
 
     }
 

@@ -60,10 +60,8 @@ class NewsletterCampagneEloquent implements NewsletterCampagneInterface{
 			return false;
 		}
 
-        $campagne->sujet          = $data['sujet'];
-		$campagne->auteurs        = $data['auteurs'];
-        $campagne->newsletter_id  = $data['newsletter_id'];
-		$campagne->updated_at     = date('Y-m-d G:i:s');
+        $campagne->fill($data);
+		$campagne->updated_at = date('Y-m-d G:i:s');
 
 		$campagne->save();
 		

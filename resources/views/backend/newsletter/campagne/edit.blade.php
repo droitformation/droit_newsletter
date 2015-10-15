@@ -18,7 +18,7 @@
                 {!! csrf_field() !!}
 
                 <div class="panel-heading">
-                    <h4>&Eacute;diter une campagne</h4>
+                    <h4>&Eacute;diter la campagne</h4>
                 </div>
                 <div class="panel-body event-info">
 
@@ -40,7 +40,7 @@
                     {!! Form::hidden('id', $campagne->id ) !!}
                     <div class="col-sm-3"></div>
                     <div class="col-sm-6">
-                        <button class="btn btn-primary" type="submit">Envoyer</button>
+                        <button class="btn btn-primary" type="submit">Éditer</button>
                     </div>
                 </div>
 

@@ -310,7 +310,9 @@ class CampagneController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $campagne = $this->campagne->update(['id' => $request->input('id'), 'sujet' => $request->input('sujet'), 'auteurs' => $request->input('auteurs')] );
+
+        return redirect('admin/campagne/'.$campagne->id)->with( array('status' => 'success' , 'message' => 'Campagne édité') );
     }
 
     /**

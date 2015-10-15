@@ -1,18 +1,21 @@
 @extends('backend.layouts.master')
 @section('content')
 
+<div class="row">
+    <div class="col-md-12">
+        <a href="{{ url('admin/newsletter') }}" class="btn btn-info"><i class="fa fa-arrow-left"></i>  &nbsp;&nbsp;Retour aux newsletter</a>
+    </div>
+</div>
+
 <div id="main" ng-app="newsletter"><!-- main div for app-->
 
     <style type="text/css">
-
         #StyleNewsletter h2, #StyleNewsletterCreate h2{
             color: {{ $infos->newsletter->color }};
         }
-
         #StyleNewsletter .contentForm h3, #StyleNewsletter .contentForm h4{
             color: {{ $infos->newsletter->color }};
         }
-
     </style>
 
     <div class="row">
@@ -23,8 +26,7 @@
             <div class="component-build"><!-- Start component-build -->
 
                 <div id="optionsNewsletter">
-                    <a href="{{ url('admin/newsletter') }}" class="btn btn-info btn-block"><i class="fa fa-arrow-left"></i>  &nbsp;&nbsp;Retour aux newsletter</a>
-                    <a href="{{ url('admin/campagne/'.$infos->id.'/edit') }}" class="btn btn-primary btn-block"><i class="fa fa-pencil"></i>  &nbsp;&Eacute;diter cette campagne</a>
+                    <a href="{{ url('admin/campagne/'.$infos->id.'/edit') }}" class="btn btn-primary btn-block"><i class="fa fa-pencil"></i>  &nbsp;&Eacute;diter la campagne</a>
                     <hr/>
                     <form action="{{ url('admin/campagne/test') }}" enctype="multipart/form-data" method="POST" class="form">
                         {!! csrf_field() !!}

@@ -55,6 +55,7 @@ $factory->define(App\Droit\Newsletter\Entities\Newsletter_campagnes::class, func
     return [
         'sujet'         => 'Sujet',
         'auteurs'       => 'Cindy Leschaud',
+        'status'        => 'Brouillon',
         'newsletter_id' => 1
     ];
 });
