@@ -4,6 +4,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Newsletter_subscriptions extends Model {
 
+    public $timestamps = false;
+
 	protected $fillable = ['user_id','newsletter_id'];
 
 }

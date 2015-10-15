@@ -1,17 +1,15 @@
 <?php namespace App\Droit\Helper;
 
 use Carbon\Carbon;
+use App\Droit\Service\UploadWorker;
 
 class Helper {
 
     protected $upload;
 
-    /**
-     * Construct a new SentryUser Object
-     */
     public function __construct()
     {
-
+        $this->upload = new UploadWorker();
     }
 
 	/*
@@ -415,6 +413,22 @@ class Helper {
 		return $url;
 	}
 
+    public function prepareCategories($data){
+
+        $categories = array();
+
+        if(!empty($data))
+        {
+            foreach($data as $index => $key){
+                $categories[$key] = ['sorting' => $index];
+            }
+        }
+
+        return $categories;
+
+    }
+
+
     /**
      * Content fonctions
      */
@@ -477,26 +491,15 @@ class Helper {
         return $data;
     }
 
-    public function groupInscriptionCollection($collection){
+    public function resizeImage($image,$type){
 
-        $grouped = [];
+        $toResize = array(3,4);
 
-        if(!$collection->isEmpty())
-        {
-            foreach($collection as $inscription)
-            {
-                if($inscription->group_id)
-                {
-                    $grouped[$inscription->group_id][] = $inscription;
-                }
-                else
-                {
-                    $grouped[] = $inscription;
-                }
-            }
+        if(in_array($type,$toResize)){
+            $this->upload->resize( public_path('files/'.$image), $image , 130);
         }
 
-        return $grouped;
+        return true;
     }
 
 }

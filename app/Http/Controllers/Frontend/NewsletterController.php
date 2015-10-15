@@ -7,17 +7,25 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Droit\Newsletter\Repo\NewsletterInterface;
+use App\Droit\Newsletter\Repo\NewsletterCampagneInterface;
+use App\Droit\Newsletter\Worker\CampagneInterface;
+
 
 class NewsletterController extends Controller
 {
     protected $newsletter;
-    protected $upload;
+    protected $campagne;
+    protected $worker;
 
-    public function __construct(NewsletterInterface $newsletter)
+    public function __construct(NewsletterInterface $newsletter, NewsletterCampagneInterface $campagne, CampagneInterface $worker)
     {
+        $this->campagne   = $campagne;
+        $this->worker     = $worker;
         $this->newsletter = $newsletter;
 
-        setlocale(LC_ALL, 'fr_FR.UTF-8');
+        $newsletters = $this->newsletter->getAll();
+
+        view()->share('newsletters', $newsletters);
     }
 
     /**
@@ -27,10 +35,9 @@ class NewsletterController extends Controller
      */
     public function index()
     {
-        $newsletters = $this->newsletter->getAll();
-
-        return view('frontend.newsletter.index')->with(compact('newsletters'));
+        //
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -60,7 +67,9 @@ class NewsletterController extends Controller
      */
     public function show($id)
     {
-        //
+        $newsletter = $this->newsletter->find($id);
+
+        return view('frontend.newsletter')->with(['newsletter' => $newsletter]);
     }
 
     /**
@@ -69,9 +78,17 @@ class NewsletterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+
+    public function campagne($id)
     {
-        //
+        $campagne      = $this->campagne->find($id);
+        $content       = $this->worker->prepareCampagne($id);
+        $categories    = $this->worker->getCategoriesArrets();
+        $imgcategories = $this->worker->getCategoriesImagesArrets();
+
+        return view('frontend.campagne')->with(
+            ['campagne' => $campagne , 'content' => $content, 'categories' => $categories, 'imgcategories' => $imgcategories]
+        );
     }
 
     /**

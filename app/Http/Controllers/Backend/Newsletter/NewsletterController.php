@@ -8,16 +8,26 @@ use App\Http\Controllers\Controller;
 
 use App\Droit\Newsletter\Repo\NewsletterInterface;
 use App\Droit\Service\UploadWorker;
+use App\Droit\Newsletter\Worker\MailjetInterface;
 
 class NewsletterController extends Controller
 {
     protected $newsletter;
     protected $upload;
+    protected $mailjet;
 
-    public function __construct(NewsletterInterface $newsletter, UploadWorker $upload )
+    public function __construct(NewsletterInterface $newsletter, UploadWorker $upload, MailjetInterface $mailjet )
     {
         $this->newsletter = $newsletter;
         $this->upload     = $upload;
+        $this->mailjet    = $mailjet;
+
+        $lists = $this->mailjet->getAllLists();
+
+        if(isset($lists->Data))
+        {
+            view()->share('lists', $lists->Data);
+        }
 
         setlocale(LC_ALL, 'fr_FR.UTF-8');
     }
@@ -97,7 +107,28 @@ class NewsletterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $newsletter = $this->newsletter->update($request->except('logos','header'));
+
+        $logos  = $request->file('logos',null);
+        $header = $request->file('header',null);
+
+        if($logos)
+        {
+            $logos  = $this->upload->upload($request->file('logos'), 'newsletter');
+
+            $newsletter->logos  = $logos['name'];
+            $newsletter->save();
+        }
+
+        if($header)
+        {
+            $header = $this->upload->upload($request->file('header'), 'newsletter');
+
+            $newsletter->header = $header['name'];
+            $newsletter->save();
+        }
+
+        return redirect('admin/newsletter/'.$newsletter->id)->with(array('status' => 'success', 'message' => 'Newsletter édité' ));
     }
 
     /**
@@ -108,6 +139,8 @@ class NewsletterController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->newsletter->delete($id);
+
+        return redirect()->back()->with(array('status' => 'success', 'message' => 'Newsletter supprimée' ));
     }
 }

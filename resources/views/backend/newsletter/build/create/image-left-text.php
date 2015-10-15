@@ -1,10 +1,12 @@
 <form flow-init flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"
+      ng-controller="CreateController as creation"
+      flow-fileError="handleErrorsUpload( $file, $message, $flow )"
       flow-files-submitted="$flow.upload()"
       class="row" name="blocForm" class="form-horizontal"
-      method="post" action="<?php echo url('process'); ?>">
+      method="post" action="<?php echo url('admin/campagne/process'); ?>">
 
-    <?php echo Form::token(); ?>
-    <div class="col-md-7" id="bailNewsletterCreate">
+    <?php echo csrf_field(); ?>
+    <div class="col-md-7" id="StyleNewsletterCreate">
         <!-- Bloc content-->
         <table border="0" width="560" align="center" cellpadding="0" cellspacing="0" class="resetTable">
             <tr>
@@ -16,7 +18,8 @@
                         <span class="btn btn-xs btn-warning" ng-show="$flow.files.length" flow-btn flow-attrs="{accept:'image/*'}">Changer</span>
                         <span class="btn btn-xs btn-danger" ng-show="$flow.files.length" ng-click="$flow.cancel()">Supprimer</span>
                     </div>
-                    <input type="hidden" class="uploadImage" name="image" value="{[{ $flow.files[0].name }]}">
+                    <p style="visibility: hidden;height: 1px;margin: 0;"><input type="text" class="uploadImage" name="image" value="{[{ $flow.files[0].name }]}"></p>
+                    <p class="errorUpload bg-danger text-danger" style="display: none;"></p>
                 </td>
                 <td width="25" class="resetMarge"></td><!-- space -->
                 <td valign="top" width="375" class="resetMarge contentForm">

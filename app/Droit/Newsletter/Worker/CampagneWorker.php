@@ -2,9 +2,9 @@
 
 use App\Droit\Newsletter\Repo\NewsletterContentInterface;
 use App\Droit\Newsletter\Repo\NewsletterCampagneInterface;
-use App\Droit\Content\Repo\ArretInterface;
+use App\Droit\Arret\Repo\ArretInterface;
+use App\Droit\Arret\Repo\GroupeInterface;
 use App\Droit\Categorie\Repo\CategorieInterface;
-use App\Droit\Content\Repo\GroupeInterface;
 use \InlineStyle\InlineStyle;
 use Illuminate\Support\Collection;
 
@@ -24,52 +24,45 @@ class CampagneWorker implements CampagneInterface{
         $this->arret     = $arret;
         $this->categorie = $categorie;
         $this->groupe    = $groupe;
-        $this->worker    = new \Droit\Content\Worker\ArretWorker();
+        $this->worker    = new \App\Droit\Arret\Worker\ArretWorker();
 	}
 
     public function getSentCampagneArrets(){
 
-        $campagnes = $this->campagne->getAllSent();
+        $campagnes = $this->campagne->getAll()->where('status','envoyé');
 
         if(!$campagnes->isEmpty())
         {
-            foreach($campagnes as $campagne){
-                $sent[] = $campagne->id;
-            }
+            $sent = $campagnes->lists('id')->all();
 
             $all_arrets = [];
 
-            foreach($sent as $send)
+            foreach($sent as $campagne_id)
             {
-                $content = $this->content->getArretsByCampagne($send);
-
+                $content = $this->content->getArretsByCampagne($campagne_id);
                 $arrets  = $content->map(function($item)
                 {
                     if ($item->arret_id > 0)
                     {
                         return $item->arret_id;
                     }
-                    elseif($item->groupe_id > 0){
 
+                    if($item->groupe_id > 0)
+                    {
                         $groupe = $this->groupe->find($item->groupe_id);
 
-                        if(isset($groupe->arrets_groupes)){
-                            foreach($groupe->arrets_groupes as $arretId){
-                                $arrets[] = $arretId->id;
-                            }
+                        if(isset($groupe->arrets_groupes))
+                        {
+                            return $groupe->arrets_groupes->lists('id')->all();
                         }
-
-                        return $arrets;
                     }
                 });
 
-                $all_arrets = array_merge($all_arrets, $arrets->toArray()) ;
-
+                $all_arrets = $all_arrets + $arrets->toArray();
             }
 
-            return $all_arrets;
+            return array_filter(array_flatten($all_arrets));
         }
-
     }
 
     public function getCampagne($id){
@@ -77,15 +70,17 @@ class CampagneWorker implements CampagneInterface{
         return $this->campagne->find($id);
     }
 
-    public function getCategoriesArrets(){
-        return $this->categorie->getAll(195)->lists('title','id');
+    public function getCategoriesArrets()
+    {
+        return $this->categorie->getAll()->lists('title','id')->all();
     }
 
-    public function getCategoriesImagesArrets(){
-        return $this->categorie->getAll(195)->lists('image','id');
+    public function getCategoriesImagesArrets()
+    {
+        return $this->categorie->getAll()->lists('image','id')->all();
     }
 
-	public function findCampagneById($id){
+	public function prepareCampagne($id){
 
         $content = $this->content->getByCampagne($id);
 

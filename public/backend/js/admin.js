@@ -233,4 +233,6 @@ $( function() {
 
     //$("[name='centres[]']").bootstrapSwitch({  size: 'mini' });
 
+    $('.colorpicker').colorPicker();
+
 });

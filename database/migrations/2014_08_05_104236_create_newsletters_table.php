@@ -17,6 +17,7 @@ class CreateNewslettersTable extends Migration {
 
 			$table->increments('id');
             $table->string('titre');
+            $table->integer('list_id');
             $table->string('from_name');
             $table->string('from_email');
             $table->string('return_email');
@@ -24,6 +25,7 @@ class CreateNewslettersTable extends Migration {
             $table->string('preview');
             $table->string('logos');
             $table->string('header');
+            $table->string('color');
             $table->timestamps();
             $table->softDeletes();
 

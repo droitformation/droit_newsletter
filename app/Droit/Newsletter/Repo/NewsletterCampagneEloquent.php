@@ -12,9 +12,9 @@ class NewsletterCampagneEloquent implements NewsletterCampagneInterface{
 		$this->campagne = $campagne;
 	}
 	
-	public function getAll($sent = null){
+	public function getAll(){
 		
-		return $this->campagne->orderBy('id','DESC')->get();
+		return $this->campagne->orderBy('created_at','DESC')->get();
 	}
 
     public function getAllSent(){
@@ -29,7 +29,7 @@ class NewsletterCampagneEloquent implements NewsletterCampagneInterface{
 
 	public function find($id){
 				
-		return $this->campagne->with(array('newsletter'))->findOrFail($id);
+		return $this->campagne->with(array('newsletter','content'))->findOrFail($id);
 	}
 
 	public function create(array $data){

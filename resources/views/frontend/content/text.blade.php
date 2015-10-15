@@ -3,7 +3,7 @@
         <h2 class="title">{{ $bloc->titre }}</h2>
     </div>
     <div class="post-entry">
-        {{ $bloc->contenu }}
+        {!! $bloc->contenu !!}
     </div>
     <span class="clear"></span>
 </div>

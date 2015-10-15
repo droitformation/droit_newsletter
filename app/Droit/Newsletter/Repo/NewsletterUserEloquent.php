@@ -7,43 +7,31 @@ class NewsletterUserEloquent implements NewsletterUserInterface{
 
 	protected $user;
 
-	/**
-	 * Construct a new SentryUser Object
-	 */
 	public function __construct(M $user)
 	{
 		$this->user = $user;
 	}
 	
-	public function getAll(){
-		
-		return $this->user->with(array('subscription' => function($query)
-        {
-            $query->join('newsletters', 'newsletters.id', '=', 'newsletter_subscriptions.newsletter_id');
-        }))->get();
+	public function getAll()
+    {
+		return $this->user->with(array('subscriptions'))->get();
 	}
 
-    public function getAllNbr($nbr){
-        return $this->user->with(array('subscription' => function($query)
-            {
-                $query->join('newsletters', 'newsletters.id', '=', 'newsletter_subscriptions.newsletter_id');
-            }))->take(5)->orderBy('id', 'desc')->get();
+    public function getAllNbr($nbr)
+    {
+        return $this->user->with(array('subscriptions'))->take(5)->orderBy('id', 'desc')->get();
     }
 
-	public function find($id){
-				
-		return $this->user->with(array('newsletter','subscription' => function($query)
-        {
-            $query->join('newsletters', 'newsletters.id', '=', 'newsletter_subscriptions.newsletter_id');
-        }))->findOrFail($id);
+	public function find($id)
+    {
+		return $this->user->with(array('subscriptions'))->findOrFail($id);
 	}
 
-	public function findByEmail($email){
+	public function findByEmail($email)
+    {
+        $user = $this->user->with(array('subscriptions'))->where('email','=',$email)->get();
 
-		return $this->user->with(array('newsletter','subscription' => function($query)
-		{
-			$query->join('newsletters', 'newsletters.id', '=', 'newsletter_subscriptions.newsletter_id');
-		}))->where('email','=',$email)->get()->first();
+		return !$user->isEmpty() ? $user->first() : null;
 	}
 
     public function get_ajax( $sEcho , $iDisplayStart , $iDisplayLength , $iSortCol_0, $sSortDir_0, $sSearch ){
@@ -54,17 +42,14 @@ class NewsletterUserEloquent implements NewsletterUserInterface{
 
         if($sSearch)
         {
-            $data = $this->user->where('email','LIKE','%'.$sSearch.'%')->with(array('subscription' => function($query)
-            {
-                    $query->join('newsletters', 'newsletters.id', '=', 'newsletter_subscriptions.newsletter_id');
-
-            }))->orderBy($columns[$iSortCol_0], $sSortDir_0)->take($iDisplayLength)->skip($iDisplayStart)->get();
+            $data = $this->user->where('email','LIKE','%'.$sSearch.'%')->with(array('subscriptions'))
+                ->orderBy($columns[$iSortCol_0], $sSortDir_0)->take($iDisplayLength)->skip($iDisplayStart)->get();
 
             $iTotalDisplayRecords = $data->count();
         }
         else
         {
-            $data = $this->user->with(array('subscription' => function($query)
+            $data = $this->user->with(array('subscriptions' => function($query)
                 {
                     $query->join('newsletters', 'newsletters.id', '=', 'newsletter_subscriptions.newsletter_id');
 
@@ -154,7 +139,7 @@ class NewsletterUserEloquent implements NewsletterUserInterface{
 			return false;
 		}
 
-        $user->activated_at = ( $data['activated_at'] > 0 ? date('Y-m-d G:i:s') : '0000-00-00 00:00:00');
+        $user->activated_at = ( isset($data['activated_at'])) ? date('Y-m-d G:i:s') : null;
         $user->email        = $data['email'];
 		$user->updated_at   = date('Y-m-d G:i:s');
 

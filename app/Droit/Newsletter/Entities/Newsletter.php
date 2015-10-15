@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Newsletter extends Model {
 
-	protected $fillable = ['titre','from_name','from_email','return_email','unsuscribe','preview','logos','header'];
+	protected $fillable = ['titre','from_name','from_email','return_email','unsuscribe','preview','color','logos','header'];
 
     use SoftDeletes;
 

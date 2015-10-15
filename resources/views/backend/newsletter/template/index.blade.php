@@ -13,6 +13,7 @@
         </div>
     </div>
 </div>
+
 <div class="row">
     <div class="col-md-12">
 
@@ -23,34 +24,33 @@
                     <div class="panel-body">
 
                         <div class="row">
-                            <div class="col-md-4 col-xs-4">
+
+                            <div class="col-md-7">
                                 <h3>{{ $newsletter->titre }}</h3>
+                                <small><a class="text-danger" href="{{ url('admin/newsletter/'.$newsletter->id) }}">supprimer</a></small>
                             </div>
-                            <div class="col-md-4 col-xs-4">
+                            <div class="col-md-3">
                                 <p><i class="fa fa-user"></i> &nbsp; {{ $newsletter->from_name }}</p>
                                 <p><i class="fa fa-envelope"></i> &nbsp; {{ $newsletter->from_email }}</p>
                             </div>
-                            <div class="col-md-4 col-xs-4 text-right">
-                                <div class="btn-group" role="group">
-                                    <a href="{{ url('newsletter/'.$newsletter->id) }}" class="btn btn-sm btn-info">éditer</a>
-                                    <a href="{{ url('newsletter/'.$newsletter->id) }}" class="btn btn-sm btn-danger">Supprimer</a>
+                            <div class="col-md-2 text-right">
+                                <div class="btn-group-vertical" role="group">
+                                    <a href="{{ url('admin/newsletter/'.$newsletter->id) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i> &nbsp;éditer</a>
+                                    <a href="{{ url('admin/campagne/create/'.$newsletter->id) }}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> &nbsp;campagne</a>
                                 </div>
                             </div>
                         </div>
-                        <br/>
                         <div class="row">
-
-                            <div class="col-md-12 col-xs-12">
+                            <div class="col-md-12">
                                 @if(!$newsletter->campagnes->isEmpty())
                                     <table class="table table-bordered table-striped">
                                        <thead>
                                            <tr>
                                                <th class="col-md-3">Sujet</th>
-                                               <th class="col-md-2">Auteurs</th>
+                                               <th class="col-md-3">Auteurs</th>
                                                <th class="col-md-1">Status</th>
-                                               <th class="col-md-1">Création</th>
                                                <th class="col-md-2"></th>
-                                               <th class="col-md-2">Envoyé</th>
+                                               <th class="col-md-2"></th>
                                                <th class="col-md-1"></th>
                                            </tr>
                                        </thead>
@@ -66,13 +66,12 @@
                                                             <span class="label label-success">Envoyé</span>
                                                         @endif
                                                     </td>
-                                                    <td>{{ $campagne->created_at->formatLocalized('%d %B %Y') }}</td>
                                                     <td>
                                                         @if($campagne->status == 'brouillon')
                                                             <a class="btn btn-inverse btn-sm" href="{{ url('admin/campagne/'.$campagne->id) }}">Composer</a>
                                                         @else
                                                             <div class="btn-group">
-                                                                <a class="btn btn-success btn-sm" href="{{ url('admin/stats/'.$campagne->id) }}">Stats</a>
+                                                                <a class="btn btn-primary btn-sm" href="{{ url('admin/statistics/'.$campagne->id) }}">Stats</a>
                                                                 <a href="javascript:;" class="btn btn-default btn-sm sendEmailNewsletter" data-campagne="{{ $campagne->id }}">Envoyer par email</a>
                                                             </div>
                                                         @endif
@@ -83,18 +82,18 @@
                                                                 {!! csrf_field() !!}
                                                                 <input name="id" value="{{ $campagne->id }}" type="hidden">
                                                                 <a href="javascript:;" data-campagne="{{ $campagne->id }}" class="btn btn-sm btn-warning btn-block" id="bootbox-demo-3">
-                                                                    &nbsp;<i class="fa fa-exclamation"></i> &nbsp;&nbsp;Envoyer la campagne&nbsp;
+                                                                    <i class="fa fa-exclamation"></i> &nbsp;Envoyer la campagne
                                                                 </a>
                                                             </form>
                                                         @else
                                                             <?php setlocale(LC_ALL, 'fr_FR.UTF-8');  ?>
-                                                            Le {{ $campagne->updated_at->formatLocalized('%d %b %Y') }} à {{ $campagne->updated_at->toTimeString() }}
+                                                           Envoyé le {{ $campagne->updated_at->formatLocalized('%d %b %Y') }} à {{ $campagne->updated_at->toTimeString() }}
                                                         @endif
                                                     </td>
                                                     <td class="text-right">
                                                         <form action="{{ url('admin/campagne/'.$campagne->id) }}" method="POST">
                                                             <input type="hidden" name="_method" value="DELETE">{!! csrf_field() !!}
-                                                            <button data-action="campagne {{ $campagne->sujet }}" class="btn btn-danger btn-sm deleteAction">x</button>
+                                                            <button data-action="campagne {{ $campagne->sujet }}" class="btn btn-danger btn-sm deleteAction"><i class="fa fa-remove"></i></button>
                                                         </form>
                                                     </td>
                                                 </tr>

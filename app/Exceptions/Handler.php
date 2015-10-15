@@ -34,8 +34,17 @@ class Handler extends ExceptionHandler
         if ($e instanceof \App\Exceptions\CampagneCreationException)
             return redirect()->back()->with(array('status' => 'warning' , 'message' => 'Problème avec la création de campagne sur mailjet'));
 
+        if ($e instanceof \App\Exceptions\ContentCreationException)
+            return redirect()->back()->with(array('status' => 'warning' , 'message' => 'Problème avec la création du contenu pour la campagne'));
+
         if ($e instanceof \App\Exceptions\FileUploadException)
             return redirect()->back()->with(array('status' => 'warning' , 'message' => 'Problème avec l\'upload '.$e->getMessage() ));
+
+        if ($e instanceof \App\Exceptions\SubscribeUserException)
+            return redirect('/')->with(array('status' => 'warning' , 'message' => 'Erreur synchronisation email vers mailjet'));
+
+        if ($e instanceof \App\Exceptions\CampagneSendException)
+            return redirect('/')->with(array('status' => 'warning' , 'message' => 'Erreur avec l\'envoi de la newsletter, mailjet à renvoyé une erreur'));
 
         return parent::report($e);
     }

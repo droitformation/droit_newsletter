@@ -1,5 +1,6 @@
 <div class="edit_content" ng-controller="EditController as edit"
      flow-init
+     flow-fileError="handleErrorsUpload( $file, $message, $flow )"
      flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"
      flow-complete="netedited = true"
      flow-files-submitted="$flow.upload()">
@@ -31,6 +32,7 @@
                 <div class="thumbnail mini" ng-show="$flow.files.length">
                     <img flow-img="$flow.files[0]" />
                 </div>
+                <p class="errorUpload bg-danger text-danger" style="display: none;"></p>
             </td>
             <td width="25" class="resetMarge"></td><!-- space -->
             <td valign="top" width="375" class="resetMarge contentForm">
@@ -43,7 +45,7 @@
     <!-- Bloc content-->
 
     <div class="edit_content_form" id="edit_{{ $bloc->idItem }}">
-        <form name="editForm" method="post" action="{{ url('editContent') }}">
+        <form name="editForm" method="post" action="{{ url('admin/campagne/editContent') }}">
             <?php echo Form::token(); ?>
             <div class="panel panel-orange">
                 <div class="panel-body">
@@ -62,7 +64,7 @@
                     <div class="form-group">
                         <div class="btn-group">
                             <input type="hidden" value="{{ $bloc->idItem }}" name="id">
-                            <input type="hidden" class="uploadImage" name="image" value="{[{ $flow.files[0].name }]}">
+                            <p style="visibility: hidden;height: 1px;margin: 0;"><input type="text" class="uploadImage" name="image" value="{[{ $flow.files[0].name }]}"></p>
                             <button type="submit" class="btn btn-sm btn-orange">Envoyer</button>
                             <button type="button" data-id="{{ $bloc->idItem }}" class="btn btn-sm btn-default cancelEdit">Annuler</button>
                         </div>

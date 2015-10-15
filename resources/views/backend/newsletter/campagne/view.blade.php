@@ -1,4 +1,4 @@
-@extends('newsletter.layouts.droitravail')
+@extends('newsletter.layouts.newsletter')
 @section('content')
 
     @if(!empty($content))

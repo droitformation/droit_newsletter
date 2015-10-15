@@ -5,6 +5,7 @@
 <div class="row">
     <div class="col-md-8">
         <h1>Content Homepage</h1>
+        <hr/>
         <p>Quis consectetur aenean dictumst proîn ïd prétium namé mattisé nullä aptenuscipit est nullä, anonyma eget scelerisque class aenanm mié àc
             ornare fermentum cél leçtus vivérra séd, himenaeos interdum dapibus nulla ût nètus cursus consectetur lacinia curabitur suscipit dolor
             nibh mlius, rhoncüs donec égét. Platea sociosqu potentié proîn habitassé c'est-a-dire curabitur lorem fermentum potenti ïpsum vulputaté
@@ -20,6 +21,7 @@
 
     <!-- Sidebar  -->
     <div class="col-md-4 col-xs-12">
+        @include('partials.subscribe')
         @include('partials.sidebar')
     </div>
     <!-- END Sidebar  -->

@@ -37,7 +37,7 @@
 
                 </div>
                 <div class="panel-footer mini-footer ">
-                    {!! Form::hidden('user_id', 1 ) !!}
+                    {!! Form::hidden('id', $campagne->id ) !!}
                     <div class="col-sm-3"></div>
                     <div class="col-sm-6">
                         <button class="btn btn-primary" type="submit">Envoyer</button>

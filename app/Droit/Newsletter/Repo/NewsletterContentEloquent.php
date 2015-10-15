@@ -6,7 +6,8 @@ use App\Droit\Newsletter\Entities\Newsletter_contents as M;
 class NewsletterContentEloquent implements NewsletterContentInterface{
 
 	protected $contents;
-    protected $custom;
+    protected $upload;
+    protected $helper;
 
 	/**
 	 * Construct a new SentryUser Object
@@ -14,7 +15,9 @@ class NewsletterContentEloquent implements NewsletterContentInterface{
 	public function __construct(M $contents)
 	{
 		$this->contents = $contents;
-        $this->custom   = new \Custom;
+
+        $this->upload   = new \App\Droit\Service\UploadWorker();
+        $this->helper   = new \App\Droit\Helper\Helper();
 	}
 	
 	public function getByCampagne($newsletter_campagne_id){
@@ -31,7 +34,9 @@ class NewsletterContentEloquent implements NewsletterContentInterface{
 
     public function getRang($newsletter_campagne_id){
 
-        return $this->contents->where('newsletter_campagne_id','=',$newsletter_campagne_id)->max('rang');
+        $rang = $this->contents->where('newsletter_campagne_id','=',$newsletter_campagne_id)->max('rang');
+
+        return ($rang ? $rang : 0);
     }
 
 	public function find($id){
@@ -69,22 +74,22 @@ class NewsletterContentEloquent implements NewsletterContentInterface{
 
 		$contents = $this->contents->create(array(
 			'type_id'                => $data['type_id'],
-			'titre'                  => $data['titre'],
-            'contenu'                => $data['contenu'],
-            'image'                  => $data['image'],
-            'lien'                   => $data['lien'],
-            'arret_id'               => $data['arret_id'],
+			'titre'                  => (isset($data['titre']) ? $data['titre'] : null),
+            'contenu'                => (isset($data['contenu']) ? $data['contenu'] : null),
+            'image'                  => (isset($data['image']) ? $data['image'] : null),
+            'lien'                   => (isset($data['lien']) ? $this->helper->sanitizeUrl($data['lien']) : null),
+            'arret_id'               => (isset($data['arret_id']) ? $data['arret_id'] : 0),
             'categorie_id'           => $data['categorie_id'],
-            'groupe_id'              => $data['groupe_id'],
+            'groupe_id'              => (isset($data['groupe_id']) ? $data['groupe_id'] : null),
             'newsletter_campagne_id' => $data['newsletter_campagne_id'],
-            'rang'                   => $data['rang'],
+            'rang'                   => $this->getRang($data['campagne']),
 			'created_at'             => date('Y-m-d G:i:s'),
 			'updated_at'             => date('Y-m-d G:i:s')
 		));
 		
 		if( ! $contents )
 		{
-			return false;
+            throw new \App\Exceptions\ContentCreationException('Creation of new content failed');
 		}
 		
 		return $contents;
@@ -112,16 +117,18 @@ class NewsletterContentEloquent implements NewsletterContentInterface{
         if(isset($data['image'])){
 
             $type = $contents->type_id;
-            $this->custom->resizeImage($data['image'],$type);
+            $this->helper->resizeImage($data['image'],$type);
 
             $contents->image = $data['image'];
         }
         // if we changed the lien
-        if(isset($data['lien'])){
-            $contents->lien = $this->custom->sanitizeUrl($data['lien']);
+        if(isset($data['lien']))
+        {
+            $contents->lien = $this->helper->sanitizeUrl($data['lien']);
         }
         // if we changed the group
-        if(isset($data['groupe_id'])){
+        if(isset($data['groupe_id']))
+        {
             $contents->groupe_id = $data['groupe_id'];
         }
 

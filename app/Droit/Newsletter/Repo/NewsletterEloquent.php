@@ -19,7 +19,7 @@ class NewsletterEloquent implements NewsletterInterface{
 
 	public function find($id){
 				
-		return $this->newsletter->findOrFail($id);
+		return $this->newsletter->find($id);
 	}
 
 	public function create(array $data){
@@ -31,6 +31,7 @@ class NewsletterEloquent implements NewsletterInterface{
             'return_email' => $data['return_email'],
             'unsuscribe'   => $data['unsuscribe'],
             'preview'      => $data['preview'],
+            'color'        => (isset($data['color']) ? $data['color'] : ''),
             'logos'        => (isset($data['logos']) ? $data['logos'] : ''),
             'header'       => (isset($data['header']) ? $data['header'] : ''),
 			'created_at'   => date('Y-m-d G:i:s'),

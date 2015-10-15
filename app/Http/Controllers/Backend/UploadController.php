@@ -1,22 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Droit\Service\UploadWorker;
-use App\Droit\Document\Repo\DocumentInterface;
 
 class UploadController extends Controller
 {
     protected $upload;
-    protected $document;
 
-    public function __construct( UploadWorker $upload, DocumentInterface $document )
+    public function __construct( UploadWorker $upload)
     {
         $this->upload   = $upload;
-        $this->document = $document;
     }
 
     public function uploadFile(Request $request)
@@ -59,4 +56,37 @@ class UploadController extends Controller
 
         return false;
     }
+
+    public function uploadJS(Request $request)
+    {
+        $files = $this->upload->upload( $request->file('file') , 'files', 'newsletter');
+
+        if($files)
+        {
+            return response()->json([
+                'success' => true,
+                'files'   => $files,
+                'get'     => $request->all(),
+                'post'    => $request->all()
+            ], 200 );
+        }
+        return false;
+    }
+
+    public function uploadRedactor(Request $request)
+    {
+        $files = $this->upload->upload( $request->file('file') , 'files' );
+
+        if($files)
+        {
+            $array = [
+                'filelink' => url('/').'/files/'.$files['name'],
+                'filename' => $files['name']
+            ];
+
+            return response()->json($array,200 );
+        }
+        return false;
+    }
+
 }

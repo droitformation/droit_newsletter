@@ -16,7 +16,7 @@
                                 <img style="max-width: 560px;" alt="Droit du travail" src="{{ asset('files/'.$bloc->image) }}" />
                             </a>
                         </p>
-                        <div>{{ $bloc->contenu }}</div>
+                        <div>{!! $bloc->contenu !!}</div>
                     </td>
                 </tr>
             </table>

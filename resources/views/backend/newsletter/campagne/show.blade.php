@@ -5,7 +5,7 @@
     <div class="col-md-4">
         <div class="options" style="margin-bottom: 10px;">
             <div class="btn-toolbar">
-                <a href="{{ url('admin/campagne') }}" class="btn btn-default"><i class="fa fa-list"></i>  &nbsp;&nbsp;Retour aux campagnes</a>
+                <a href="{{ url('admin/newsletter') }}" class="btn btn-default"><i class="fa fa-list"></i>  &nbsp;&nbsp;Retour aux campagnes</a>
                 <a href="{{ url('admin/campagne/'.$infos->id.'/edit') }}" class="btn btn-sky"><i class="fa fa-pencil"></i>  &nbsp;&Eacute;diter la campagne</a>
             </div>
         </div>
@@ -24,30 +24,43 @@
 
 <div id="main" ng-app="newsletter"><!-- main div for app-->
 
+    <style type="text/css">
+
+        #StyleNewsletter h2, #StyleNewsletterCreate h2{
+            color: {{ $infos->newsletter->color }};
+        }
+
+        #StyleNewsletter .contentForm h3, #StyleNewsletter .contentForm h4{
+            color: {{ $infos->newsletter->color }};
+        }
+
+    </style>
+
     <div class="row">
         <div class="col-md-12">
 
             <input id="campagne_id" value="{{ $infos->id }}" type="hidden">
 
             <div class="component-build"><!-- Start component-build -->
-                <div id="bailNewsletter" class="onBuild">
+                <div id="StyleNewsletter" class="onBuild">
 
                     <!-- Logos -->
-                    @include('newsletter.send.logos')
+                    @include('backend.newsletter.send.logos')
                     <!-- Header -->
-                    @include('newsletter.send.header')
+                    @include('backend.newsletter.send.header')
 
                     <div id="viewBuild">
                         <div id="sortable">
                             @if(!empty($campagne))
                                 @foreach($campagne as $bloc)
                                     <div class="bloc_rang" id="bloc_rang_{{ $bloc->idItem }}" data-rel="{{ $bloc->idItem }}">
-                                        <?php echo view('newsletter/build/edit/'.$bloc->type->partial)->with(array('bloc' => $bloc))->__toString(); ?>
+                                        <?php echo view('backend.newsletter/build/edit/'.$bloc->type->partial)->with(array('bloc' => $bloc, 'categories' => $categories, 'imgcategories' => $imgcategories))->__toString(); ?>
                                     </div>
                                 @endforeach
                             @endif
                         </div>
                     </div>
+
                 </div>
 
                 <div id="build"><!-- Start build -->
@@ -55,7 +68,7 @@
                     @if(!empty($blocs))
                         @foreach($blocs as $bloc)
                             <div class="create_bloc" id="create_{{ $bloc->id }}">
-                                <?php echo view('newsletter/build/create/'.$bloc->template)->with(array('bloc' => $bloc, 'infos' => $infos))->__toString(); ?>
+                                <?php echo view('backend/newsletter/build/create/'.$bloc->template)->with(array('bloc' => $bloc, 'infos' => $infos, 'categories' => $categories, 'imgcategories' => $imgcategories))->__toString(); ?>
                             </div>
                         @endforeach
                     @endif
@@ -66,7 +79,7 @@
                         <div class="component-bloc">
                             @if(!empty($blocs))
                                 @foreach($blocs as $bloc)
-                                      <?php echo view('newsletter/build/blocs')->with(array('bloc' => $bloc))->__toString(); ?>
+                                      <?php echo view('backend/newsletter/build/blocs')->with(array('bloc' => $bloc))->__toString(); ?>
                                 @endforeach
                             @endif
                         </div>

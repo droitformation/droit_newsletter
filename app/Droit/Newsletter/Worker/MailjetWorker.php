@@ -35,6 +35,21 @@ class MailjetWorker implements MailjetInterface{
         return $this->list;
     }
 
+
+    public function getAllLists()
+    {
+        $params = array(
+            "method" => "LIST"
+        );
+
+        $result = $this->mailjet->contactslist($params);
+
+        if ($this->mailjet->getResponseCode() == 200)
+            return $result;
+        else
+            return $this->mailjet->getResponseCode();
+    }
+
     /**
      * get Subscribers
      * Return data json
@@ -66,7 +81,6 @@ class MailjetWorker implements MailjetInterface{
             return $result;
         else
             return $this->mailjet->getResponseCode();
-
     }
 
     /*
@@ -173,7 +187,12 @@ class MailjetWorker implements MailjetInterface{
         // Attempt tu subscribe if fails we try to re subscribe
         $result = $this->addContactToList($contactID);
 
-        return ($this->mailjet->getResponseCode() == 201 ? $result : false);
+        if(!$this->mailjet->getResponseCode() == 201 )
+        {
+            throw new \App\Exceptions\SubscribeUserException('Erreur synchronisation email vers mailjet');
+        }
+
+        return $result;
     }
 
     /**
@@ -183,7 +202,8 @@ class MailjetWorker implements MailjetInterface{
 
         $listRecipientID = $this->getListRecipient($email);
 
-        if(!$listRecipientID){
+        if(!$listRecipientID)
+        {
             return false;
         }
 
@@ -241,9 +261,9 @@ class MailjetWorker implements MailjetInterface{
             'Subject'        => $campagne->sujet,
             'ContactsListID' => $this->list,
             'Locale'         => 'fr',
-            'Callback'       => url('/api'),
+            'Callback'       => url('/'),
             'HeaderLink'     => url('/'),
-            'SenderEmail'    => $this->sender,
+            'SenderEmail'    => $campagne->newsletter->from_email,
             'Sender'         => $campagne->newsletter->from_name
         );
 
@@ -310,8 +330,11 @@ class MailjetWorker implements MailjetInterface{
         if ($this->mailjet->getResponseCode() == 201)
             return true;
         else
-            return $result;
+        {
+            \Log::info('Problem with sending the campagne.', ['result' => $result]);
 
+            return false;
+        }
     }
 
     public function statsCampagne($id){

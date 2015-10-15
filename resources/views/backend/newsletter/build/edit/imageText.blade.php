@@ -1,5 +1,6 @@
 <div class="edit_content" ng-controller="EditController as edit"
      flow-init
+     flow-fileError="handleErrorsUpload( $file, $message, $flow )"
      flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"
      flow-complete="netedited = true"
      flow-files-submitted="$flow.upload()">
@@ -25,12 +26,13 @@
                     <img flow-img="$flow.files[0]" ng-if="notedited"/>
                     <?php $lien = (isset($bloc->lien) && !empty($bloc->lien) ? $bloc->lien : url('/') ); ?>
                     <a style="border: none;padding: 0;margin: 0;" target="_blank" href="<?php echo $lien; ?>">
-                        <img style="max-width: 560px;" alt="Droit du travail" src="{{ asset('files/'.$bloc->image) }}" />
+                        <img style="max-width: 557px;" alt="Droit du travail" src="{{ asset('files/'.$bloc->image) }}" />
                     </a>
                 </div>
                 <div class="thumbnail big" ng-show="$flow.files.length">
                     <img flow-img="$flow.files[0]" />
                 </div>
+                <p class="errorUpload bg-danger text-danger" style="display: none;"></p>
             </td>
         </tr>
         <tr><td colspan="3" height="25"></td></tr>
@@ -45,7 +47,7 @@
     <!-- Bloc content-->
 
     <div class="edit_content_form" id="edit_{{ $bloc->idItem }}">
-        <form name="editForm" method="post" action="{{ url('editContent') }}">
+        <form name="editForm" method="post" action="{{ url('admin/campagne/editContent') }}">
             <?php echo Form::token(); ?>
             <div class="panel panel-orange">
                 <div class="panel-body">
@@ -64,7 +66,7 @@
                     <div class="form-group">
                         <div class="btn-group">
                             <input type="hidden" value="{{ $bloc->idItem }}" name="id">
-                            <input type="hidden" class="uploadImage" name="image" value="{[{ $flow.files[0].name }]}">
+                            <p style="visibility: hidden;height: 1px;margin: 0;"><input type="text" class="uploadImage" name="image" value="{[{ $flow.files[0].name }]}"></p>
                             <button type="submit" class="btn btn-sm btn-orange">Envoyer</button>
                             <button type="button" data-id="{{ $bloc->idItem }}" class="btn btn-sm btn-default cancelEdit">Annuler</button>
                         </div>

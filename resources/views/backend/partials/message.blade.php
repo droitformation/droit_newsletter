@@ -19,3 +19,11 @@
 </div>
 
 @endif
+
+<div class="row" id="messageAlert">
+    <div class="col-md-12">
+        <div class="alert alert-dismissable">
+            <p></p>
+        </div>
+    </div>
+</div>

@@ -5,7 +5,7 @@
                 <h2 class="title">{{ $bloc->titre }}</h2>
             </div><!--END POST-TITLE-->
             <div class="post-entry">
-                {{ $bloc->contenu }}
+                {!! $bloc->contenu !!}
             </div>
         </div><!--END POST-->
     </div>

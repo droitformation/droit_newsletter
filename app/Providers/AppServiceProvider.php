@@ -13,7 +13,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->app['validator']->extend('emailconfirmed', function ($attribute, $value, $parameters)
+        {
+            $email = \DB::table('newsletter_users')->where('email','=',$value)->first();
+
+            if($email)
+            {
+                return (!$email->activated_at ? false  : true);
+            }
+
+            return false;
+        });
     }
 
     /**
@@ -28,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
         $this->registerAnalyseService();
         $this->registerCategorieService();
         $this->registerGroupeService();
+        $this->registerUploadService();
     }
 
     /**
@@ -84,6 +95,17 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('App\Droit\Arret\Repo\GroupeInterface', function()
         {
             return new \App\Droit\Arret\Repo\GroupeEloquent( new \App\Droit\Arret\Entities\Groupe );
+        });
+    }
+
+    /**
+     * Upload service
+     */
+    protected function registerUploadService(){
+
+        $this->app->bind('App\Droit\Service\UploadInterface', function()
+        {
+            return new \App\Droit\Service\UploadWorker();
         });
     }
 }
