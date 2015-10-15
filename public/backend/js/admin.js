@@ -43,9 +43,11 @@ $( function() {
         var what = (0 === what.length ? 'supprimer' : what);
         var answer = confirm('Voulez-vous vraiment ' + what + ' : '+ action +' ?');
 
-        if (answer){
+        if (answer)
+        {
             return true;
         }
+
         return false;
     });
 
@@ -233,6 +235,8 @@ $( function() {
 
     //$("[name='centres[]']").bootstrapSwitch({  size: 'mini' });
 
-    $('.colorpicker').colorPicker();
+    $('.colorpicker').colorPicker(
+       // color:
+    );
 
 });

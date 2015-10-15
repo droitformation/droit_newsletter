@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <div class="options" style="margin-bottom: 10px;">
                 <div class="btn-toolbar">
-                    <a href="{{ url('admin/newsletter') }}" class="btn btn-default"><i class="fa fa-list"></i>  &nbsp;&nbsp;Retour aux campagnes</a>
+                    <a href="{{ url('admin/newsletter') }}" class="btn btn-info"><i class="fa fa-arrow-left"></i>  &nbsp;&nbsp;Retour aux newsletter</a>
                 </div>
             </div>
         </div>
@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-md-12">
 
-            <div class="panel panel-inverse">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h4><i class="fa fa-asterisk"></i> &nbsp;Statistiques de la campagne </h4>
                 </div>

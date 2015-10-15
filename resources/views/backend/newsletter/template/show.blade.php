@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <div class="options" style="margin-bottom: 10px;">
                 <div class="btn-toolbar">
-                    <a href="{{ url('admin/newsletter') }}" class="btn btn-default"><i class="fa fa-list"></i>  &nbsp;&nbsp;Retour aux newsletter</a>
+                    <a href="{{ url('admin/newsletter') }}" class="btn btn-info"><i class="fa fa-arrow-left"></i>  &nbsp;&nbsp;Retour aux newsletter</a>
                 </div>
             </div>
         </div>
@@ -13,7 +13,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <div class="panel panel-green">
+            <div class="panel panel-primary">
 
                 <form action="{{ url('admin/newsletter/'.$newsletter->id) }}" data-validate="parsley" method="POST" enctype="multipart/form-data" class="validate-form form-horizontal">
                     <input type="hidden" name="_method" value="PUT">
@@ -33,7 +33,7 @@
                         <div class="form-group">
                             <label for="message" class="col-sm-3 control-label">Nom de la liste</label>
                             <div class="col-sm-5">
-                                <select class="form-control" name="list_id">
+                                <select class="form-control" required name="list_id">
                                     <option value="">Choix de la liste</option>
                                     @if(!empty($lists))
                                         @foreach($lists as $list)

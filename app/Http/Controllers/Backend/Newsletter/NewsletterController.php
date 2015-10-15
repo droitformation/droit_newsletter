@@ -107,6 +107,7 @@ class NewsletterController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $newsletter = $this->newsletter->update($request->except('logos','header'));
 
         $logos  = $request->file('logos',null);

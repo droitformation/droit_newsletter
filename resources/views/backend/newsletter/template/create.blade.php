@@ -3,7 +3,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="panel panel-green">
+        <div class="panel panel-primary">
 
             <form action="{{ url('admin/newsletter') }}" data-validate="parsley" method="POST" enctype="multipart/form-data" class="validate-form form-horizontal">
                 {!! csrf_field() !!}
@@ -22,7 +22,7 @@
                     <div class="form-group">
                         <label for="message" class="col-sm-3 control-label">Nom de la liste</label>
                         <div class="col-sm-5">
-                            <select class="form-control" name="list_id">
+                            <select class="form-control" required name="list_id">
                                 <option value="">Choix de la liste</option>
                                 @if(!empty($lists))
                                     @foreach($lists as $list)
@@ -63,7 +63,7 @@
                     <div class="form-group">
                         <label for="message" class="col-sm-3 control-label">Couleur principale</label>
                         <div class="col-sm-3">
-                            {!! Form::text('color', null , array('required' => 'required','class' => 'form-control colorpicker') ) !!}
+                            {!! Form::text('color', '#556B2F' , array('required' => 'required','class' => 'form-control colorpicker') ) !!}
                         </div>
                     </div>
                     <div class="form-group">

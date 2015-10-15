@@ -8,7 +8,7 @@
     <div class="col-md-6">
         <div class="options text-right" style="margin-bottom: 10px;">
             <div class="btn-toolbar">
-                <a href="{{ url('admin/newsletter/create') }}" class="btn btn-green"><i class="fa fa-plus"></i> &nbsp;Nouvelle newsletter</a>
+                <a href="{{ url('admin/newsletter/create') }}" class="btn btn-success"><i class="fa fa-plus"></i> &nbsp;Newsletter</a>
             </div>
         </div>
     </div>
@@ -27,7 +27,6 @@
 
                             <div class="col-md-7">
                                 <h3>{{ $newsletter->titre }}</h3>
-                                <small><a class="text-danger" href="{{ url('admin/newsletter/'.$newsletter->id) }}">supprimer</a></small>
                             </div>
                             <div class="col-md-3">
                                 <p><i class="fa fa-user"></i> &nbsp; {{ $newsletter->from_name }}</p>
@@ -35,11 +34,12 @@
                             </div>
                             <div class="col-md-2 text-right">
                                 <div class="btn-group-vertical" role="group">
-                                    <a href="{{ url('admin/newsletter/'.$newsletter->id) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i> &nbsp;éditer</a>
-                                    <a href="{{ url('admin/campagne/create/'.$newsletter->id) }}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> &nbsp;campagne</a>
+                                    <a href="{{ url('admin/newsletter/'.$newsletter->id) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i> &nbsp;Editer</a>
+                                    <a href="{{ url('admin/campagne/create/'.$newsletter->id) }}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> &nbsp;Campagne</a>
                                 </div>
                             </div>
                         </div>
+                        <br/>
                         <div class="row">
                             <div class="col-md-12">
                                 @if(!$newsletter->campagnes->isEmpty())
@@ -101,6 +101,14 @@
                                        </tbody>
                                     </table>
                                 @endif
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form action="{{ url('admin/newsletter/'.$newsletter->id) }}" method="POST">
+                                    <input type="hidden" name="_method" value="DELETE">{!! csrf_field() !!}
+                                    <button data-what="supprimer" data-action="newsletter {{ $newsletter->titre }}" class="btn btn-xs btn-default btn-delete deleteAction">Supprimer la newsletter</button>
+                                </form>
                             </div>
                         </div>
 

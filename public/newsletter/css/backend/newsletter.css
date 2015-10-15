@@ -67,6 +67,10 @@
     color: #000;
 }
 
+.component-build{
+    position: relative;
+}
+
 #build{
     min-height: 50px;
     height: auto;
@@ -145,6 +149,13 @@
 
 .onBuild{
     margin: 0 !important;
+}
+
+#optionsNewsletter{
+    position: absolute;
+    width: 270px;
+    top: 0;
+    left: 640px;
 }
 
 .panel-body .form-group:last-child{

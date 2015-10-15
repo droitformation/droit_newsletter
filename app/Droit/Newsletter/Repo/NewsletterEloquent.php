@@ -31,6 +31,7 @@ class NewsletterEloquent implements NewsletterInterface{
             'return_email' => $data['return_email'],
             'unsuscribe'   => $data['unsuscribe'],
             'preview'      => $data['preview'],
+            'list_id'      => $data['list_id'],
             'color'        => (isset($data['color']) ? $data['color'] : ''),
             'logos'        => (isset($data['logos']) ? $data['logos'] : ''),
             'header'       => (isset($data['header']) ? $data['header'] : ''),

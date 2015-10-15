@@ -12,7 +12,7 @@
                 </td>
             </tr>
             <tr class="resetMarge" style="display:block;">
-                <td width="600" class="resetMarge" style="margin: 0;padding: 0;display:block;border: 1px solid #ededed;border-bottom: 0;border-top: 0; line-height: 0;">
+                <td width="600" class="resetMarge" style="margin: 0;padding: 0;display:block;border: 0; line-height: 0;">
                     <?php list($width, $height) = getimagesize(public_path('newsletter/'.$infos->newsletter->header )); ?>
                     <img width="{{ $width }}" height="{{ $height }}" alt="{{ $infos->newsletter->from_name }}" src="{{ asset('newsletter/'.$infos->newsletter->header ) }}" />
                 </td>

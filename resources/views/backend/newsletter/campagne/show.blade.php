@@ -1,27 +1,6 @@
 @extends('backend.layouts.master')
 @section('content')
 
-<div class="row">
-    <div class="col-md-4">
-        <div class="options" style="margin-bottom: 10px;">
-            <div class="btn-toolbar">
-                <a href="{{ url('admin/newsletter') }}" class="btn btn-default"><i class="fa fa-list"></i>  &nbsp;&nbsp;Retour aux campagnes</a>
-                <a href="{{ url('admin/campagne/'.$infos->id.'/edit') }}" class="btn btn-sky"><i class="fa fa-pencil"></i>  &nbsp;&Eacute;diter la campagne</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <form action="{{ url('admin/campagne/test') }}" enctype="multipart/form-data" method="POST" class="form-inline">
-            {!! csrf_field() !!}
-            <div class="form-group">
-                <input required name="email" value="" type="email" class="form-control">
-                <input name="id" value="{{ $infos->id }}" type="hidden">
-            </div>
-            <button type="submit" class="btn btn-brown"><i class="fa fa-question-circle"></i>  &nbsp;&nbsp;Envoyer un test</button>
-        </form>
-    </div>
-</div>
-
 <div id="main" ng-app="newsletter"><!-- main div for app-->
 
     <style type="text/css">
@@ -42,6 +21,26 @@
             <input id="campagne_id" value="{{ $infos->id }}" type="hidden">
 
             <div class="component-build"><!-- Start component-build -->
+
+                <div id="optionsNewsletter">
+                    <a href="{{ url('admin/newsletter') }}" class="btn btn-info btn-block"><i class="fa fa-arrow-left"></i>  &nbsp;&nbsp;Retour aux newsletter</a>
+                    <a href="{{ url('admin/campagne/'.$infos->id.'/edit') }}" class="btn btn-primary btn-block"><i class="fa fa-pencil"></i>  &nbsp;&Eacute;diter cette campagne</a>
+                    <hr/>
+                    <form action="{{ url('admin/campagne/test') }}" enctype="multipart/form-data" method="POST" class="form">
+                        {!! csrf_field() !!}
+
+                        <label><strong>Envoyer un test</strong></label>
+                        <div class="input-group">
+                            <input required name="email" value="" type="email" class="form-control">
+                            <input name="id" value="{{ $infos->id }}" type="hidden">
+                            <span class="input-group-btn">
+                                <button class="btn btn-brown" type="submit">Go!</button>
+                            </span>
+                        </div><!-- /input-group -->
+
+                    </form>
+                </div>
+
                 <div id="StyleNewsletter" class="onBuild">
 
                     <!-- Logos -->
