@@ -415,7 +415,7 @@ class Helper {
 
     public function prepareCategories($data){
 
-        $categories = array();
+        $categories = [];
 
         if(!empty($data))
         {

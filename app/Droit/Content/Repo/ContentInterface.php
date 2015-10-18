@@ -1,4 +1,4 @@
-<?php namespace Droit\Content\Repo;
+<?php namespace App\Droit\Content\Repo;
 
 interface ContentInterface {
 

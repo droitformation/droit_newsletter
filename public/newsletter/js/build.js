@@ -79,7 +79,7 @@ App.factory('Arrets', ['$http', '$q', function($http, $q) {
     return {
         query: function() {
             var deferred = $q.defer();
-            $http.get('/admin/arrets', { cache: true }).success(function(data) {
+            $http.get('/admin/ajax/arrets', { cache: true }).success(function(data) {
                 deferred.resolve(data);
             }).error(function(data) {
                 deferred.reject(data);
@@ -88,7 +88,7 @@ App.factory('Arrets', ['$http', '$q', function($http, $q) {
         },
         simple: function(id) {
             var deferred = $q.defer();
-            $http.get('/admin/arrets/'+ id).success(function(data) {
+            $http.get('/admin/ajax/arrets/'+ id).success(function(data) {
                 deferred.resolve(data);
             }).error(function(data) {
                 deferred.reject(data);

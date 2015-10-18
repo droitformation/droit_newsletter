@@ -9,19 +9,6 @@
 
 <div id="main" ng-app="newsletter"><!-- main div for app-->
 
-    <style type="text/css">
-        #StyleNewsletter h2, #StyleNewsletterCreate h2{
-            color: {{ $infos->newsletter->color }};
-        }
-        #StyleNewsletter .contentForm h3,
-        #StyleNewsletter .contentForm h4,
-        #StyleNewsletterCreate .contentForm h3,
-        #StyleNewsletterCreate .contentForm h4
-        {
-            color: {{ $infos->newsletter->color }};
-        }
-    </style>
-
     <div class="row">
         <div class="col-md-12">
 
@@ -31,6 +18,7 @@
 
                 <div id="optionsNewsletter">
                     <a href="{{ url('admin/campagne/'.$infos->id.'/edit') }}" class="btn btn-primary btn-block"><i class="fa fa-pencil"></i>  &nbsp;&Eacute;diter la campagne</a>
+                    <a target="_blank" href="{{ url('campagne/'.$infos->id) }}" class="btn btn-sky btn-block"><i class="fa fa-eye"></i>  &nbsp;Aperçu de la campagne</a>
                     <hr/>
                     <form action="{{ url('admin/campagne/test') }}" enctype="multipart/form-data" method="POST" class="form">
                         {!! csrf_field() !!}

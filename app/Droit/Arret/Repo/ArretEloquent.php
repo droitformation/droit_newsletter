@@ -100,15 +100,14 @@ class ArretEloquent implements ArretInterface{
 	public function create(array $data){
 
 		$arret = $this->arret->create(array(
-			'pid'        => $data['pid'],
 			'user_id'    => $data['user_id'],
             'reference'  => $data['reference'],
             'pub_date'   => $data['pub_date'],
             'abstract'   => $data['abstract'],
             'pub_text'   => $data['pub_text'],
-            'categories' => $data['categories'],
+            'categories' => (isset($data['categories']) ? count($data['categories']) : 0),
             'file'       => $data['file'],
-            'dumois'     => $data['dumois'],
+            'dumois'     => (isset($data['dumois']) && $data['dumois'] == 1 ? 1 : 0),
 			'created_at' => date('Y-m-d G:i:s'),
 			'updated_at' => date('Y-m-d G:i:s')
 		));
@@ -117,7 +116,13 @@ class ArretEloquent implements ArretInterface{
 		{
 			return false;
 		}
-		
+
+        // Insert related categories
+        if(isset($data['categories']))
+        {
+            $arret->arrets_categories()->sync($data['categories']);
+        }
+
 		return $arret;
 		
 	}
@@ -131,15 +136,19 @@ class ArretEloquent implements ArretInterface{
 			return false;
 		}
 
-        $arret->reference  = $data['reference'];
-        $arret->pub_date   = $data['pub_date'];
-        $arret->abstract   = $data['abstract'];
-        $arret->pub_text   = $data['pub_text'];
-        $arret->categories = $data['categories'];
-        $arret->dumois     = $data['dumois'];
+        $arret->fill($data);
 
-        if($data['file']){
+        if(isset($data['file']))
+        {
             $arret->file = $data['file'];
+        }
+
+        // Insert related categories
+        if(isset($data['categories']))
+        {
+            $arret->categories = count($data['categories']);
+            // Insert related categories
+            $arret->arrets_categories()->sync($data['categories']);
         }
 
 		$arret->updated_at = date('Y-m-d G:i:s');

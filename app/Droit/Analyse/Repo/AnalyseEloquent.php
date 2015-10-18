@@ -23,13 +23,7 @@ class AnalyseEloquent implements AnalyseInterface{
             $analyse->whereIn('id', $include);
         }
 
-        return $analyse->with( array('analyse_authors','analyses_categories' => function ($query)
-                {
-                    $query->orderBy('sorting', 'ASC');
-                },'analyses_arrets' => function($query)
-                {
-
-                }))->orderBy('pub_date', 'DESC')->get();
+        return $analyse->with( array('analyse_authors','analyses_categories','analyses_arrets'))->orderBy('pub_date', 'DESC')->get();
     }
 
 	public function find($id){
@@ -40,14 +34,13 @@ class AnalyseEloquent implements AnalyseInterface{
 	public function create(array $data){
 
 		$analyse = $this->analyse->create(array(
-			'pid'        => $data['pid'],
 			'user_id'    => $data['user_id'],
             'authors'    => $data['authors'],
             'pub_date'   => $data['pub_date'],
             'abstract'   => $data['abstract'],
             'file'       => $data['file'],
-            'categories' => $data['categories'],
-            'arrets'     => $data['arrets'],
+            'categories' => (isset($data['categories']) ? count($data['categories']) : 0),
+            'arrets'     => (isset($data['arrets']) ? count($data['arrets']) : 0),
 			'created_at' => date('Y-m-d G:i:s'),
 			'updated_at' => date('Y-m-d G:i:s')
 		));
@@ -56,6 +49,18 @@ class AnalyseEloquent implements AnalyseInterface{
 		{
 			return false;
 		}
+
+        if(isset($data['categories']))
+        {
+            // Insert related categories
+            $analyse->analyses_categories()->sync($data['categories']);
+        }
+
+        if(isset($data['arrets']))
+        {
+            // Insert related arrets
+            $analyse->analyses_arrets()->sync($data['arrets']);
+        }
 
         if(isset($data['author_id']) && !empty($data['author_id']))
         {
@@ -75,24 +80,35 @@ class AnalyseEloquent implements AnalyseInterface{
 			return false;
 		}
 
-        $analyse->authors    = $data['authors'];
-        $analyse->pub_date   = $data['pub_date'];
-        $analyse->abstract   = $data['abstract'];
+        $analyse->fill($data);
 
-        if(isset($data['file']) && !empty($data['file'])){
+        if(isset($data['file']))
+        {
             $analyse->file = $data['file'];
         }
 
-        $analyse->categories = $data['categories'];
-        $analyse->arrets     = $data['arrets'];
 		$analyse->updated_at = date('Y-m-d G:i:s');
 
-		$analyse->save();
+        if(isset($data['categories']))
+        {
+            // Insert related categories
+            $analyse->categories = count($data['categories']);
+            $analyse->analyses_categories()->sync($data['categories']);
+        }
+
+        if(isset($data['arrets']))
+        {
+            // Insert related arrets
+            $analyse->arrets = count($data['arrets']);
+            $analyse->analyses_arrets()->sync($data['arrets']);
+        }
 
         if(isset($data['author_id']) && !empty($data['author_id']))
         {
             $analyse->analyse_authors()->sync($data['author_id']);
         }
+
+		$analyse->save();
 		
 		return $analyse;
 	}

@@ -14,16 +14,16 @@ class CategorieEloquent implements CategorieInterface{
 
     public function getAll(){
 
-        return $this->categorie->where('deleted', '=', 0)->orderBy('title', 'ASC')->get();
+        return $this->categorie->orderBy('title', 'ASC')->get();
     }
 
     public function getAllOnSite(){
-        return $this->categorie->where('deleted', '=', 0)->where('hideOnSite', '=', 0)->orderBy('title', 'ASC')->get();
+        return $this->categorie->where('hideOnSite', '=', 0)->orderBy('title', 'ASC')->get();
     }
 
     public function getAllMain(){
 
-        return $this->categorie->where('ismain','=', 1)->where('deleted', '=', 0)->orderBy('title', 'ASC')->get();
+        return $this->categorie->where('ismain','=', 1)->orderBy('title', 'ASC')->get();
     }
 
     public function find($id){
@@ -33,18 +33,16 @@ class CategorieEloquent implements CategorieInterface{
 
     public function findyByImage($file){
 
-        return $this->categorie->where('image','=',$file)->where('deleted', '=', 0)->get();
+        return $this->categorie->where('image','=',$file)->get();
     }
 
     public function create(array $data){
 
         $categorie = $this->categorie->create(array(
-            'pid'        => $data['pid'],
-            'user_id'    => $data['user_id'],
             'title'      => $data['title'],
             'image'      => $data['image'],
-            'ismain'     => $data['ismain'],
-            'hideOnSite' => $data['hideOnSite'],
+            'ismain'     => (isset($data['ismain']) && $data['ismain'] == 1 ? 1 : 0),
+            'hideOnSite' => (isset($data['hideOnSite']) && $data['hideOnSite'] == 1 ? 1 : 0),
             'created_at' => date('Y-m-d G:i:s'),
             'updated_at' => date('Y-m-d G:i:s')
         ));
@@ -67,11 +65,10 @@ class CategorieEloquent implements CategorieInterface{
             return false;
         }
 
-        $categorie->title      = $data['title'];
-        $categorie->ismain     = $data['ismain'];
-        $categorie->hideOnSite = $data['hideOnSite'];
+        $categorie->fill($data);
 
-        if(!empty($data['image'])){
+        if(!empty($data['image']))
+        {
             $categorie->image = $data['image'];
         }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\CategorieRequest;
 
 use App\Droit\Categorie\Repo\CategorieInterface;
 use App\Droit\Service\UploadInterface;
@@ -27,9 +28,9 @@ class CategorieController extends Controller {
      */
     public function index()
     {
-        $categories = $this->categorie->getAll(195);
+        $categories = $this->categorie->getAll();
 
-        return view('admin.categories.index')->with(array( 'categories' => $categories));
+        return view('backend.categories.index')->with(['categories' => $categories]);
     }
 
 	/**
@@ -40,7 +41,7 @@ class CategorieController extends Controller {
 	 */
 	public function create()
 	{
-        return view('admin.categories.create');
+        return view('backend.categories.create');
 	}
 
 	/**
@@ -49,29 +50,16 @@ class CategorieController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Request $request)
+	public function store(CategorieRequest $request)
 	{
-        $_file = $request->file('file', null);
-
-        // Files upload
-        if( !isset($_file) )
-        {
-            return redirect()->back()->with( array('status' => 'danger' , 'message' => 'L\'image est requise') );
-        }
-
+        $data = $request->except('file');
         $file = $this->upload->upload( $request->file('file') , 'newsletter/pictos' , 'categorie');
 
-        // Data array
-        $data['title']      = $request->input('title');
-        $data['ismain']     = ($request->input('ismain') ? 1 : 0);
-        $data['hideOnSite'] = ($request->input('hideOnSite') ? 1 : 0);
-        $data['user_id']    = $request->input('user_id');
-        $data['pid']        = 195;
-        $data['image']      = (isset($file) && !empty($file) ? $file['name'] : null);
+        $data['image'] = $file['name'];
 
         $categorie = $this->categorie->create( $data );
 
-        return redirect()->to('admin/categorie/'.$categorie->id)->with( array('status' => 'success' , 'message' => 'Catégorie crée') );
+        return redirect('admin/categorie/'.$categorie->id)->with(['status' => 'success' , 'message' => 'Catégorie crée']);
 	}
 
 	/**
@@ -85,19 +73,7 @@ class CategorieController extends Controller {
 	{
         $categorie = $this->categorie->find($id);
 
-        return view('admin.categories.show')->with(array( 'categorie' => $categorie));
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 * GET /categorie/{id}/edit
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-
+        return view('backend.categories.show')->with(['categorie' => $categorie]);
 	}
 
 	/**
@@ -109,24 +85,18 @@ class CategorieController extends Controller {
 	 */
 	public function update($id,Request $request)
 	{
-        $_file = $request->file('file', null);
+        $data  = $request->except('file');
+        $_file = $request->file('file',null);
 
-        // Files upload
-        if( $_file )
+        if($_file)
         {
-            $file = $this->upload->upload( $request->file('file') , 'newsletter/pictos' , 'categorie');
+            $file = $this->upload->upload( $_file , 'newsletter/pictos' , 'categorie');
+            $data['image'] = $file['name'];
         }
-
-        // Data array
-        $data['id']         = $id;
-        $data['title']      = $request->input('title');
-        $data['ismain']     = ($request->input('ismain') ? 1 : 0);
-        $data['hideOnSite'] = ($request->input('hideOnSite') ? 1 : 0);
-        $data['image']      = (isset($file) && !empty($file) ? $file['name'] : null);
 
         $this->categorie->update( $data );
 
-        return redirect()->to('admin/categorie/'.$id)->with( array('status' => 'success' , 'message' => 'Catégorie mise à jour') );
+        return redirect('admin/categorie/'.$id)->with(['status' => 'success' , 'message' => 'Catégorie mise à jour']);
 	}
 
 	/**
@@ -140,7 +110,7 @@ class CategorieController extends Controller {
 	{
         $this->categorie->delete($id);
 
-        return redirect()->back()->with(array('status' => 'success', 'message' => 'Catégorie supprimée' ));
+        return redirect()->back()->with(['status' => 'success', 'message' => 'Catégorie supprimée']);
 	}
 
     /**
@@ -151,16 +121,14 @@ class CategorieController extends Controller {
      */
     public function categories()
     {
-        $categories = $this->categorie->getAll(195);
+        $categories = $this->categorie->getAll();
 
         return response()->json( $categories, 200 );
     }
 
-    public function arretsExists(){
+    public function arrets(Request $request){
 
-        $id = $request->input('id');
-
-        $categorie = $this->categorie->find($id);
+        $categorie = $this->categorie->find($request->input('id'));
 
         $references = (!$categorie->categorie_arrets->isEmpty() ? $categorie->categorie_arrets->lists('reference') : null);
 

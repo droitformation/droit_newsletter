@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers\Backend;
 
+use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+
 use App\Droit\Analyse\Repo\AnalyseInterface;
 use App\Droit\Arret\Repo\ArretInterface;
 use App\Droit\Categorie\Repo\CategorieInterface;
 use App\Droit\Service\UploadInterface;
 use App\Droit\Author\Repo\AuthorInterface;
-use Illuminate\Http\Request;
 
-class AnalyseController extends \BaseController {
+
+class AnalyseController extends Controller {
 
     protected $analyse;
     protected $author;
@@ -20,14 +24,14 @@ class AnalyseController extends \BaseController {
 
     public function __construct(AuthorInterface $author, AnalyseInterface $analyse, ArretInterface $arret, CategorieInterface $categorie , UploadInterface $upload )
     {
-        $this->beforeFilter('csrf', array('on' => 'post'));
-
         $this->author    = $author;
         $this->analyse   = $analyse;
         $this->arret     = $arret;
         $this->categorie = $categorie;
         $this->upload    = $upload;
         $this->helper    = new \App\Droit\Helper\Helper();
+
+        setlocale(LC_ALL, 'fr_FR');
     }
 
 	/**
@@ -39,12 +43,10 @@ class AnalyseController extends \BaseController {
 
     public function index()
     {
-        setlocale(LC_ALL, 'fr_FR');
-
         $analyses   = $this->analyse->getAll();
-        $categories = $this->categorie->getAll(195);
+        $categories = $this->categorie->getAll();
 
-        return view('admin.analyses.index')->with(array( 'analyses' => $analyses , 'categories' => $categories ));
+        return view('backend.analyses.index')->with(['analyses' => $analyses , 'categories' => $categories]);
     }
 
     /**
@@ -54,13 +56,12 @@ class AnalyseController extends \BaseController {
      */
     public function show($id)
     {
-
-        $arrets     = $this->arret->getAll(195);
         $analyse    = $this->analyse->find($id);
-        $categories = $this->categorie->getAll(195);
+        $arrets     = $this->arret->getAll();
+        $categories = $this->categorie->getAll();
         $auteurs    = $this->author->getAll();
 
-        return view('admin.analyses.show')->with(array( 'analyse' => $analyse, 'arrets' => $arrets, 'categories' => $categories, 'auteurs' => $auteurs ));
+        return view('backend.analyses.show')->with(['isNewsletter' => true, 'analyse' => $analyse, 'arrets' => $arrets, 'categories' => $categories, 'auteurs' => $auteurs]);
     }
 
     /**
@@ -70,11 +71,11 @@ class AnalyseController extends \BaseController {
      */
     public function create()
     {
-        $arrets     = $this->arret->getAll(195);
-        $categories = $this->categorie->getAll(195);
+        $arrets     = $this->arret->getAll();
+        $categories = $this->categorie->getAll();
         $auteurs    = $this->author->getAll();
 
-        return view('admin.analyses.create')->with( array( 'arrets' => $arrets, 'categories' => $categories, 'auteurs' => $auteurs ) );
+        return view('backend.analyses.create')->with(['isNewsletter' => true, 'arrets' => $arrets, 'categories' => $categories, 'auteurs' => $auteurs]);
     }
 
     /**
@@ -84,60 +85,24 @@ class AnalyseController extends \BaseController {
      */
     public function store(Request $request)
     {
-        $_file = $request->file('file');
+
+        $data  = $request->except('file');
+        $_file = $request->file('file',null);
 
         // Files upload
-        if( $_file && !empty( $_file ) )
+        if( $_file )
         {
             $file = $this->upload->upload( $request->file('file') , 'files/analyses' );
+            $data['file'] = $file['name'];
         }
 
-        $cats = $request->input('categories');
-        
-        if(!empty($cats))
-        {
-            $categories = $this->helper->prepareCategories($cats);
-        }
-        else
-        {
-            $categories = array();
-        }
-
-        $arrs = $request->input('arrets');
-
-        if(!empty($arrs))
-        {
-            $arrets = $this->helper->prepareCategories($arrs);
-        }
-        else
-        {
-            $arrets = array();
-        }
-
-        // Data array author_id
-        $data = array(
-            'pid'        => 195,
-            'user_id'    => $request->input('user_id'),
-            'authors'    => $request->input('authors'),
-            'author_id'  => $request->input('author_id'),
-            'pub_date'   => $request->input('pub_date'),
-            'abstract'   => $request->input('abstract'),
-            'arrets'     => count($arrets),
-            'categories' => count($categories),
-            'pub_text'   => $request->input('pub_text')
-        );
-
-        // Attach file if any
-        $data['file'] = (!empty($file) ? $file['name'] : '');
+        $data['categories'] = $this->helper->prepareCategories($request->input('categories'));
+        $data['arrets']     = $this->helper->prepareCategories($request->input('arrets'));
 
         // Create analyse
         $analyse = $this->analyse->create( $data );
 
-        // Insert related categories
-        $analyse->analyses_categories()->sync($categories);
-        $analyse->analyses_arrets()->sync($arrets);
-
-        return redirect()->to('admin/analyse/'.$analyse->id)->with( array('status' => 'success' , 'message' => 'Analyse crée') );
+        return redirect('admin/analyse/'.$analyse->id)->with(['status' => 'success' , 'message' => 'Analyse crée']);
 
     }
 
@@ -148,54 +113,23 @@ class AnalyseController extends \BaseController {
      */
     public function update(Request $request)
     {
-        $_file = $request->file('file');
+        $data  = $request->except('file');
+        $_file = $request->file('file',null);
 
         // Files upload
-        if( $_file && !empty( $_file ) )
+        if( $_file )
         {
             $file = $this->upload->upload( $request->file('file') , 'files/analyses' );
+            $data['file'] = $file['name'];
         }
 
-        $cats = $request->input('categories');
-        if(!empty($cats)){
-            $categories = $this->helper->prepareCategories($cats);
-        }
-        else{
-            $categories = array();
-        }
-
-        $arrs = $request->input('arrets');
-
-        if(!empty($arrs)){
-            $arrets = $this->helper->prepareCategories($arrs);
-        }
-        else{
-            $arrets = array();
-        }
-
-        // Data array
-        $data = array(
-            'id'         => $request->input('id'),
-            'authors'    => $request->input('authors'),
-            'author_id'  => $request->input('author_id'),
-            'pub_date'   => $request->input('pub_date'),
-            'abstract'   => $request->input('abstract'),
-            'categories' => count($categories),
-            'arrets'     => count($arrets),
-            'pub_text'   => $request->input('pub_text')
-        );
-
-        // Attach file if any
-        $data['file'] = (!empty($file) ? $file['name'] : null);
+        $data['categories'] = $this->helper->prepareCategories($request->input('categories'));
+        $data['arrets']     = $this->helper->prepareCategories($request->input('arrets'));
 
         // Create analyse
         $analyse = $this->analyse->update( $data );
 
-        // Insert related categories
-        $analyse->analyses_categories()->sync($categories);
-        $analyse->analyses_arrets()->sync($arrets);
-
-        return redirect()->to('admin/analyse/'.$analyse->id)->with( array('status' => 'success' , 'message' => 'Analyse mise à jour') );
+        return redirect('admin/analyse/'.$analyse->id)->with(['status' => 'success' , 'message' => 'Analyse mise à jour']);
 
     }
 

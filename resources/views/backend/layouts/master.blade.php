@@ -15,6 +15,22 @@
     @if(isset($isNewsletter))
         <link rel="stylesheet" href="<?php echo asset('newsletter/css/backend/newsletter.css'); ?>">
         <link rel="stylesheet" href="<?php echo asset('newsletter/css/frontend/newsletter.css'); ?>">
+
+        @if(isset($infos))
+            <style type="text/css">
+                #StyleNewsletter h2, #StyleNewsletterCreate h2{
+                    color: {{ $infos->newsletter->color }};
+                }
+                #StyleNewsletter .contentForm h3,
+                #StyleNewsletter .contentForm h4,
+                #StyleNewsletterCreate .contentForm h3,
+                #StyleNewsletterCreate .contentForm h4
+                {
+                    color: {{ $infos->newsletter->color }};
+                }
+            </style>
+        @endif
+
     @endif
 
     <link rel="stylesheet" type="text/css" href="<?php echo asset('backend/js/vendor/redactor/redactor.css'); ?>">
@@ -136,6 +152,8 @@
 @if(isset($isNewsletter))
     @include('backend.newsletter.scripts')
 @endif
+
+<script type="text/javascript" src="<?php echo asset('newsletter/js/utils.js');?>"></script>
 
 </body>
 </html>

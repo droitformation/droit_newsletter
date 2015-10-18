@@ -19,7 +19,6 @@ class CreateAnalysesTable extends Migration {
             $table->integer('user_id')->nullable();
             $table->integer('deleted')->default(0);
             $table->string('authors')->nullable();
-            $table->integer('author_id')->nullable();
             $table->integer('pub_date');
             $table->text('abstract')->nullable();
             $table->text('file')->nullable();

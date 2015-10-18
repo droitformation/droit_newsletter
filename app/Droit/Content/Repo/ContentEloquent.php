@@ -1,7 +1,7 @@
-<?php namespace Droit\Content\Repo;
+<?php namespace App\Droit\Content\Repo;
 
-use Droit\Content\Repo\ContentInterface;
-use Droit\Content\Entities\Content as M;
+use App\Droit\Content\Repo\ContentInterface;
+use App\Droit\Content\Entities\Content as M;
 
 class ContentEloquent implements ContentInterface{
 
@@ -68,15 +68,10 @@ class ContentEloquent implements ContentInterface{
 			return false;
 		}
 
-        $content->titre    = $data['titre'];
-        $content->contenu  = $data['contenu'];
-        $content->url      = $data['url'];
-		$content->type     = $data['type'];
-		$content->position = $data['position'];
-        $content->rang     = $data['rang'];
-		$content->slug     = $data['slug'];
+        $content->fill($data);
 
-        if($data['image']){
+        if($data['image'])
+        {
             $content->image = $data['image'];
         }
 

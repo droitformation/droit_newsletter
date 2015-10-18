@@ -60,10 +60,17 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','administration']], f
 
     Route::resource('statistics', 'Backend\Newsletter\StatsController');
 
-    Route::get('arrets/{id}', 'Backend\ArretController@simple');
-    Route::get('analyses/{id}', 'Backend\AnalyseController@simple');
-    Route::get('arrets', 'Backend\ArretController@arrets');
-    Route::get('categories', 'Backend\CategorieController@categories');
+    Route::get('ajax/arrets/{id}',   'Backend\ArretController@simple');
+    Route::get('ajax/arrets',        'Backend\ArretController@arrets');
+    Route::get('ajax/analyses/{id}', 'Backend\AnalyseController@simple');
+    Route::get('ajax/categories',    'Backend\CategorieController@categories');
+    Route::post('ajax/categorie/arrets', 'Backend\CategorieController@arrets');
+
+    Route::resource('arret',     'Backend\ArretController');
+    Route::resource('analyse',   'Backend\AnalyseController');
+    Route::resource('categorie', 'Backend\CategorieController');
+    Route::resource('contenu',   'Backend\ContentController');
+    Route::resource('author',    'Backend\AuthorController');
 
     Route::resource('subscriber', 'Backend\Newsletter\SubscriberController');
     Route::get('subscribers', ['uses' => 'Backend\Newsletter\SubscriberController@subscribers']);

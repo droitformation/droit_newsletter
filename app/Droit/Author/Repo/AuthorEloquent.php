@@ -51,10 +51,7 @@ class AuthorEloquent implements AuthorInterface{
             return false;
         }
 
-        $author->first_name = $data['first_name'];
-        $author->last_name  = $data['last_name'];
-        $author->occupation = $data['occupation'];
-        $author->bio        = $data['bio'];
+        $author->fill($data);
 
         if(isset($data['photo']) && !empty($data['photo'])){
             $author->photo  = $data['photo'];

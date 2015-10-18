@@ -1,19 +1,13 @@
-<?php namespace Droit\Content\Entities;
+<?php namespace App\Droit\Content\Entities;
 
-use Droit\Common\BaseModel as BaseModel;
+use Illuminate\Database\Eloquent\Model;
 
-class Content extends BaseModel {
+class Content extends Model {
+
+    public $timestamps = false;
 
 	protected $fillable = ['titre','contenu','image','url','slug','type','position','rang'];
 
-	/*
-     * Validation rules
-    */
-	protected static $rules = array();
-
-	/*
-     * Validation messages
-    */
-	protected static $messages = array();
+    protected $table = 'contents';
 
 }

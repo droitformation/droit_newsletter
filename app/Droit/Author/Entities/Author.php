@@ -25,7 +25,7 @@ class Author extends Model {
 
     public function analyses()
     {
-        return $this->hasMany('App\Droit\Analyse\Entities\Analyse','author_id');
+        return $this->belongsToMany('\App\Droit\Analyse\Entities\Analyse', 'analyse_authors', 'analyse_id', 'author_id');
     }
 
 }
