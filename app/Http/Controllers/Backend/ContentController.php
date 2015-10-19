@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use App\Droit\Content\Repo\ContentInterface;
 use App\Droit\Service\UploadInterface;
 
+use App\Http\Requests\ContentRequest;
+
 class ContentController extends Controller
 {
     protected $content;
@@ -52,25 +54,18 @@ class ContentController extends Controller
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(ContentRequest $request)
     {
+        $data  = $request->except('file');
         $_file = $request->file('file', null);
 
-        // Files upload
+        // Image upload
         if(isset($_file) )
         {
             $file = $this->upload->upload( $request->file('file') , 'files');
-        }
 
-        // Data array
-        $data['titre']    = $request->input('titre');
-        $data['contenu']  = $request->input('contenu');
-        $data['url']      = $request->input('url');
-        $data['slug']     = $request->input('slug');
-        $data['type']     = $request->input('type');
-        $data['position'] = $request->input('position');
-        $data['rang']     = $request->input('rang');
-        $data['image']    = (isset($file) && !empty($file) ? $file['name'] : null);
+            $data['image'] = $file['name'];
+        }
 
         $content = $this->content->create( $data );
 
@@ -92,45 +87,24 @@ class ContentController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     * GET /content/{id}/edit
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      * PUT /content/{id}
      *
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(ContentRequest $request, $id)
     {
-
+        $data  = $request->except('file');
         $_file = $request->file('file', null);
 
-        // Files upload
+        // Image upload
         if(isset($_file) )
         {
             $file = $this->upload->upload( $request->file('file') , 'files');
-        }
 
-        // Data array
-        $data['id']       = $id;
-        $data['titre']    = $request->input('titre');
-        $data['contenu']  = $request->input('contenu');
-        $data['url']      = $request->input('url');
-        $data['slug']     = $request->input('slug');
-        $data['type']     = $request->input('type');
-        $data['position'] = $request->input('position');
-        $data['rang']     = $request->input('rang');
-        $data['image']    = (isset($file) && !empty($file) ? $file['name'] : null);
+            $data['image'] = $file['name'];
+        }
 
         $content = $this->content->update( $data );
 

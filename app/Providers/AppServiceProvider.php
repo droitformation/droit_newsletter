@@ -39,6 +39,7 @@ class AppServiceProvider extends ServiceProvider
         $this->registerCategorieService();
         $this->registerGroupeService();
         $this->registerUploadService();
+        $this->registerContentService();
     }
 
     /**
@@ -106,6 +107,17 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('App\Droit\Service\UploadInterface', function()
         {
             return new \App\Droit\Service\UploadWorker();
+        });
+    }
+
+    /**
+     * Content service
+     */
+    protected function registerContentService(){
+
+        $this->app->bind('App\Droit\Content\Repo\ContentInterface', function()
+        {
+            return new \App\Droit\Content\Repo\ContentEloquent( new \App\Droit\Content\Entities\Content );
         });
     }
 }

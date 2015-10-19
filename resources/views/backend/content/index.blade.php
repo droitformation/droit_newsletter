@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('backend.layouts.master')
 @section('content')
 
 <div class="row">
@@ -42,9 +42,9 @@
                                         <td>{{{ $item->type or '' }}}</td>
                                         <td>{{ $positions[$item->position] }}</td>
                                         <td class="text-right">
-                                            {{ Form::open(array('route' => array('admin.contenu.destroy', $item->id), 'method' => 'delete')) }}
-                                                <button data-action="contenu: {{{ $item->titre }}}" class="btn btn-danger btn-sm deleteAction">Supprimer</button>
-                                            {{ Form::close() }}
+                                            {!! Form::open(array('route' => array('admin.contenu.destroy', $item->id), 'method' => 'delete')) !!}
+                                                <button data-what="supprimer" data-action="contenu: {{{ $item->titre }}}" class="btn btn-danger btn-sm deleteAction">Supprimer</button>
+                                            {!! Form::close() !!}
                                         </td>
                                     </tr>
                                 @endforeach

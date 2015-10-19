@@ -1,6 +1,5 @@
-@extends('layouts.admin')
+@extends('backend.layouts.master')
 @section('content')
-
 
 <div class="row"><!-- row -->
     <div class="col-md-12"><!-- col -->
@@ -28,14 +27,14 @@
                 <div class="form-group">
                     <label for="message" class="col-sm-3 control-label">Titre</label>
                     <div class="col-sm-4">
-                        {{ Form::text('titre', $contenu->titre , array('class' => 'form-control') ) }}
+                        {!! Form::text('titre', $contenu->titre , array('class' => 'form-control') ) !!}
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="contenu" class="col-sm-3 control-label">Contenu</label>
                     <div class="col-sm-7">
-                        {{ Form::textarea('contenu', $contenu->contenu , array('class' => 'form-control  redactor', 'cols' => '50' , 'rows' => '4' )) }}
+                        {!! Form::textarea('contenu', $contenu->contenu , array('class' => 'form-control  redactor', 'cols' => '50' , 'rows' => '4' )) !!}
                     </div>
                 </div>
 
@@ -44,13 +43,15 @@
                         <small class="text-muted">Sur l'image</small>
                     </label>
                     <div class="col-sm-7">
-                        {{ Form::text('url', $contenu->url  , array('class' => 'form-control') ) }}
+                        {!! Form::text('url', $contenu->url  , array('class' => 'form-control') ) !!}
                     </div>
                 </div>
 
                 @if(!empty($contenu->image ))
                 <div class="form-group">
-                    <label for="image" class="col-sm-3 control-label">Image</label>
+                    <label for="image" class="col-sm-3 control-label">Ajouter une image<br/>
+                        <small class="text-muted">Pour pub ou soutien</small>
+                    </label>
                     <div class="col-sm-4">
                         <div class="list-group">
                             <div class="list-group-item text-center">
@@ -65,7 +66,7 @@
                     <div class="col-sm-4">
                         <div class="list-group">
                             <div class="list-group-item">
-                                {{ Form::file('file') }}
+                                {!! Form::file('file') !!}
                             </div>
                         </div>
                     </div>
@@ -74,27 +75,27 @@
                 <div class="form-group">
                     <label for="type" class="col-sm-3 control-label">Type de contenu</label>
                     <div class="col-sm-4">
-                       {{ Form::select('type', array('pub' => 'Publicité','texte' => 'Texte','soutien' => 'Soutien'),null, array('class' => 'form-control')) }}
+                       {!! Form::select('type', ['pub' => 'Publicité','texte' => 'Texte','soutien' => 'Soutien'], $contenu->type, array('class' => 'form-control')) !!}
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="position" class="col-sm-3 control-label">Position</label>
                     <div class="col-sm-4">
-                        {{ Form::select('position', $positions,null, array('class' => 'form-control')) }}
+                        {!! Form::select('position', $positions ,$contenu->position, array('class' => 'form-control')) !!}
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="message" class="col-sm-3 control-label">Rang</label>
                     <div class="col-sm-2">
-                        {{ Form::text('rang', $contenu->rang , array('class' => 'form-control') ) }}
+                        {!! Form::text('rang', $contenu->rang , array('class' => 'form-control') ) !!}
                     </div>
                 </div>
 
             </div>
             <div class="panel-footer mini-footer ">
-                {{ Form::hidden('id', $contenu->id )}}
+                {!! Form::hidden('id', $contenu->id ) !!}
                 <div class="col-sm-3"></div>
                 <div class="col-sm-6">
                     <button class="btn btn-primary" type="submit">Envoyer </button>

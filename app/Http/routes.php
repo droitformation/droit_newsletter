@@ -40,6 +40,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','administration']], f
     Route::post('upload', 'Backend\UploadController@upload');
     Route::post('uploadJS', 'Backend\UploadController@uploadJS');
     Route::post('uploadRedactor', 'Backend\UploadController@uploadRedactor');
+
+    Route::get('imageJson/{id?}', ['uses' => 'Backend\UploadController@imageJson']);
+    Route::get('fileJson/{id?}', ['uses' => 'Backend\UploadController@fileJson']);
+
     Route::post('sorting', 'Backend\Newsletter\CampagneController@sorting');
     Route::post('sortingGroup', 'Backend\Newsletter\CampagneController@sortingGroup');
 

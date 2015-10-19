@@ -86,7 +86,50 @@ class UploadController extends Controller
 
             return response()->json($array,200 );
         }
+
         return false;
+    }
+
+    public function imageJson()
+    {
+        //$files = $this->upload->scan(url('/').'/uploads');
+
+        $files = \Storage::disk('uploads')->files();
+        $data   = [];
+        $except = ['.DS_Store'];
+
+        if(!empty($files))
+        {
+            foreach($files as $file)
+            {
+                if(!in_array($file,$except))
+                {
+                    $data[] = ['image' => url('/') . '/uploads/' . $file, 'thumb' => url('/') . '/uploads/' . $file, 'title' => $file];
+                }
+            }
+        }
+
+        return response()->json($data);
+    }
+
+    public function fileJson()
+    {
+        $files  = \Storage::disk('files')->files();
+        $data   = [];
+        $except = ['.DS_Store'];
+
+        if(!empty($files))
+        {
+            foreach($files as $file)
+            {
+                if(!in_array($file,$except))
+                {
+                    $data[] = ['name' => $file, 'link' => url('/').'/files/'.$file, 'title' => $file];
+                }
+            }
+        }
+
+        return response()->json($data);
     }
 
 }

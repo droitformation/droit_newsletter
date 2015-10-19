@@ -40,12 +40,11 @@ class ContentEloquent implements ContentInterface{
 		$content = $this->content->create(array(
 			'titre'      => $data['titre'],
 			'contenu'    => $data['contenu'],
-            'image'      => $data['image'],
-			'url'        => $data['url'],
-            'slug'       => $data['slug'],
+            'image'      => (isset($data['image']) ? $data['image'] : ''),
+			'url'        => (isset($data['url']) ? $data['url'] : ''),
 			'type'       => $data['type'],
 			'position'   => $data['position'],
-            'rang'       => $data['rang'],
+            'rang'       => (isset($data['rang']) ? $data['rang'] : 0),
 			'created_at' => date('Y-m-d G:i:s'),
 			'updated_at' => date('Y-m-d G:i:s')
 		));
@@ -70,7 +69,7 @@ class ContentEloquent implements ContentInterface{
 
         $content->fill($data);
 
-        if($data['image'])
+        if(isset($data['image']))
         {
             $content->image = $data['image'];
         }
@@ -87,7 +86,7 @@ class ContentEloquent implements ContentInterface{
         $content = $this->content->find($id);
 
 		return $content->delete();
-		
+
 	}
 
 }

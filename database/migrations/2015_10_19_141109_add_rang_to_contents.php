@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddDeletedAtToCategories extends Migration {
+class AddRangToContents extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,12 +12,11 @@ class AddDeletedAtToCategories extends Migration {
 	 */
 	public function up()
 	{
-        Schema::table('categories', function($table)
+        Schema::table('contents', function($table)
         {
             $table->softDeletes();
-            $table->dropColumn('pid');
-            $table->dropColumn('user_id');
-            $table->dropColumn('deleted');
+            $table->dropColumn('slug');
+            $table->integer('rang')->default(0);
         });
 
 	}
@@ -29,8 +28,10 @@ class AddDeletedAtToCategories extends Migration {
 	 */
 	public function down()
 	{
-        Schema::table('categories', function(Blueprint $table) {
+        Schema::table('contents', function(Blueprint $table) {
             $table->dropColumn('deleted_at');
+            $table->dropColumn('rang');
+            $table->string('slug');
         });
 	}
 

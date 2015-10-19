@@ -500,4 +500,21 @@ class Helper {
         return true;
     }
 
+    public function prepareBlocsHomepage($data){
+
+        $home = [];
+
+        if(!$data->isEmpty())
+        {
+            foreach($data as $index => $homebloc)
+            {
+                $home[$index]['count']    = count($homebloc);
+                $home[$index]['position'] = $homebloc[0]->position;
+                $home[$index]['blocs']    = $homebloc;
+            }
+        }
+
+        return $home;
+    }
+
 }

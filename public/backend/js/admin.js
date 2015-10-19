@@ -4,17 +4,19 @@ $( function() {
         minHeight  : 250,
         maxHeight: 450,
         focus: true,
+        lang: 'fr',
         plugins: ['advanced','imagemanager','filemanager'],
-        fileUpload : 'uploadFileRedactor?_token=' + $('meta[name="_token"]').attr('content'),
-        imageUpload: 'uploadRedactor?_token=' + $('meta[name="_token"]').attr('content'),
-        imageManagerJson: 'imageJson',
-        fileManagerJson: 'fileJson',
+        fileUpload : 'admin/uploadFileRedactor?_token=' + $('meta[name="_token"]').attr('content'),
+        imageUpload: 'admin/uploadRedactor?_token=' + $('meta[name="_token"]').attr('content'),
+        imageManagerJson: 'admin/imageJson',
+        fileManagerJson: 'admin/fileJson',
         buttons    : ['html','|','formatting','bold','italic','|','unorderedlist','orderedlist','outdent','indent','|','image','file','link','alignment']
     });
 
     $('.redactorSimple').redactor({
         minHeight: 50,
         maxHeight: 100,
+        lang: 'fr',
         focus    : true,
         buttons  : ['formatting','bold','italic','|','unorderedlist']
     });
