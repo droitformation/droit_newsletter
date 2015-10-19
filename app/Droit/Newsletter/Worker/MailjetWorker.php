@@ -204,7 +204,8 @@ class MailjetWorker implements MailjetInterface{
 
         if(!$listRecipientID)
         {
-            return false;
+            return true;
+            //throw new \App\Exceptions\UserNotExistException('Cet email n\'existe pas');
         }
 
         $params = array(

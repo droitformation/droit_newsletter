@@ -5,13 +5,13 @@
     <div class="col-md-offset-2 col-md-8">
         <div class="options" style="margin-bottom: 10px;">
             <div class="btn-toolbar">
-                <a href="{{ url('admin/abonne') }}" class="btn btn-inverse"><i class="fa fa-chevron-left"></i> &nbsp;Retour aux abonnés</a>
+                <a href="{{ url('admin/subscriber') }}" class="btn btn-inverse"><i class="fa fa-chevron-left"></i> &nbsp;Retour aux abonnés</a>
             </div>
         </div>
         <div class="panel panel-green">
 
             <!-- form start -->
-            <form action="{{ url('admin/abonne') }}" enctype="multipart/form-data" method="POST" class="validate-form form-horizontal" data-validate="parsley">
+            <form action="{{ url('admin/subscriber') }}" enctype="multipart/form-data" method="POST" class="validate-form form-horizontal" data-validate="parsley">
                 {!! csrf_field() !!}
 
                 <div class="panel-heading">
@@ -25,12 +25,7 @@
                             {!! Form::text('email', null , array('class' => 'form-control') ) !!}
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="message" class="col-sm-3 control-label">Status</label>
-                        <div class="col-sm-6">
-                            {!! Form::select('activation', array('1' => 'Confirmé', '0' => 'Non confirmé'), 1 , array('class' => 'form-control')) !!}
-                        </div>
-                    </div>
+
                     <div class="form-group">
                         <label for="message" class="col-sm-3 control-label">Abonnements</label>
                         <div class="col-sm-6">

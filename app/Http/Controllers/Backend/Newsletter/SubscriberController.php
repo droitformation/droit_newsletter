@@ -10,6 +10,8 @@ use App\Droit\Newsletter\Repo\NewsletterInterface;
 use App\Droit\Newsletter\Repo\NewsletterUserInterface;
 use App\Droit\Newsletter\Worker\MailjetInterface;
 
+use App\Http\Requests\RemoveNewsletterUserRequest;
+
 class SubscriberController extends Controller
 {
     protected $subscriber;
@@ -73,15 +75,13 @@ class SubscriberController extends Controller
      */
     public function store(Request $request)
     {
-        $newsletter_id = ($request->input('newsletter_id') ? $request->input('newsletter_id') : array() );
+        // Subscribe user with activation token to website list and sync newsletter abos
+        $subscribe = $this->subscriber->create(['email' => $request->email, 'activated_at' => \Carbon\Carbon::now() ]);
 
-        $command = array(
-            'email'         => $request->input('email'),
-            'newsletter_id' => $newsletter_id,
-            'activation'    => $request->input('activation')
-        );
+        $subscribe->subscriptions()->attach($request->input('newsletter_id'));
 
-        //$this->execute('Droit\Command\AdminSubscribeCommand', $command);
+        //Subscribe to mailjet
+        $this->worker->subscribeEmailToList( $request->email );
 
         return redirect('admin/subscriber')->with( array('status' => 'success' , 'message' => 'Abonné ajouté') );
     }
@@ -111,14 +111,24 @@ class SubscriberController extends Controller
     public function update(Request $request, $id)
     {
 
-        $newsletter_id = ($request->input('newsletter_id') ? $request->input('newsletter_id') : array() );
+        $subscriber = $this->subscriber->update(['email' => $request->email, 'activated_at' => $request->activation]);
 
-        $command = array(
-            'id'            => $request->input('id') ,
-            'email'         => $request->input('email'),
-            'newsletter_id' => $newsletter_id,
-            'activation'    => $request->input('activation')
-        );
+        // Sync the abos to newsletter we have
+        $subscriber->newsletter()->sync($request->input('newsletter_id'));
+
+        $abos    = $request->subscriptions->lists('newsletter_id')->all();
+
+        $exist   = array_diff($request->input('newsletter_id'),$abos);
+        $removed = array_diff($abos,$request->input('newsletter_id'));
+
+        if(!empty($removed))
+        {
+            return $this->worker->subscribeEmailToList($abonne->email);
+        }
+        else
+        {
+            return $this->worker->removeContact($abonne->email);
+        }
 
         return redirect('admin/subscriber/'.$id.'/edit')->with( array('status' => 'success' , 'message' => 'Abonné édité') );
 
@@ -131,16 +141,19 @@ class SubscriberController extends Controller
      * @param  int  $email
      * @return Response
      */
-    public function destroy(Request $request)
+    public function destroy($id,Request $request)
     {
         // Validate the email
-        $this->validate($request, array('email' => 'required|exists:users,email') );
+        $this->validate($request, array('email' => 'required'));
 
         // find the abo
-        $subscriber = $this->subscriber->findByEmail( $request->email );
+        $subscriber = $this->subscriber->findByEmail($request->email );
 
         // Sync the abos to newsletter we have
-        $subscriber->newsletter()->detach();
+        $subscriber->subscriptions()->detach();
+
+        // Delete the abonné from DB
+        $this->subscriber->delete($subscriber->email);
 
         // remove contact from list mailjet
         if(!$this->worker->removeContact($subscriber->email))
@@ -148,9 +161,6 @@ class SubscriberController extends Controller
             throw new \App\Exceptions\DeleteUserException('Erreur avec la suppression de l\'abonnés sur mailjet');
         }
 
-        // Delete the abonné from DB
-        $this->subscriber->delete($subscriber->id);
-
-        return redirect()->back()->with(array('status' => 'success', 'message' => 'Abonné supprimé' ));
+        return redirect('admin/subscriber')->with(array('status' => 'success', 'message' => 'Abonné supprimé' ));
     }
 }

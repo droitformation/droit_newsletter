@@ -90,9 +90,12 @@ class NewsletterUserEloquent implements NewsletterUserInterface{
                 $row['abo'] = '';
             }
 
-            $row['delete']  = \Form::open(array('route' => array('admin.subscriber.destroy', $abonne->email), 'method' => 'delete'));
-            $row['delete'] .= '<button data-action="Abonné '.$abonne->email.'" class="btn btn-danger btn-xs deleteAction">Supprimer</button>';
-            $row['delete'] .= \Form::close();
+            $row['delete']  = '<form action="'.url('admin/subscriber/'.$abonne->id).'" method="POST">';
+            $row['delete'] .= csrf_field();
+            $row['delete'] .= '<input type="hidden" name="_method" value="DELETE">';
+            $row['delete'] .= '<input type="hidden" name="email" value="'.$abonne->email.'">';
+            $row['delete'] .= '<button data-what="supprimer" data-action="Abonné '.$abonne->email.'" class="btn btn-danger btn-xs deleteAction">Supprimer</button>';
+            $row['delete'] .= '</form>';
 
             $row = array_values($row);
 
@@ -121,12 +124,13 @@ class NewsletterUserEloquent implements NewsletterUserInterface{
 
 	public function create(array $data){
 
-		$user = $this->user->create(array(
-			'email'            => $data['email'],
-            'activation_token' => $data['activation_token'],
-			'created_at'       => date('Y-m-d G:i:s'),
-			'updated_at'       => date('Y-m-d G:i:s')
-		));
+		$user = $this->user->create([
+            'email'            => $data['email'],
+            'activation_token' => (isset($data['activation_token']) ? $data['activation_token'] : null),
+            'activated_at'     => (isset($data['activated_at']) ? $data['activated_at'] : null),
+            'created_at'       => date('Y-m-d G:i:s'),
+            'updated_at'       => date('Y-m-d G:i:s')
+        ]);
 		
 		if( ! $user )
 		{
@@ -134,7 +138,6 @@ class NewsletterUserEloquent implements NewsletterUserInterface{
 		}
 
 		return $user;
-		
 	}
 	
 	public function update(array $data){
@@ -175,7 +178,7 @@ class NewsletterUserEloquent implements NewsletterUserInterface{
 	public function delete($email){
 
 		return $this->user->where('email', '=', $email)->delete();
-		
+
 	}
 
 }

@@ -49,6 +49,9 @@ class Handler extends ExceptionHandler
         if ($e instanceof \App\Exceptions\DeleteUserException)
             return redirect('/')->with(array('status' => 'warning' , 'message' => 'Erreur avec la suppression de l\'abonnés sur mailjet'));
 
+        if ($e instanceof \App\Exceptions\UserNotExistException)
+            return redirect()->back()->with(array('status' => 'warning' , 'message' => 'Cet email n\'existe pas'));
+
         return parent::report($e);
     }
 

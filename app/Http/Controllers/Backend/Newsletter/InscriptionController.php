@@ -36,7 +36,7 @@ class InscriptionController extends Controller
             return redirect('/')->with(['status' => 'danger', 'jeton' => true ,'message' => 'Le jeton ne correspond pas ou à expiré']);
         }
 
-        //Ssubscribe to mailjet
+        //Subscribe to mailjet
         $this->worker->subscribeEmailToList( $user->email );
 
         return redirect('/')->with(['status' => 'success', 'message' => 'Vous êtes maintenant abonné à la newsletter en droit du travail']);

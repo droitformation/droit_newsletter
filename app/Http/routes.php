@@ -36,7 +36,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','administration']], f
 
     Route::get('/', 'Backend\AdminController@index');
     Route::resource('config', 'Backend\ConfigController');
-    Route::get('search', 'Backend\SearchController@search');
+    //Route::get('search', 'Backend\SearchController@search');
     Route::post('upload', 'Backend\UploadController@upload');
     Route::post('uploadJS', 'Backend\UploadController@uploadJS');
     Route::post('uploadRedactor', 'Backend\UploadController@uploadRedactor');
