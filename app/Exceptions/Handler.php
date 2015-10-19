@@ -46,6 +46,9 @@ class Handler extends ExceptionHandler
         if ($e instanceof \App\Exceptions\CampagneSendException)
             return redirect('/')->with(array('status' => 'warning' , 'message' => 'Erreur avec l\'envoi de la newsletter, mailjet à renvoyé une erreur'));
 
+        if ($e instanceof \App\Exceptions\DeleteUserException)
+            return redirect('/')->with(array('status' => 'warning' , 'message' => 'Erreur avec la suppression de l\'abonnés sur mailjet'));
+
         return parent::report($e);
     }
 

@@ -91,4 +91,25 @@ class InscriptionTest extends TestCase
 
     }
 
+
+    /**
+     *
+     * @return void
+     */
+    public function testRemoveAndDeleteSubscription()
+    {
+
+        $user = factory(App\Droit\Newsletter\Entities\Newsletter_users::class)->make();
+        $user->subscriptions = factory(App\Droit\Newsletter\Entities\Newsletter_subscriptions::class)->make();
+
+        $this->subscription->shouldReceive('findByEmail')->once()->andReturn($user);
+        $this->worker->shouldReceive('removeContact')->once()->andReturn(true);
+        $this->subscription->shouldReceive('delete')->once();
+
+        $response = $this->call('DELETE', 'admin/subscriber/'.$user->id);
+
+        $this->assertRedirectedTo('admin/subscriber');
+
+    }
+
 }

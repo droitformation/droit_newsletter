@@ -14,46 +14,49 @@ class NewsletterUserEloquent implements NewsletterUserInterface{
 	
 	public function getAll()
     {
-		return $this->user->with(array('subscriptions'))->get();
+		return $this->user->with(['subscriptions'])->get();
 	}
 
     public function getAllNbr($nbr)
     {
-        return $this->user->with(array('subscriptions'))->take(5)->orderBy('id', 'desc')->get();
+        return $this->user->with(['subscriptions'])->take(5)->orderBy('id', 'desc')->get();
     }
 
 	public function find($id)
     {
-		return $this->user->with(array('subscriptions'))->findOrFail($id);
+		return $this->user->with(['subscriptions'])->findOrFail($id);
 	}
 
 	public function findByEmail($email)
     {
-        $user = $this->user->with(array('subscriptions'))->where('email','=',$email)->get();
+        $user = $this->user->with(['subscriptions'])->where('email','=',$email)->get();
 
 		return !$user->isEmpty() ? $user->first() : null;
 	}
 
     public function get_ajax( $sEcho , $iDisplayStart , $iDisplayLength , $iSortCol_0, $sSortDir_0, $sSearch ){
 
-        $columns = array('id','status','activated_at','email','abo','delete');
+        $columns = ['id','status','activated_at','email','abo','delete'];
 
-        $iTotal  = $this->user->get(array('id'))->count();
+        $iTotal  = $this->user->all()->count();
 
         if($sSearch)
         {
-            $data = $this->user->where('email','LIKE','%'.$sSearch.'%')->with(array('subscriptions'))
-                ->orderBy($columns[$iSortCol_0], $sSortDir_0)->take($iDisplayLength)->skip($iDisplayStart)->get();
+            $data = $this->user->where('email','LIKE','%'.$sSearch.'%')->with(['subscriptions'])
+                ->orderBy($columns[$iSortCol_0], $sSortDir_0)
+                ->take($iDisplayLength)
+                ->skip($iDisplayStart)
+                ->get();
 
             $iTotalDisplayRecords = $data->count();
         }
         else
         {
-            $data = $this->user->with(array('subscriptions' => function($query)
-                {
-                    $query->join('newsletters', 'newsletters.id', '=', 'newsletter_subscriptions.newsletter_id');
-
-                }))->orderBy($columns[$iSortCol_0], $sSortDir_0)->take($iDisplayLength)->skip($iDisplayStart)->get();
+            $data = $this->user->with(['subscriptions'])
+                                ->orderBy($columns[$iSortCol_0], $sSortDir_0)
+                                ->take($iDisplayLength)
+                                ->skip($iDisplayStart)
+                                ->get();
 
             $iTotalDisplayRecords = $iTotal;
         }
@@ -62,14 +65,14 @@ class NewsletterUserEloquent implements NewsletterUserInterface{
             "sEcho"                => $sEcho,
             "iTotalRecords"        => $iTotal,
             "iTotalDisplayRecords" => $iTotalDisplayRecords,
-            "aaData"               => array()
+            "aaData"               => []
         );
 
         foreach($data as $abonne)
         {
             $row = array();
 
-            $row['id']     = '<a class="btn btn-sky btn-sm" href="'.url('admin/abonne/'.$abonne->id.'/edit').'">&Eacute;diter</a>';
+            $row['id']     = '<a class="btn btn-sky btn-sm" href="'.url('admin/subscriber/'.$abonne->id).'">&Eacute;diter</a>';
             $status = ( $abonne->activated_at ? '<span class="label label-success">Confirmé</span>' : ' <span class="label label-default">Email non confirmé</span>');
             $row['status']       = $status;
 
@@ -77,13 +80,17 @@ class NewsletterUserEloquent implements NewsletterUserInterface{
             $row['activated_at'] = ( $abonne->activated_at ? $abonne->activated_at->formatLocalized('%d %B %Y') : '' );
             $row['email']        = $abonne->email;
 
-            if( !$abonne->subscription->isEmpty() )
+            if( !$abonne->subscriptions->isEmpty() )
             {
-                $abos = $abonne->subscription->lists('titre');
+                $abos       = $abonne->subscriptions->lists('titre')->all();
                 $row['abo'] = implode(',',$abos);
             }
+            else
+            {
+                $row['abo'] = '';
+            }
 
-            $row['delete']  = \Form::open(array('route' => array('admin.abonne.destroy', $abonne->email), 'method' => 'delete'));
+            $row['delete']  = \Form::open(array('route' => array('admin.subscriber.destroy', $abonne->email), 'method' => 'delete'));
             $row['delete'] .= '<button data-action="Abonné '.$abonne->email.'" class="btn btn-danger btn-xs deleteAction">Supprimer</button>';
             $row['delete'] .= \Form::close();
 

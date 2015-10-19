@@ -8,7 +8,7 @@
     <div class="col-md-6">
         <div class="options text-right" style="margin-bottom: 10px;">
             <div class="btn-toolbar">
-                <a href="{{ url('admin/abonne/create') }}" class="btn btn-green"><i class="fa fa-plus"></i> &nbsp;Ajouter un abonné</a>
+                <a href="{{ url('admin/subscriber/create') }}" class="btn btn-green"><i class="fa fa-plus"></i> &nbsp;Ajouter un abonné</a>
             </div>
         </div>
     </div>
@@ -29,7 +29,7 @@
                         <tr>
                             <th class="col-sm-2">Action</th>
                             <th class="col-sm-2">Status</th>
-                            <th class="col-sm-2">Date</th>
+                            <th class="col-sm-2">Activé le</th>
                             <th class="col-sm-2">Email</th>
                             <th class="col-sm-3">Abonnements</th>
                             <th class="col-sm-1"></th>

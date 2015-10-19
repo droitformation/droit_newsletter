@@ -218,7 +218,6 @@ class MailjetWorker implements MailjetInterface{
             return true;
         else
             return false;
-
     }
 
     public function getListRecipient($email){

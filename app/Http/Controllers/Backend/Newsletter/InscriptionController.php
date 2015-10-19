@@ -14,10 +14,10 @@ class InscriptionController extends Controller
 {
     protected $subscription;
 
-    public function __construct(MailjetInterface $worker, NewsletterUserInterface $abo)
+    public function __construct(MailjetInterface $worker, NewsletterUserInterface $subscription)
     {
         $this->worker        = $worker;
-        $this->subscription  = $abo;
+        $this->subscription  = $subscription;
     }
 
     /**

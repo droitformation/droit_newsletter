@@ -8,16 +8,19 @@ use App\Http\Controllers\Controller;
 
 use App\Droit\Newsletter\Repo\NewsletterInterface;
 use App\Droit\Newsletter\Repo\NewsletterUserInterface;
+use App\Droit\Newsletter\Worker\MailjetInterface;
 
 class SubscriberController extends Controller
 {
     protected $subscriber;
     protected $newsletter;
+    protected $worker;
 
-    public function __construct(NewsletterUserInterface $subscriber, NewsletterInterface $newsletter)
+    public function __construct(NewsletterUserInterface $subscriber, NewsletterInterface $newsletter, MailjetInterface $worker)
     {
         $this->subscriber = $subscriber;
         $this->newsletter = $newsletter;
+        $this->worker     = $worker;
     }
 
     /**
@@ -28,7 +31,7 @@ class SubscriberController extends Controller
      */
     public function index()
     {
-        return view('backend.subscribers.index');
+        return view('backend.newsletter.subscribers.index');
     }
 
     /**
@@ -39,17 +42,14 @@ class SubscriberController extends Controller
      */
     public function subscribers(Request $request)
     {
-        $sSearch = $request->input('sSearch');
-        $sSearch = ($sSearch && !empty($sSearch) ? $sSearch : null);
-
-        $sEcho          = $request->input('sEcho');
-        $iDisplayStart  = $request->input('iDisplayStart');
-        $iDisplayLength = $request->input('iDisplayLength');
-        $iSortCol_0     = $request->input('iSortCol_0');
-        $sSortDir_0     = $request->input('sSortDir_0');
-
-        return $this->subscriber->get_ajax( $sEcho , $iDisplayStart , $iDisplayLength , $iSortCol_0, $sSortDir_0,$sSearch);
-
+        return $this->subscriber->get_ajax(
+            $request->input('sEcho'),
+            $request->input('iDisplayStart'),
+            $request->input('iDisplayLength'),
+            $request->input('iSortCol_0'),
+            $request->input('sSortDir_0'),
+            $request->input('sSearch',null)
+        );
     }
 
     /**
@@ -62,7 +62,7 @@ class SubscriberController extends Controller
     {
         $newsletter = $this->newsletter->getAll();
 
-        return view('backend.subscribers.create')->with(array( 'newsletter' => $newsletter ));
+        return view('backend.newsletter.subscribers.create')->with(['newsletter' => $newsletter ]);
     }
 
     /**
@@ -93,12 +93,12 @@ class SubscriberController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
+    public function show($id)
     {
-        $subscriber     = $this->subscriber->find($id);
+        $subscriber = $this->subscriber->find($id);
         $newsletter = $this->newsletter->getAll();
 
-        return view('backend.subscribers.edit')->with(array( 'subscriber' => $subscriber , 'newsletter' => $newsletter ));
+        return view('backend.newsletter.subscribers.show')->with(array( 'subscriber' => $subscriber , 'newsletter' => $newsletter ));
     }
 
     /**
@@ -120,8 +120,6 @@ class SubscriberController extends Controller
             'activation'    => $request->input('activation')
         );
 
-        //$this->execute('Droit\Command\UpdateSubscriberCommand', $command );
-
         return redirect('admin/subscriber/'.$id.'/edit')->with( array('status' => 'success' , 'message' => 'Abonné édité') );
 
     }
@@ -133,9 +131,25 @@ class SubscriberController extends Controller
      * @param  int  $email
      * @return Response
      */
-    public function destroy($email)
+    public function destroy(Request $request)
     {
-        //$this->execute('Droit\Command\UnsubscribeCommand', array('email' => $email, 'newsletter_id' => array(1)));
+        // Validate the email
+        $this->validate($request, array('email' => 'required|exists:users,email') );
+
+        // find the abo
+        $subscriber = $this->subscriber->findByEmail( $request->email );
+
+        // Sync the abos to newsletter we have
+        $subscriber->newsletter()->detach();
+
+        // remove contact from list mailjet
+        if(!$this->worker->removeContact($subscriber->email))
+        {
+            throw new \App\Exceptions\DeleteUserException('Erreur avec la suppression de l\'abonnés sur mailjet');
+        }
+
+        // Delete the abonné from DB
+        $this->subscriber->delete($subscriber->id);
 
         return redirect()->back()->with(array('status' => 'success', 'message' => 'Abonné supprimé' ));
     }

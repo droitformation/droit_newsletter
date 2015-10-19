@@ -12,6 +12,7 @@
         <li class="<?php echo (Request::is('admin/analyse/*') ? 'active' : '' ); ?>"><a href="{{ url('admin/analyse')  }}"><i class="fa fa-dot-circle-o"></i> <span>Analyses</span></a></li>
         <li class="<?php echo (Request::is('admin/categorie/*') ? 'active' : '' ); ?>"><a href="{{ url('admin/categorie')  }}"><i class="fa fa-tasks"></i> <span>Categories</span></a></li>
         <li class="divider"></li>
+
         <li class="<?php echo (Request::is('admin/newsletter') || Request::is('admin/newsletter/*') ? 'active' : '' ); ?>">
             <a href="{{ url('admin/newsletter') }}">
                 <i class="fa fa-envelope"></i><span>Newsletter</span>

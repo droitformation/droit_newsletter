@@ -47,23 +47,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','administration']], f
     Route::post('sorting', 'Backend\Newsletter\CampagneController@sorting');
     Route::post('sortingGroup', 'Backend\Newsletter\CampagneController@sortingGroup');
 
-    Route::resource('newsletter', 'Backend\Newsletter\NewsletterController');
-
-    /**
-     * Campagne
-     */
-    Route::post('campagne/send', 'Backend\Newsletter\CampagneController@send');
-    Route::post('campagne/test', 'Backend\Newsletter\CampagneController@test');
-    Route::post('campagne/sorting', 'Backend\Newsletter\CampagneController@sorting');
-    Route::post('campagne/process', 'Backend\Newsletter\CampagneController@process');
-    Route::post('campagne/editContent', 'Backend\Newsletter\CampagneController@editContent');
-    Route::post('campagne/remove', 'Backend\Newsletter\CampagneController@remove');
-    Route::get('campagne/create/{newsletter}', 'Backend\Newsletter\CampagneController@create');
-    Route::get('campagne/simple/{id}', 'Backend\Newsletter\CampagneController@simple');
-    Route::resource('campagne', 'Backend\Newsletter\CampagneController');
-
-    Route::resource('statistics', 'Backend\Newsletter\StatsController');
-
     Route::get('ajax/arrets/{id}',   'Backend\ArretController@simple');
     Route::get('ajax/arrets',        'Backend\ArretController@arrets');
     Route::get('ajax/analyses/{id}', 'Backend\AnalyseController@simple');
@@ -75,6 +58,23 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','administration']], f
     Route::resource('categorie', 'Backend\CategorieController');
     Route::resource('contenu',   'Backend\ContentController');
     Route::resource('author',    'Backend\AuthorController');
+
+    /**
+     * Campagne & Newsletter
+     */
+    Route::resource('newsletter', 'Backend\Newsletter\NewsletterController');
+
+    Route::post('campagne/send', 'Backend\Newsletter\CampagneController@send');
+    Route::post('campagne/test', 'Backend\Newsletter\CampagneController@test');
+    Route::post('campagne/sorting', 'Backend\Newsletter\CampagneController@sorting');
+    Route::post('campagne/process', 'Backend\Newsletter\CampagneController@process');
+    Route::post('campagne/editContent', 'Backend\Newsletter\CampagneController@editContent');
+    Route::post('campagne/remove', 'Backend\Newsletter\CampagneController@remove');
+    Route::get('campagne/create/{newsletter}', 'Backend\Newsletter\CampagneController@create');
+    Route::get('campagne/simple/{id}', 'Backend\Newsletter\CampagneController@simple');
+    Route::resource('campagne', 'Backend\Newsletter\CampagneController');
+
+    Route::resource('statistics', 'Backend\Newsletter\StatsController');
 
     Route::resource('subscriber', 'Backend\Newsletter\SubscriberController');
     Route::get('subscribers', ['uses' => 'Backend\Newsletter\SubscriberController@subscribers']);
@@ -137,11 +137,15 @@ Route::get('testcampagne', function()
     //$campagne  = \App::make('App\Droit\Newsletter\Worker\CampagneInterface');
     //$campagnes = $campagne->getSentCampagneArrets();
 
-    $campagnes  = \App::make('App\Droit\Newsletter\Repo\NewsletterContentInterface');
-    $campagne = $campagnes->find(2);
+    //$campagnes  = \App::make('App\Droit\Newsletter\Repo\NewsletterContentInterface');
+    //$campagne = $campagnes->find(2);
+
+    $subscription = \App::make('App\Droit\Newsletter\Repo\NewsletterUserInterface');
+    $user = $subscription->findByEmail( 'cindy@leschaud.ch' );
 
     echo '<pre>';
-    print_r($campagne);
+    print_r($user);
+
     echo '</pre>';
 
 });
