@@ -44,8 +44,12 @@ class SubscriptionTest extends TestCase
      */
     public function testAddSubscriptionFromAdmin()
     {
-        $user = factory(App\Droit\Newsletter\Entities\Newsletter_users::class)->make();
-        $user->subscriptions = factory(App\Droit\Newsletter\Entities\Newsletter_subscriptions::class)->make();
+        $user = factory(App\Droit\Newsletter\Entities\Newsletter_users::class)->make(['id' => 1]);
+
+        $subscription1 = factory(App\Droit\Newsletter\Entities\Newsletter_subscriptions::class)->make(['newsletter_id' => 1]);
+        $subscription3 = factory(App\Droit\Newsletter\Entities\Newsletter_subscriptions::class)->make(['newsletter_id' => 2]);
+
+        $user->subscriptions = new \Illuminate\Support\Collection([$subscription1,$subscription3]);
 
         $this->subscription->shouldReceive('create')->once()->andReturn($user);
         $this->worker->shouldReceive('setList')->once();
@@ -63,8 +67,12 @@ class SubscriptionTest extends TestCase
      */
     public function testRemoveAndDeleteSubscription()
     {
-        $user = factory(App\Droit\Newsletter\Entities\Newsletter_users::class)->make();
-        $user->subscriptions = factory(App\Droit\Newsletter\Entities\Newsletter_subscriptions::class)->make();
+        $user = factory(App\Droit\Newsletter\Entities\Newsletter_users::class)->make(['id' => 1]);
+
+        $subscription1 = factory(App\Droit\Newsletter\Entities\Newsletter_subscriptions::class)->make(['newsletter_id' => 1]);
+        $subscription3 = factory(App\Droit\Newsletter\Entities\Newsletter_subscriptions::class)->make(['newsletter_id' => 2]);
+
+        $user->subscriptions = new \Illuminate\Support\Collection([$subscription1,$subscription3]);
 
         $this->subscription->shouldReceive('findByEmail')->once()->andReturn($user);
         $this->worker->shouldReceive('removeContact')->once()->andReturn(true);
@@ -82,20 +90,20 @@ class SubscriptionTest extends TestCase
      */
     public function testUpdateSubscriptions()
     {
-        $user = factory(App\Droit\Newsletter\Entities\Newsletter_users::class)->make();
-        $user->subscriptions = factory(App\Droit\Newsletter\Entities\Newsletter_subscriptions::class)->make();
+        $user = factory(App\Droit\Newsletter\Entities\Newsletter_users::class)->make(['id' => 1]);
 
-        $hadAbos = $user->subscriptions->lists('newsletter_id')->all();
-echo '<pre>';
-print_r($hadAbos);
-echo '</pre>';exit;
+        $subscription1 = factory(App\Droit\Newsletter\Entities\Newsletter_subscriptions::class)->make(['newsletter_id' => 1]);
+        $subscription3 = factory(App\Droit\Newsletter\Entities\Newsletter_subscriptions::class)->make(['newsletter_id' => 2]);
+
+        $user->subscriptions = new \Illuminate\Support\Collection([$subscription1,$subscription3]);
+
         $this->subscription->shouldReceive('update')->once()->andReturn($user);
 
-        $this->worker->shouldReceive('setList')->once();
+        $this->worker->shouldReceive('setList')->twice();
         $this->worker->shouldReceive('subscribeEmailToList')->once()->andReturn(true);
+        $this->worker->shouldReceive('removeContact')->once()->andReturn(true);
 
         $response = $this->call('PUT', 'admin/subscriber/1', ['id' => 1 , 'email' => 'cindy.leschaud@gmail.com', 'newsletter_id' => [1,3], 'activation' => 1]);
-        //$response = $this->action('PUT','App\Http\Controllers\Backend\Newsletter\SubscriberController@update',[] ,['id' => 1 , 'email' => 'cindy.leschaud@gmail.com', 'newsletter_id' => [1,3], 'activation' => 1]);
 
         $this->assertRedirectedTo('admin/subscriber/1');
     }

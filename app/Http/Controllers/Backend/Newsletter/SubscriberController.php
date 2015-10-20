@@ -76,17 +76,24 @@ class SubscriberController extends Controller
     public function store(Request $request)
     {
         // Subscribe user with activation token to website list and sync newsletter abos
-        $subscribe = $this->subscriber->create(['email' => $request->input('email'), 'activated_at' => \Carbon\Carbon::now() ]);
-
-        $subscribe->subscriptions()->attach($request->input('newsletter_id'));
+        $subscribe = $this->subscriber->create(
+            [
+                'email'         => $request->input('email'),
+                'activated_at'  => \Carbon\Carbon::now(),
+                'newsletter_id' => $request->input('newsletter_id')
+            ]
+        );
 
         //Subscribe to mailjet
         $lists = $request->input('newsletter_id');
 
-        foreach($lists as $list)
+        if(!empty($lists))
         {
-            $this->worker->setList($list);
-            $this->worker->subscribeEmailToList($subscribe->email);
+            foreach($lists as $list)
+            {
+                $this->worker->setList($list);
+                $this->worker->subscribeEmailToList($subscribe->email);
+            }
         }
 
         return redirect('admin/subscriber')->with( array('status' => 'success' , 'message' => 'Abonné ajouté') );
@@ -116,15 +123,19 @@ class SubscriberController extends Controller
      */
     public function update(RemoveNewsletterUserRequest $request, $id)
     {
-
         $activated_at = ($request->input('activation') ? date('Y-m-d G:i:s') : null);
-        $subscriber   = $this->subscriber->update(['id' => $id, 'email' => $request->input('email'), 'activated_at' => $activated_at]);
 
-        $hadAbos = $subscriber->subscriptions->lists('newsletter_id')->all();
+        $subscriber   = $this->subscriber->update(
+            [
+                'id'            => $id,
+                'email'         => $request->input('email'),
+                'newsletter_id' => $request->input('newsletter_id'),
+                'activated_at'  => $activated_at
+            ]
+        );
+
         $abos    = $request->input('newsletter_id', []);
-
-        // Sync the abos to newsletter we have
-        $subscriber->subscriptions()->sync($abos);
+        $hadAbos = $subscriber->subscriptions->lists('newsletter_id')->all();
 
         $added   = array_diff($abos,$hadAbos);
         $removed = array_diff($hadAbos,$abos);
