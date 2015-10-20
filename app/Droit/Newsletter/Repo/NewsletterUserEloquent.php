@@ -10,6 +10,7 @@ class NewsletterUserEloquent implements NewsletterUserInterface{
 	public function __construct(M $user)
 	{
 		$this->user = $user;
+        setlocale(LC_ALL, 'fr_FR.UTF-8');
 	}
 	
 	public function getAll()
@@ -34,72 +35,64 @@ class NewsletterUserEloquent implements NewsletterUserInterface{
 		return !$user->isEmpty() ? $user->first() : null;
 	}
 
-    public function get_ajax( $sEcho , $iDisplayStart , $iDisplayLength , $iSortCol_0, $sSortDir_0, $sSearch ){
+    public function get_ajax($draw, $start, $length, $sortCol, $sortDir, $search){
 
         $columns = ['id','status','activated_at','email','abo','delete'];
 
         $iTotal  = $this->user->all()->count();
 
-        if($sSearch)
+        if($search)
         {
-            $data = $this->user->where('email','LIKE','%'.$sSearch.'%')->with(['subscriptions'])
-                ->orderBy($columns[$iSortCol_0], $sSortDir_0)
-                ->take($iDisplayLength)
-                ->skip($iDisplayStart)
+            $data = $this->user->where('email','LIKE','%'.$search.'%')->with(['subscriptions'])
+                ->orderBy($columns[$sortCol], $sortDir)
+                ->take($length)
+                ->skip($start)
                 ->get();
 
-            $iTotalDisplayRecords = $data->count();
+            $recordsTotal = $data->count();
         }
         else
         {
             $data = $this->user->with(['subscriptions'])
-                                ->orderBy($columns[$iSortCol_0], $sSortDir_0)
-                                ->take($iDisplayLength)
-                                ->skip($iDisplayStart)
+                                ->orderBy($columns[$sortCol], $sortDir)
+                                ->take($length)
+                                ->skip($start)
                                 ->get();
 
-            $iTotalDisplayRecords = $iTotal;
+            $recordsTotal = $iTotal;
         }
 
         $output = array(
-            "sEcho"                => $sEcho,
-            "iTotalRecords"        => $iTotal,
-            "iTotalDisplayRecords" => $iTotalDisplayRecords,
-            "aaData"               => []
+            "draw"            => $draw,
+            "recordsTotal"    => $iTotal,
+            "recordsFiltered" => $recordsTotal,
+            "data"            => []
         );
 
         foreach($data as $abonne)
         {
-            $row = array();
+            $row = [];
 
-            $row['id']     = '<a class="btn btn-sky btn-sm" href="'.url('admin/subscriber/'.$abonne->id).'">&Eacute;diter</a>';
-            $status = ( $abonne->activated_at ? '<span class="label label-success">Confirmé</span>' : ' <span class="label label-default">Email non confirmé</span>');
-            $row['status']       = $status;
-
-            setlocale(LC_ALL, 'fr_FR.UTF-8');
-            $row['activated_at'] = ( $abonne->activated_at ? $abonne->activated_at->formatLocalized('%d %B %Y') : '' );
+            $row['id']           = '<a class="btn btn-sky btn-sm" href="'.url('admin/subscriber/'.$abonne->id).'">&Eacute;diter</a>';
+            $row['status']       = ($abonne->activated_at ? '<span class="label label-success">Confirmé</span>' : '<span class="label label-default">Email non confirmé</span>');
+            $row['activated_at'] = ($abonne->activated_at ? $abonne->activated_at->formatLocalized('%d %B %Y') : '');
             $row['email']        = $abonne->email;
+            $row['abo']          = '';
 
-            if( !$abonne->subscriptions->isEmpty() )
+            if( !$abonne->subscriptions->isEmpty())
             {
                 $abos       = $abonne->subscriptions->lists('titre')->all();
                 $row['abo'] = implode(',',$abos);
             }
-            else
-            {
-                $row['abo'] = '';
-            }
 
-            $row['delete']  = '<form action="'.url('admin/subscriber/'.$abonne->id).'" method="POST">';
-            $row['delete'] .= csrf_field();
-            $row['delete'] .= '<input type="hidden" name="_method" value="DELETE">';
+            $row['delete']  = '<form action="'.url('admin/subscriber/'.$abonne->id).'" method="POST">'.csrf_field().'<input type="hidden" name="_method" value="DELETE">';
             $row['delete'] .= '<input type="hidden" name="email" value="'.$abonne->email.'">';
             $row['delete'] .= '<button data-what="supprimer" data-action="Abonné '.$abonne->email.'" class="btn btn-danger btn-xs deleteAction">Supprimer</button>';
             $row['delete'] .= '</form>';
 
             $row = array_values($row);
 
-            $output['aaData'][] = $row;
+            $output['data'][] = $row;
         }
 
         return json_encode( $output );

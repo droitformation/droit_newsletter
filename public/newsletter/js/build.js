@@ -4,12 +4,16 @@ var App = angular.module('newsletter', ["angular-redactor","flow","ngSanitize","
 
 }).config(function(redactorOptions) {
         /* Redactor wysiwyg editor configuration */
-        redactorOptions.minHeight      = 120;
-        redactorOptions.maxHeight      = 240;
-        redactorOptions.formattingTags = ['p', 'h2', 'h3','h4'];
-        redactorOptions.fileUpload     = 'admin/uploadRedactor?_token=' + $('meta[name="_token"]').attr('content');
-        redactorOptions.lang           = 'fr';
-        redactorOptions.buttons        = ['html','|','formatting','bold','italic','|','unorderedlist','orderedlist','outdent','indent','|','image','file','link','alignment'];
+        redactorOptions.minHeight        = 120;
+        redactorOptions.maxHeight        = 240;
+        redactorOptions.formattingTags   = ['p', 'h2', 'h3','h4'];
+        redactorOptions.fileUpload       = 'admin/uploadRedactor?_token=' + $('meta[name="_token"]').attr('content');
+        redactorOptions.imageUpload      = 'admin/uploadRedactor?_token=' + $('meta[name="_token"]').attr('content');
+        redactorOptions.imageManagerJson = 'admin/imageJson';
+        redactorOptions.fileManagerJson  = 'admin/fileJson';
+        redactorOptions.plugins          = ['imagemanager','filemanager'];
+        redactorOptions.lang             = 'fr';
+        redactorOptions.buttons          = ['html','|','formatting','bold','italic','|','unorderedlist','orderedlist','outdent','indent','|','image','file','link','alignment'];
 
 }).config(['flowFactoryProvider', function (flowFactoryProvider) {
         /* Flow image upload configuration */

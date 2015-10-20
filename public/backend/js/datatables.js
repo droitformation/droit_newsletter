@@ -88,12 +88,11 @@ $(document).ready(function() {
     });
 
     $('#abonnes').dataTable({
-        "sAjaxSource": "admin/subscribers",
+        "ajax": "admin/subscribers",
         "data": {
             "user_id": 451
         },
-        "bProcessing": true,
-        "bServerSide": true,
+        "serverSide": true,
         language: langues
     });
 

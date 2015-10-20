@@ -41,7 +41,7 @@ class NewsletterController extends Controller
     {
         $newsletters = $this->newsletter->getAll();
 
-        return view('backend.newsletter.template.index')->with(compact('newsletters'));
+        return view('backend.newsletter.template.index')->with(['isNewsletter' => true, 'newsletters' => $newsletters]);
     }
 
     /**
@@ -71,7 +71,7 @@ class NewsletterController extends Controller
         $newsletter->header = $header['name'];
         $newsletter->save();
 
-        return redirect('admin/newsletter/'.$newsletter->id)->with(array('status' => 'success', 'message' => 'Newsletter crée' ));
+        return redirect('admin/newsletter/'.$newsletter->id)->with(['status' => 'success', 'message' => 'Newsletter crée']);
     }
 
     /**
@@ -85,17 +85,6 @@ class NewsletterController extends Controller
         $newsletter = $this->newsletter->find($id);
 
         return view('backend.newsletter.template.show')->with(compact('newsletter'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
@@ -142,6 +131,6 @@ class NewsletterController extends Controller
     {
         $this->newsletter->delete($id);
 
-        return redirect()->back()->with(array('status' => 'success', 'message' => 'Newsletter supprimée' ));
+        return redirect()->back()->with(['status' => 'success', 'message' => 'Newsletter supprimée']);
     }
 }

@@ -44,13 +44,12 @@ class SubscriberController extends Controller
      */
     public function subscribers(Request $request)
     {
+        $order  = $request->input('order');
+        $search = $request->input('search',null);
+        $search = ($search ? $search['value'] : null);
+
         return $this->subscriber->get_ajax(
-            $request->input('sEcho'),
-            $request->input('iDisplayStart'),
-            $request->input('iDisplayLength'),
-            $request->input('iSortCol_0'),
-            $request->input('sSortDir_0'),
-            $request->input('sSearch',null)
+            $request->input('draw'), $request->input('start'), $request->input('length'), $order[0]['column'], $order[0]['dir'], $search
         );
     }
 
@@ -177,13 +176,13 @@ class SubscriberController extends Controller
         // find the abo
         $subscriber = $this->subscriber->findByEmail($request->email );
 
-        // Sync the abos to newsletter we have
+        // Remove all the abos we have
         $subscriber->subscriptions()->detach();
 
-        // Delete the abonné from DB
+        // Delete the subscriber from DB
         $this->subscriber->delete($subscriber->email);
 
-        // remove contact from list mailjet
+        // Remove subscriber from list mailjet
         if(!$this->worker->removeContact($subscriber->email))
         {
             throw new \App\Exceptions\DeleteUserException('Erreur avec la suppression de l\'abonnés sur mailjet');

@@ -43,47 +43,6 @@ $(function() {
     });
 
     /**
-     *  Modal for delete a categorie as warning if arrets linked
-     */
-    $('body').on('click','.deleteCategorie',function(event){
-
-        $('#modalCategorie').empty();
-
-        var $this  = $(this);
-        var id     = $this.data('id');
-
-        $.ajax({
-            url     : 'admin/ajax/categorie/arrets',
-            data    : { id: id, _token: $("meta[name='_token']").attr('content') },
-            type    : "POST",
-            success : function(data) {
-                if(data.length > 0)
-                {
-                    var references = '<p class="text-danger"><strong>Attention!</strong>Les arrêts suivant sont liés à cette catégorie</p><ul>';
-
-                    $.each(data, function( index, value ) {
-                        var item = '<li>'+ value +'</li>';
-                        references = references.concat(item);
-                    });
-                    
-                    references.concat('</ul>');
-
-                    $('#modalCategorie').append(references);
-                }
-
-                $('#deleteConfirm').data('categorie' , id);
-                $('#deleteCategorie').modal();
-            }
-        });
-    });
-
-    $('#deleteConfirm').click(function() {
-        var cat = $(this).data('categorie');
-        console.log(cat);
-        $('#deleteCategorieForm_' + cat).submit();
-    });
-
-    /**
      *  Create and edit newsletter blocs
      */
     $('body').on('click','.editContent',function(event){

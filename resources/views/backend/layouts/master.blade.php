@@ -33,13 +33,11 @@
 
     @endif
 
-
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/bs/dt-1.10.9/datatables.min.css"/>
     <link rel="stylesheet" type="text/css" href="<?php echo asset('backend/js/vendor/redactor/redactor.css'); ?>">
     <link rel="stylesheet" type="text/css" href="<?php echo asset('backend/css/jquery-ui.min.css');?>">
     <link rel="stylesheet" type="text/css" href="<?php echo asset('backend/css/chosen.css');?>">
     <link rel="stylesheet" type="text/css" href="<?php echo asset('backend/css/chosen-bootstrap.css');?>">
-    <link rel="stylesheet" type="text/css" href="<?php echo asset('backend/css/dropzone.css');?>">
     <link rel='stylesheet' type='text/css' href="<?php echo asset('backend/plugins/form-multiselect/css/multi-select.css');?>" />
     <link rel="stylesheet" type="text/css" href="<?php echo asset('backend/css/admin.css');?>">
     <link rel="stylesheet" type="text/css" href="<?php echo asset('backend/css/types.css');?>">
@@ -112,49 +110,45 @@
 
 </div> <!-- page-container -->
 
+<!-- Main javascript libraries -->
 <script src="http://code.jquery.com/jquery-migrate-1.0.0.js"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
 <script src="<?php echo asset('backend/js/validation/messages_fr.js');?>"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.js"></script>
-
 <script type="text/javascript" src="https://cdn.datatables.net/r/bs/dt-1.10.9/datatables.min.js"></script>
 
+<!-- Filter plugin -->
 <script type="text/javascript" src="<?php echo asset('backend/js/vendor/chosen/chosen.jquery.js');?>"></script>
+
+<!-- Layout fixes plugins -->
 <script type="text/javascript" src="<?php echo asset('backend/js/enquire.js');?>"></script>
-<script type="text/javascript" src="<?php echo asset('backend/js/dropzone.js');?>"></script>
 <script type="text/javascript" src="<?php echo asset('backend/js/jquery.cookie.js');?>"></script>
 <script type="text/javascript" src="<?php echo asset('backend/js/jquery.nicescroll.min.js');?>"></script>
-<script type="text/javascript" src="<?php echo asset('backend/js/angular/angular-flow.js');?>"></script>
-<script type="text/javascript" src="<?php echo asset('backend/js/placeholdr.js');?>"></script>
+
+<!-- redactor -->
 <script type="text/javascript" src="<?php echo asset('backend/js/vendor/redactor/redactor.js');?>"></script>
 <script type="text/javascript" src="<?php echo asset('backend/js/vendor/redactor/fr.js');?>"></script>
 <script type="text/javascript" src="<?php echo asset('backend/js/vendor/redactor/imagemanager.js');?>"></script>
 <script type="text/javascript" src="<?php echo asset('backend/js/vendor/redactor/filemanager.js');?>"></script>
+
+<!-- Form plugins -->
+<script type="text/javascript" src="<?php echo asset('backend/js/placeholdr.js');?>"></script>
 <script type='text/javascript' src="<?php echo asset('backend/plugins/form-multiselect/js/jquery.multi-select.js');?>"></script>
 <script type='text/javascript' src="<?php echo asset('backend/plugins/form-multiselect/js/jquery.quicksearch.js');?>"></script>
 <script type='text/javascript' src="<?php echo asset('backend/plugins/form-datepicker/js/bootstrap-datepicker.js');?>"></script>
-<script type='text/javascript' src="<?php echo asset('backend/plugins/form-nestable/jquery.nestable.min.js');?>"></script>
-<script type="text/javascript" src="<?php echo asset('backend/js/datatables.js');?>"></script>
-<script type="text/javascript" src="<?php echo asset('backend/js/application.js');?>"></script>
-<script type='text/javascript' src="<?php echo asset('backend/plugins/bootbox/bootbox.min.js');?>"></script>
-<script type='text/javascript' src="<?php echo asset('backend/js/nestable.js');?>"></script>
-<script type='text/javascript' src="<?php echo asset('backend/js/Sortable.min.js');?>"></script>
-<script type='text/javascript' src="<?php echo asset('backend/js/selectize.js');?>"></script>
-<script type='text/javascript' src="<?php echo asset('backend/plugins/form-stepy/jquery.stepy.js');?>"></script>
-<script type='text/javascript' src="<?php echo asset('backend/js/formwizard.js');?>"></script>
 <script type='text/javascript' src="<?php echo asset('backend/js/jqColorPicker.min.js');?>"></script>
 
+<!-- Modal plugins -->
+<script type='text/javascript' src="<?php echo asset('backend/plugins/bootbox/bootbox.min.js');?>"></script>
+
+<script type="text/javascript" src="<?php echo asset('backend/js/application.js');?>"></script>
 <script type="text/javascript" src="<?php echo asset('backend/js/admin.js');?>"></script>
-<script type="text/javascript" src="<?php echo asset('backend/js/upload.js');?>"></script>
-<script type="text/javascript" src="<?php echo asset('backend/js/newsletter.js');?>"></script>
 
 @if(isset($isNewsletter))
     @include('backend.newsletter.scripts')
 @endif
-
-<script type="text/javascript" src="<?php echo asset('newsletter/js/utils.js');?>"></script>
 
 </body>
 </html>
