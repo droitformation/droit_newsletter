@@ -13,10 +13,12 @@
         <li class="<?php echo (Request::is('admin/categorie/*') ? 'active' : '' ); ?>"><a href="{{ url('admin/categorie')  }}"><i class="fa fa-tasks"></i> <span>Categories</span></a></li>
         <li class="divider"></li>
 
-        <li class="<?php echo (Request::is('admin/newsletter') || Request::is('admin/newsletter/*') ? 'active' : '' ); ?>">
-            <a href="{{ url('admin/newsletter') }}">
-                <i class="fa fa-envelope"></i><span>Newsletter</span>
-            </a>
+        <li class="<?php echo (Request::is('admin/newsletter/*') || Request::is('admin/campagne/*') || Request::is('admin/subscriber/*') ? 'active' : '' ); ?>">
+            <a href="javascript:;"><i class="fa fa-envelope"></i><span>Newsletters</span></a>
+            <ul class="acc-menu">
+                <li class="<?php echo (Request::is('admin/newsletter/*') ? 'active' : '' ); ?>"><a href="{{ url('admin/newsletter')  }}">Liste des newsletters</a></li>
+                <li class="<?php echo (Request::is('admin/subscriber/*') ? 'active' : '' ); ?>"><a href="{{ url('admin/subscriber')  }}">Abonnées</a></li>
+            </ul>
         </li>
 
     </ul>

@@ -42,6 +42,15 @@ class SubscriptionTest extends TestCase
      *
      * @return void
      */
+    public function testSubscriptionCreationPage()
+    {
+        $this->visit('admin/subscriber')->click('addSubscriber')->seePageIs('admin/subscriber/create');
+    }
+
+    /**
+     *
+     * @return void
+     */
     public function testAddSubscriptionFromAdmin()
     {
         $user = factory(App\Droit\Newsletter\Entities\Newsletter_users::class)->make(['id' => 1]);

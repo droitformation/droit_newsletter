@@ -89,6 +89,9 @@ $(document).ready(function() {
 
     $('#abonnes').dataTable({
         "sAjaxSource": "admin/subscribers",
+        "data": {
+            "user_id": 451
+        },
         "bProcessing": true,
         "bServerSide": true,
         language: langues

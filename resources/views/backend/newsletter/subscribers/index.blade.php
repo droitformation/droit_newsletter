@@ -3,12 +3,12 @@
 
 <div class="row">
     <div class="col-md-6">
-        <h3>Abonnés la newsletter</h3>
+        <h3>Abonnés aux newsletter</h3>
     </div>
     <div class="col-md-6">
         <div class="options text-right" style="margin-bottom: 10px;">
             <div class="btn-toolbar">
-                <a href="{{ url('admin/subscriber/create') }}" class="btn btn-green"><i class="fa fa-plus"></i> &nbsp;Ajouter un abonné</a>
+                <a href="{{ url('admin/subscriber/create') }}" class="btn btn-green" id="addSubscriber"><i class="fa fa-plus"></i> &nbsp;Ajouter un abonné</a>
             </div>
         </div>
     </div>
