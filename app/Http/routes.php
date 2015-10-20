@@ -149,3 +149,21 @@ Route::get('testcampagne', function()
     echo '</pre>';
 
 });
+
+Route::get('test', function()
+{
+
+    $hadAbos = [1,2,3];
+    $abos    = [2,3,4];
+
+    $added   = array_diff($abos,$hadAbos);
+    $removed = array_diff($hadAbos,$abos);
+
+    echo '<pre>';
+    echo 'removed';
+    print_r($removed);
+    echo 'added';
+    print_r($added);
+    echo '</pre>';
+
+});

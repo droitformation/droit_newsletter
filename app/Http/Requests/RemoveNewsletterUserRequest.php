@@ -23,13 +23,14 @@ class RemoveNewsletterUserRequest extends Request
 
     /**
      * Get the validation rules that apply to the request.
-     *
+
      * @return array
      */
     public function rules()
     {
         return [
-            'email' => 'required|exists:newsletter_users,email'
+            'email'      => 'required|email',
+            'activation' => 'required_with:newsletter_id'
         ];
     }
 }

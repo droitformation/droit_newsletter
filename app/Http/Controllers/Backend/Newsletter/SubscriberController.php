@@ -76,12 +76,18 @@ class SubscriberController extends Controller
     public function store(Request $request)
     {
         // Subscribe user with activation token to website list and sync newsletter abos
-        $subscribe = $this->subscriber->create(['email' => $request->email, 'activated_at' => \Carbon\Carbon::now() ]);
+        $subscribe = $this->subscriber->create(['email' => $request->input('email'), 'activated_at' => \Carbon\Carbon::now() ]);
 
         $subscribe->subscriptions()->attach($request->input('newsletter_id'));
 
         //Subscribe to mailjet
-        $this->worker->subscribeEmailToList( $request->email );
+        $lists = $request->input('newsletter_id');
+
+        foreach($lists as $list)
+        {
+            $this->worker->setList($list);
+            $this->worker->subscribeEmailToList($subscribe->email);
+        }
 
         return redirect('admin/subscriber')->with( array('status' => 'success' , 'message' => 'Abonné ajouté') );
     }
@@ -108,29 +114,40 @@ class SubscriberController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(RemoveNewsletterUserRequest $request, $id)
     {
 
-        $subscriber = $this->subscriber->update(['email' => $request->email, 'activated_at' => $request->activation]);
+        $activated_at = ($request->input('activation') ? date('Y-m-d G:i:s') : null);
+        $subscriber   = $this->subscriber->update(['id' => $id, 'email' => $request->input('email'), 'activated_at' => $activated_at]);
+
+        $hadAbos = $subscriber->subscriptions->lists('newsletter_id')->all();
+        $abos    = $request->input('newsletter_id', []);
 
         // Sync the abos to newsletter we have
-        $subscriber->newsletter()->sync($request->input('newsletter_id'));
+        $subscriber->subscriptions()->sync($abos);
 
-        $abos    = $request->subscriptions->lists('newsletter_id')->all();
+        $added   = array_diff($abos,$hadAbos);
+        $removed = array_diff($hadAbos,$abos);
 
-        $exist   = array_diff($request->input('newsletter_id'),$abos);
-        $removed = array_diff($abos,$request->input('newsletter_id'));
+        if(!empty($added) && $activated_at)
+        {
+            foreach($added as $list)
+            {
+                $this->worker->setList($list);
+                $this->worker->subscribeEmailToList($subscriber->email);
+            }
+        }
 
         if(!empty($removed))
         {
-            return $this->worker->subscribeEmailToList($abonne->email);
-        }
-        else
-        {
-            return $this->worker->removeContact($abonne->email);
+            foreach($added as $list)
+            {
+                $this->worker->setList($list);
+                $this->worker->removeContact($subscriber->email);
+            }
         }
 
-        return redirect('admin/subscriber/'.$id.'/edit')->with( array('status' => 'success' , 'message' => 'Abonné édité') );
+        return redirect('admin/subscriber/'.$id)->with( array('status' => 'success' , 'message' => 'Abonné édité') );
 
     }
 
