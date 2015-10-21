@@ -8,7 +8,7 @@
     <div class="col-md-6">
         <div class="options text-right" style="margin-bottom: 10px;">
             <div class="btn-toolbar">
-                <a href="{{ url('admin/newsletter/create') }}" class="btn btn-success"><i class="fa fa-plus"></i> &nbsp;Newsletter</a>
+                <a href="{{ url('admin/newsletter/create') }}" class="btn btn-success" id="addNewsletter"><i class="fa fa-plus"></i> &nbsp;Newsletter</a>
             </div>
         </div>
     </div>
@@ -46,8 +46,8 @@
                                     <table class="table table-bordered table-striped">
                                        <thead>
                                            <tr>
-                                               <th class="col-md-3">Sujet</th>
-                                               <th class="col-md-3">Auteurs</th>
+                                               <th class="col-md-2">Sujet</th>
+                                               <th class="col-md-4">Auteurs</th>
                                                <th class="col-md-1">Status</th>
                                                <th class="col-md-2"></th>
                                                <th class="col-md-2"></th>
@@ -61,9 +61,9 @@
                                                     <td>{{ $campagne->auteurs }}</td>
                                                     <td>
                                                         @if($campagne->status == 'brouillon')
-                                                            <span class="label label-default">Brouillon</span>
+                                                            <span class="badge badge-default">Brouillon</span>
                                                         @else
-                                                            <span class="label label-success">Envoyé</span>
+                                                            <span class="badge badge-success">Envoyé</span>
                                                         @endif
                                                     </td>
                                                     <td>
@@ -93,7 +93,7 @@
                                                     <td class="text-right">
                                                         <form action="{{ url('admin/campagne/'.$campagne->id) }}" method="POST">
                                                             <input type="hidden" name="_method" value="DELETE">{!! csrf_field() !!}
-                                                            <button data-action="campagne {{ $campagne->sujet }}" class="btn btn-danger btn-sm deleteAction"><i class="fa fa-remove"></i></button>
+                                                            <button data-action="campagne {{ $campagne->sujet }}" class="btn btn-danger btn-xs deleteAction"><i class="fa fa-remove"></i></button>
                                                         </form>
                                                     </td>
                                                 </tr>

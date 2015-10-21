@@ -22,13 +22,6 @@ class NewsletterController extends Controller
         $this->upload     = $upload;
         $this->mailjet    = $mailjet;
 
-        $lists = $this->mailjet->getAllLists();
-
-        if(isset($lists->Data))
-        {
-            view()->share('lists', $lists->Data);
-        }
-
         setlocale(LC_ALL, 'fr_FR.UTF-8');
     }
 
@@ -51,7 +44,10 @@ class NewsletterController extends Controller
      */
     public function create()
     {
-        return view('backend.newsletter.template.create');
+        $lists = $this->mailjet->getAllLists();
+        $lists = (isset($lists->Data) ? $lists->Data : []);
+
+        return view('backend.newsletter.template.create')->with(['lists' => $lists]);
     }
 
     /**
@@ -82,9 +78,11 @@ class NewsletterController extends Controller
      */
     public function show($id)
     {
+        $lists      = $this->mailjet->getAllLists();
+        $lists      = (isset($lists->Data) ? $lists->Data : []);
         $newsletter = $this->newsletter->find($id);
 
-        return view('backend.newsletter.template.show')->with(compact('newsletter'));
+        return view('backend.newsletter.template.show')->with(['newsletter' => $newsletter, 'lists' => $lists]);
     }
 
     /**

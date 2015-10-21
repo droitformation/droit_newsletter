@@ -44,6 +44,7 @@ class SubscriberController extends Controller
      */
     public function subscribers(Request $request)
     {
+
         $order  = $request->input('order');
         $search = $request->input('search',null);
         $search = ($search ? $search['value'] : null);
@@ -128,7 +129,7 @@ class SubscriberController extends Controller
             [
                 'id'            => $id,
                 'email'         => $request->input('email'),
-                'newsletter_id' => $request->input('newsletter_id'),
+                'newsletter_id' => $request->input('newsletter_id',[]),
                 'activated_at'  => $activated_at
             ]
         );

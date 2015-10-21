@@ -37,27 +37,34 @@ class NewsletterUserEloquent implements NewsletterUserInterface{
 
     public function get_ajax($draw, $start, $length, $sortCol, $sortDir, $search){
 
-        $columns = ['id','status','activated_at','email','abo','delete'];
+        $columns = ['id','activated_at','activated_at','email','newsletter_id'];
 
         $iTotal  = $this->user->all()->count();
 
         if($search)
         {
-            $data = $this->user->where('email','LIKE','%'.$search.'%')->with(['subscriptions'])
-                ->orderBy($columns[$sortCol], $sortDir)
-                ->take($length)
-                ->skip($start)
-                ->get();
+            $data = $this->user->where('email','LIKE','%'.$search.'%')
+                                ->with(['subscriptions'])
+                                ->orderBy($columns[$sortCol], $sortDir)
+                                ->take($length)
+                                ->skip($start)
+                                ->get();
 
             $recordsTotal = $data->count();
         }
         else
         {
-            $data = $this->user->with(['subscriptions'])
-                                ->orderBy($columns[$sortCol], $sortDir)
-                                ->take($length)
-                                ->skip($start)
-                                ->get();
+            if($sortCol == 4)
+            {
+                $data = $this->user->with(['subscriptions' => function($query) use ($sortDir)
+                {
+                    $query->orderBy('newsletter_id', $sortDir);
+                }])->take($length)->skip($start)->get();
+            }
+            else
+            {
+                $data = $this->user->with(['subscriptions'])->orderBy($columns[$sortCol], $sortDir)->take($length)->skip($start)->get();
+            }
 
             $recordsTotal = $iTotal;
         }
@@ -73,11 +80,13 @@ class NewsletterUserEloquent implements NewsletterUserInterface{
         {
             $row = [];
 
-            $row['id']           = '<a class="btn btn-sky btn-sm" href="'.url('admin/subscriber/'.$abonne->id).'">&Eacute;diter</a>';
-            $row['status']       = ($abonne->activated_at ? '<span class="label label-success">Confirmé</span>' : '<span class="label label-default">Email non confirmé</span>');
-            $row['activated_at'] = ($abonne->activated_at ? $abonne->activated_at->formatLocalized('%d %B %Y') : '');
-            $row['email']        = $abonne->email;
-            $row['abo']          = '';
+            $row['id']                  = '<a class="btn btn-sky btn-sm" href="'.url('admin/subscriber/'.$abonne->id).'">&Eacute;diter</a>';
+           // $row['status']['display']   = ($abonne->activated_at ? '<span class="label label-success">Confirmé</span>' : '<span class="label label-default">Email non confirmé</span>');
+            //$row['status']['timestamp'] = $abonne->activated_at;
+            $row['status']              = ($abonne->activated_at ? '<span class="label label-success">Confirmé</span>' : '<span class="label label-default">Email non confirmé</span>');
+            $row['activated_at']        = ($abonne->activated_at ? $abonne->activated_at->formatLocalized('%d %B %Y') : '');
+            $row['email']               = $abonne->email;
+            $row['abo']                 = '';
 
             if( !$abonne->subscriptions->isEmpty())
             {
@@ -87,10 +96,10 @@ class NewsletterUserEloquent implements NewsletterUserInterface{
 
             $row['delete']  = '<form action="'.url('admin/subscriber/'.$abonne->id).'" method="POST">'.csrf_field().'<input type="hidden" name="_method" value="DELETE">';
             $row['delete'] .= '<input type="hidden" name="email" value="'.$abonne->email.'">';
-            $row['delete'] .= '<button data-what="supprimer" data-action="Abonné '.$abonne->email.'" class="btn btn-danger btn-xs deleteAction">Supprimer</button>';
+            $row['delete'] .= '<button data-what="supprimer" data-action="Abonné '.$abonne->email.'" class="btn btn-danger btn-xs deleteAction pull-right">Supprimer</button>';
             $row['delete'] .= '</form>';
 
-            $row = array_values($row);
+            //$row = array_values($row);
 
             $output['data'][] = $row;
         }

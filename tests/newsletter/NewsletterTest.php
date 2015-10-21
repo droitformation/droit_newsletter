@@ -45,6 +45,17 @@ class NewsletterTest extends TestCase
      *
      * @return void
      */
+    public function testSubscriptionCreationPage()
+    {
+        $this->mailjet->shouldReceive('getAllLists')->once()->andReturn([]);
+
+        $this->visit('admin/newsletter')->click('addNewsletter')->seePageIs('admin/newsletter/create');
+    }
+
+    /**
+     *
+     * @return void
+     */
     public function testSendCampagne()
     {
 

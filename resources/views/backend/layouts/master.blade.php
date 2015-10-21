@@ -34,6 +34,7 @@
     @endif
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/bs/dt-1.10.9/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php echo asset('backend/datatables/jquery.dataTables.yadcf.css'); ?>">
     <link rel="stylesheet" type="text/css" href="<?php echo asset('backend/js/vendor/redactor/redactor.css'); ?>">
     <link rel="stylesheet" type="text/css" href="<?php echo asset('backend/css/jquery-ui.min.css');?>">
     <link rel="stylesheet" type="text/css" href="<?php echo asset('backend/css/chosen.css');?>">
@@ -117,7 +118,9 @@
 <script src="<?php echo asset('backend/js/validation/messages_fr.js');?>"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.js"></script>
+
 <script type="text/javascript" src="https://cdn.datatables.net/r/bs/dt-1.10.9/datatables.min.js"></script>
+<script type="text/javascript" src="<?php echo asset('backend/datatables/jquery.dataTables.yadcf.js');?>"></script>
 
 <!-- Filter plugin -->
 <script type="text/javascript" src="<?php echo asset('backend/js/vendor/chosen/chosen.jquery.js');?>"></script>
@@ -144,6 +147,7 @@
 <script type='text/javascript' src="<?php echo asset('backend/plugins/bootbox/bootbox.min.js');?>"></script>
 
 <script type="text/javascript" src="<?php echo asset('backend/js/application.js');?>"></script>
+<script type="text/javascript" src="<?php echo asset('backend/js/datatables.js');?>"></script>
 <script type="text/javascript" src="<?php echo asset('backend/js/admin.js');?>"></script>
 
 @if(isset($isNewsletter))
