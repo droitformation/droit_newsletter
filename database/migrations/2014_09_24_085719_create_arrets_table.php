@@ -16,7 +16,6 @@ class CreateArretsTable extends Migration {
 		{
 
             $table->increments('id')->unsigned();
-            $table->integer('pid');
             $table->integer('user_id');
             $table->string('reference');
             $table->dateTime('pub_date');

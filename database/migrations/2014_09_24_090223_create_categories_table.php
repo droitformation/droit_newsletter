@@ -20,7 +20,7 @@ class CreateCategoriesTable extends Migration {
             $table->integer('ismain');
             $table->tinyInteger('hideOnSite')->default(0);
             $table->timestamps();
-
+            $table->softDeletes();
 		});
 	}
 

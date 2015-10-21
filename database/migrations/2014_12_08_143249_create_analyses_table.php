@@ -15,9 +15,7 @@ class CreateAnalysesTable extends Migration {
 		Schema::create('analyses', function(Blueprint $table)
 		{
             $table->increments('id')->unsigned();
-            $table->integer('pid');
             $table->integer('user_id')->nullable();
-            $table->integer('deleted')->default(0);
             $table->string('authors')->nullable();
             $table->integer('pub_date');
             $table->text('abstract')->nullable();
@@ -25,6 +23,7 @@ class CreateAnalysesTable extends Migration {
             $table->integer('categories')->nullable();
             $table->integer('arrets')->nullable();
 			$table->timestamps();
+            $table->softDeletes();
 		});
 	}
 

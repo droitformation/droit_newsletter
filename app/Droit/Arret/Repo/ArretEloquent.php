@@ -12,28 +12,14 @@ class ArretEloquent implements ArretInterface{
 		$this->arret = $arret;
 	}
 
-    public function getAll(){
-
-        return $this->arret
-            ->with( array('arrets_categories' => function ($query)
-            {
-                $query->orderBy('sorting', 'ASC');
-            },'arrets_analyses' => function($query)
-            {
-                $query->where('analyses.deleted', '=', 0);
-            }))
-            ->orderBy('reference', 'ASC')->get();
+    public function getAll()
+    {
+        return $this->arret->with(['arrets_categories','arrets_analyses'])->orderBy('reference', 'ASC')->get();
     }
 
     public function getAllActives($include = []){
 
-        $arrets = $this->arret->with( array('arrets_categories' => function ($query)
-            {
-                $query->orderBy('sorting', 'ASC');
-            },'arrets_analyses' => function($query)
-            {
-                $query->where('analyses.deleted', '=', 0);
-            }));
+        $arrets = $this->arret->with( array('arrets_categories','arrets_analyses'));
 
         if(!empty($include)){
             $arrets->whereIn('id', $include);
@@ -43,16 +29,9 @@ class ArretEloquent implements ArretInterface{
 
     }
 
-    public function getPaginate($nbr){
-
-        return $this->arret->with( array('arrets_categories' => function ($query)
-        {
-            $query->orderBy('sorting', 'ASC');
-        },'arrets_analyses' => function($query)
-        {
-            $query->where('analyses.deleted', '=', 0);
-
-        }))->orderBy('pub_date', 'DESC')->paginate($nbr);
+    public function getPaginate($nbr)
+    {
+        return $this->arret->with( array('arrets_categories','arrets_analyses'))->orderBy('pub_date', 'DESC')->paginate($nbr);
     }
 
     public function getLatest($include = []){
@@ -61,10 +40,7 @@ class ArretEloquent implements ArretInterface{
         {
             $arrets = $this->arret
                 ->whereIn('id', $include)
-                ->with( array('arrets_analyses' => function($query)
-                    {
-                        $query->where('analyses.deleted', '=', 0);
-                    }))->orderBy('id', 'ASC')->get();
+                ->with( array('arrets_analyses'))->orderBy('id', 'ASC')->get();
 
             $new = $arrets->filter(function($item)
             {
@@ -83,13 +59,10 @@ class ArretEloquent implements ArretInterface{
 
         if(is_array($id))
         {
-            return $this->arret->whereIn('id', $id)->with(array('arrets_categories'=> function ($query)
-                {
-                    $query->orderBy('sorting', 'ASC');
-                },'arrets_analyses'))->get();
+            return $this->arret->whereIn('id', $id)->with(['arrets_categories','arrets_analyses'])->get();
         }
 
-		return $this->arret->where('id', '=' ,$id)->with(array('arrets_categories','arrets_analyses'))->get()->first();
+		return $this->arret->with(['arrets_categories','arrets_analyses'])->find($id);
 	}
 
     public function findyByImage($file){
@@ -163,7 +136,6 @@ class ArretEloquent implements ArretInterface{
         $arret = $this->arret->find($id);
 
 		return $arret->delete();
-		
 	}
 
 }

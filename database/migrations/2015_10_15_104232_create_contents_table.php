@@ -19,10 +19,11 @@ class CreateContentsTable extends Migration {
 			$table->text('contenu')->nullable();
 			$table->string('image')->nullable();
 			$table->string('url')->nullable();
-			$table->string('slug')->nullable();
+            $table->integer('rang')->default(0);
 			$table->enum('type', array('pub','texte','soutien'));
 			$table->enum('position', array('sidebar','home-bloc','home-colonne'));
 			$table->timestamps();
+            $table->softDeletes();
 		});
 	}
 

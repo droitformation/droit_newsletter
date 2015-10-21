@@ -17,18 +17,19 @@ class AnalyseEloquent implements AnalyseInterface{
 
     public function getAll($include = []){
 
-        $analyse = $this->analyse->where('analyses.deleted', '=', 0);
+        $analyse = $this->analyse->with( array('analyse_authors','analyses_categories','analyses_arrets'));
 
-        if(!empty($include)){
+        if(!empty($include))
+        {
             $analyse->whereIn('id', $include);
         }
 
-        return $analyse->with( array('analyse_authors','analyses_categories','analyses_arrets'))->orderBy('pub_date', 'DESC')->get();
+        return $analyse->orderBy('pub_date', 'DESC')->get();
     }
 
 	public function find($id){
 				
-		return $this->analyse->where('id', '=' ,$id)->with(array('analyse_authors','analyses_categories','analyses_arrets'))->get()->first();
+		return $this->analyse->with(array('analyse_authors','analyses_categories','analyses_arrets'))->find($id);
 	}
 
 	public function create(array $data){
