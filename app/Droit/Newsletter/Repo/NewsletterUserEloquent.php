@@ -63,7 +63,11 @@ class NewsletterUserEloquent implements NewsletterUserInterface{
             }
             else
             {
-                $data = $this->user->with(['subscriptions'])->orderBy($columns[$sortCol], $sortDir)->take($length)->skip($start)->get();
+                $data = $this->user->with(['subscriptions'])
+                                    ->orderBy($columns[$sortCol], $sortDir)
+                                    ->take($length)
+                                    ->skip($start)
+                                    ->get();
             }
 
             $recordsTotal = $iTotal;

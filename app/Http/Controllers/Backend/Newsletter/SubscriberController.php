@@ -44,7 +44,6 @@ class SubscriberController extends Controller
      */
     public function subscribers(Request $request)
     {
-
         $order  = $request->input('order');
         $search = $request->input('search',null);
         $search = ($search ? $search['value'] : null);

@@ -55,30 +55,6 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">Catégorie principale ?</label>
-                    <div class="col-sm-7">
-                        <label class="radio-inline">
-                            <input type="radio" <?php echo (!$categorie->ismain ? 'checked' : ''); ?> name="ismain"  value="0"> Non
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" <?php echo ($categorie->ismain ? 'checked' : ''); ?> name="ismain" value="1"> Oui
-                        </label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">Invisible sur site ?</label>
-                    <div class="col-sm-7">
-                        <label class="radio-inline">
-                            <input type="radio" name="hideOnSite" <?php echo (!$categorie->hideOnSite ? 'checked' : ''); ?> value="0"> Non
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="hideOnSite" <?php echo ($categorie->hideOnSite ? 'checked' : ''); ?> value="1"> Oui
-                        </label>
-                    </div>
-                </div>
-
             </div>
             <div class="panel-footer mini-footer ">
                 {!! Form::hidden('id', $categorie->id )!!}

@@ -69,7 +69,7 @@ class NewsletterController extends Controller
     {
         $newsletter = $this->newsletter->find($id);
 
-        return view('frontend.newsletter')->with(['newsletter' => $newsletter]);
+        return view('frontend.newsletter.newsletter')->with(['newsletter' => $newsletter]);
     }
 
     /**
@@ -86,7 +86,7 @@ class NewsletterController extends Controller
         $categories    = $this->worker->getCategoriesArrets();
         $imgcategories = $this->worker->getCategoriesImagesArrets();
 
-        return view('frontend.campagne')->with(
+        return view('frontend.newsletter.campagne')->with(
             ['campagne' => $campagne , 'content' => $content, 'categories' => $categories, 'imgcategories' => $imgcategories]
         );
     }

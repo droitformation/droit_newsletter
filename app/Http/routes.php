@@ -9,18 +9,18 @@
 Route::get('/', array('as' => 'home', 'uses' => 'Frontend\HomeController@index'));
 Route::get('auteur', 'Frontend\HomeController@auteur');
 Route::get('contact', 'Frontend\HomeController@contact');
-Route::get('newsletter', 'Frontend\NewsletterController@index');
 Route::get('jurisprudence', 'Frontend\JurisprudenceController@index');
 Route::get('unsubscribe/{id}', 'Frontend\HomeController@unsubscribe');
 
-Route::resource('newsletter', 'Frontend\NewsletterController');
-Route::get('newsletter/campagne/{id}', 'Frontend\NewsletterController@campagne');
-
 /*
 |--------------------------------------------------------------------------
-| Subscriptions Routes
+| Subscriptions adn newsletter Routes
 |--------------------------------------------------------------------------
 */
+
+Route::get('newsletter', 'Frontend\NewsletterController@index');
+Route::resource('newsletter', 'Frontend\NewsletterController');
+Route::get('newsletter/campagne/{id}', 'Frontend\NewsletterController@campagne');
 
 Route::post('unsubscribe', 'Backend\Newsletter\InscriptionController@unsubscribe');
 Route::post('subscribe', 'Backend\Newsletter\InscriptionController@subscribe');
@@ -36,13 +36,26 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','administration']], f
 
     Route::get('/', 'Backend\AdminController@index');
     Route::resource('config', 'Backend\ConfigController');
-    //Route::get('search', 'Backend\SearchController@search');
+
+
     Route::post('upload', 'Backend\UploadController@upload');
     Route::post('uploadJS', 'Backend\UploadController@uploadJS');
     Route::post('uploadRedactor', 'Backend\UploadController@uploadRedactor');
 
     Route::get('imageJson/{id?}', ['uses' => 'Backend\UploadController@imageJson']);
     Route::get('fileJson/{id?}', ['uses' => 'Backend\UploadController@fileJson']);
+
+    Route::resource('arret',     'Backend\ArretController');
+    Route::resource('analyse',   'Backend\AnalyseController');
+    Route::resource('categorie', 'Backend\CategorieController');
+    Route::resource('contenu',   'Backend\ContentController');
+    Route::resource('author',    'Backend\AuthorController');
+
+    /*
+   |--------------------------------------------------------------------------
+   | Backend subscriptions, newsletters and campagnes Routes
+   |--------------------------------------------------------------------------
+   */
 
     Route::post('sorting', 'Backend\Newsletter\CampagneController@sorting');
     Route::post('sortingGroup', 'Backend\Newsletter\CampagneController@sortingGroup');
@@ -53,15 +66,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','administration']], f
     Route::get('ajax/categories',    'Backend\CategorieController@categories');
     Route::post('ajax/categorie/arrets', 'Backend\CategorieController@arrets');
 
-    Route::resource('arret',     'Backend\ArretController');
-    Route::resource('analyse',   'Backend\AnalyseController');
-    Route::resource('categorie', 'Backend\CategorieController');
-    Route::resource('contenu',   'Backend\ContentController');
-    Route::resource('author',    'Backend\AuthorController');
-
-    /**
-     * Campagne & Newsletter
-     */
     Route::resource('newsletter', 'Backend\Newsletter\NewsletterController');
 
     Route::post('campagne/send', 'Backend\Newsletter\CampagneController@send');
@@ -74,10 +78,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','administration']], f
     Route::get('campagne/simple/{id}', 'Backend\Newsletter\CampagneController@simple');
     Route::resource('campagne', 'Backend\Newsletter\CampagneController');
 
-    Route::resource('statistics', 'Backend\Newsletter\StatsController');
-
     Route::resource('subscriber', 'Backend\Newsletter\SubscriberController');
     Route::get('subscribers', ['uses' => 'Backend\Newsletter\SubscriberController@subscribers']);
+
+    Route::resource('statistics', 'Backend\Newsletter\StatsController');
 });
 
 /*
@@ -167,3 +171,29 @@ Route::get('test', function()
     echo '</pre>';
 
 });
+
+
+/*
+ * Log all queries
+ *
+Event::listen('illuminate.query', function($query, $bindings, $time, $name)
+{
+    $data = compact('bindings', 'time', 'name');
+    // Format binding data for sql insertion
+    foreach ($bindings as $i => $binding)
+    {
+        if ($binding instanceof \DateTime)
+        {
+            $bindings[$i] = $binding->format('\'Y-m-d H:i:s\'');
+        }
+        else if (is_string($binding))
+        {
+            $bindings[$i] = "'$binding'";
+        }
+    }
+    // Insert bindings into query
+    $query = str_replace(array('%', '?'), array('%%', '%s'), $query);
+    $query = vsprintf($query, $bindings);
+    Log::info($query, $data);
+});
+*/

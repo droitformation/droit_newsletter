@@ -117,19 +117,6 @@ $(document).ready(function() {
         language: langues
     });
 
-    yadcf.init(table, [
-        {
-            column_number : 1,
-            select_type: 'chosen',
-            select_type_options: {
-                disable_search: true
-            },
-            column_data_type: "html",
-            html_data_type: "text",
-            filter_default_label: "Select tag"
-        },
-    ]);
-
     $('.dataTables_filter input').addClass('form-control').attr('placeholder','Recherche...');
     $('.dataTables_length select').addClass('form-control');
 });

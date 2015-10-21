@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>Administration | Droit Formation</title>
+    <title>Administration | DroitNE</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Administration | Droit Formation">
@@ -34,7 +34,6 @@
     @endif
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/bs/dt-1.10.9/datatables.min.css"/>
-    <link rel="stylesheet" type="text/css" href="<?php echo asset('backend/datatables/jquery.dataTables.yadcf.css'); ?>">
     <link rel="stylesheet" type="text/css" href="<?php echo asset('backend/js/vendor/redactor/redactor.css'); ?>">
     <link rel="stylesheet" type="text/css" href="<?php echo asset('backend/css/jquery-ui.min.css');?>">
     <link rel="stylesheet" type="text/css" href="<?php echo asset('backend/css/chosen.css');?>">
@@ -56,7 +55,7 @@
 <header class="navbar navbar-inverse navbar-fixed-top" role="banner">
 
     <a id="leftmenu-trigger" class="tooltips" data-toggle="tooltip" data-placement="right" title="Toggle Sidebar"></a>
-    <div class="navbar-header pull-left"><a class="navbar-brand" href="{{ url('/')  }}">Droit Formation</a></div>
+    <div class="navbar-header pull-left"><a class="navbar-brand" href="{{ url('/')  }}">DroitNE</a></div>
 
     <ul class="nav navbar-nav pull-right toolbar">
         <li class="dropdown">
@@ -85,7 +84,7 @@
     <div id="page-content">
         <div id='wrap'>
 
-            <div id="page-heading"><h2>{{ $pageTitle or 'Droit Formation' }} <small>Administration</small></h2></div>
+            <div id="page-heading"><h2>DroitNE <small>Administration</small></h2></div>
 
             <div class="container">
 
@@ -118,9 +117,7 @@
 <script src="<?php echo asset('backend/js/validation/messages_fr.js');?>"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.js"></script>
-
 <script type="text/javascript" src="https://cdn.datatables.net/r/bs/dt-1.10.9/datatables.min.js"></script>
-<script type="text/javascript" src="<?php echo asset('backend/datatables/jquery.dataTables.yadcf.js');?>"></script>
 
 <!-- Filter plugin -->
 <script type="text/javascript" src="<?php echo asset('backend/js/vendor/chosen/chosen.jquery.js');?>"></script>
@@ -146,6 +143,7 @@
 <!-- Modal plugins -->
 <script type='text/javascript' src="<?php echo asset('backend/plugins/bootbox/bootbox.min.js');?>"></script>
 
+<!-- Scripts -->
 <script type="text/javascript" src="<?php echo asset('backend/js/application.js');?>"></script>
 <script type="text/javascript" src="<?php echo asset('backend/js/datatables.js');?>"></script>
 <script type="text/javascript" src="<?php echo asset('backend/js/admin.js');?>"></script>

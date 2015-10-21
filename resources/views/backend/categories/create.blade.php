@@ -39,33 +39,12 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">Catégorie principale ?</label>
-                    <div class="col-sm-7">
-                        <label class="radio-inline">
-                            <input type="radio" name="ismain" checked value="0"> Non
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="ismain" value="1"> Oui
-                        </label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">Invisible sur site ?</label>
-                    <div class="col-sm-7">
-                        <label class="radio-inline">
-                            <input type="radio" name="hideOnSite" checked value="0"> Non
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="hideOnSite" value="1"> Oui
-                        </label>
-                    </div>
-                </div>
-
             </div>
             <div class="panel-footer mini-footer ">
-                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <input type="hidden" name="hideOnSite" value="0">
+                    <input type="hidden" name="ismain" value="0">
+                </div>
                 <div class="col-sm-6">
                     <button class="btn btn-primary" type="submit">Envoyer</button>
                 </div>
