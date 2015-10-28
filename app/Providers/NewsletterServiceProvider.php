@@ -7,6 +7,26 @@ use Illuminate\Support\ServiceProvider;
 class NewsletterServiceProvider extends ServiceProvider
 {
     /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->app['validator']->extend('emailconfirmed', function ($attribute, $value, $parameters)
+        {
+            $email = \DB::table('newsletter_users')->where('email','=',$value)->first();
+
+            if($email)
+            {
+                return (!$email->activated_at ? false  : true);
+            }
+
+            return false;
+        });
+    }
+
+    /**
      * Register bindings in the container.
      *
      * @return void

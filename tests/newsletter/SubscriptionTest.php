@@ -12,6 +12,7 @@ class SubscriptionTest extends TestCase
     protected $mock;
     protected $subscription;
     protected $worker;
+    protected $newsletter;
 
     use WithoutMiddleware;
 
@@ -28,6 +29,9 @@ class SubscriptionTest extends TestCase
         $this->subscription = Mockery::mock('App\Droit\Newsletter\Repo\NewsletterUserInterface');
         $this->app->instance('App\Droit\Newsletter\Repo\NewsletterUserInterface', $this->subscription);
 
+        $this->newsletter = Mockery::mock('App\Droit\Newsletter\Repo\NewsletterInterface');
+        $this->app->instance('App\Droit\Newsletter\Repo\NewsletterInterface', $this->newsletter);
+
         $user = App\Droit\User\Entities\User::find(1);
         $this->be($user);
 
@@ -42,17 +46,9 @@ class SubscriptionTest extends TestCase
      *
      * @return void
      */
-    public function testSubscriptionCreationPage()
-    {
-        $this->visit('admin/subscriber')->click('addSubscriber')->seePageIs('admin/subscriber/create');
-    }
-
-    /**
-     *
-     * @return void
-     */
     public function testAddSubscriptionFromAdmin()
     {
+        $newsletter = factory(App\Droit\Newsletter\Entities\Newsletter::class)->make(['list_id' => 1]);
         $user = factory(App\Droit\Newsletter\Entities\Newsletter_users::class)->make(['id' => 1]);
 
         $subscription1 = factory(App\Droit\Newsletter\Entities\Newsletter_subscriptions::class)->make(['newsletter_id' => 1]);
@@ -61,6 +57,7 @@ class SubscriptionTest extends TestCase
         $user->subscriptions = new \Illuminate\Support\Collection([$subscription1,$subscription3]);
 
         $this->subscription->shouldReceive('create')->once()->andReturn($user);
+        $this->newsletter->shouldReceive('find')->once()->andReturn($newsletter);
         $this->worker->shouldReceive('setList')->once();
         $this->worker->shouldReceive('subscribeEmailToList')->once()->andReturn(true);
 
@@ -99,6 +96,9 @@ class SubscriptionTest extends TestCase
      */
     public function testUpdateSubscriptions()
     {
+        $newsletter1 = factory(App\Droit\Newsletter\Entities\Newsletter::class)->make(['list_id' => 1]);
+        $newsletter2 = factory(App\Droit\Newsletter\Entities\Newsletter::class)->make(['list_id' => 2]);
+
         $user = factory(App\Droit\Newsletter\Entities\Newsletter_users::class)->make(['id' => 1]);
 
         $subscription1 = factory(App\Droit\Newsletter\Entities\Newsletter_subscriptions::class)->make(['newsletter_id' => 1]);
@@ -108,6 +108,8 @@ class SubscriptionTest extends TestCase
 
         $this->subscription->shouldReceive('update')->once()->andReturn($user);
 
+        $this->newsletter->shouldReceive('find')->once()->andReturn($newsletter1);
+        $this->newsletter->shouldReceive('find')->once()->andReturn($newsletter2);
         $this->worker->shouldReceive('setList')->twice();
         $this->worker->shouldReceive('subscribeEmailToList')->once()->andReturn(true);
         $this->worker->shouldReceive('removeContact')->once()->andReturn(true);
