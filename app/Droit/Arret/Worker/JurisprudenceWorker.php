@@ -31,6 +31,8 @@ class JurisprudenceWorker{
      */
     public function preparedAnnees()
     {
+        $years = [];
+
         $include  = $this->showArrets();
         $arrets   = $this->arret->getAllActives($include);
         $prepared = $arrets->lists('pub_date');
@@ -41,7 +43,6 @@ class JurisprudenceWorker{
         }
 
         return array_reverse(array_unique(array_values($years)));
-
     }
 
     public function showArrets(){
