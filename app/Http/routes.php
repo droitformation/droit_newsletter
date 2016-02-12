@@ -50,6 +50,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','administration']], f
     Route::resource('contenu',   'Backend\ContentController');
     Route::resource('author',    'Backend\AuthorController');
 
+    Route::resource('import', 'Backend\ImportController');
     /*
    |--------------------------------------------------------------------------
    | Backend subscriptions, newsletters and campagnes Routes
@@ -128,14 +129,21 @@ Route::post('password/reset', 'Auth\PasswordController@postReset');
 
 Route::get('testcampagne', function()
 {
-    /*
-        $mailjet = \App::make('App\Droit\Newsletter\Worker\MailjetInterface');
-        $sent    = $mailjet->getAllLis();
 
-        $subscription = \App::make('App\Droit\Newsletter\Repo\NewsletterUserInterface');
-        $user = $subscription->findByEmail( 'cindy.leschaud@gmail.com' );
-        $user->subscriptions()->detach(3);
-    */
+
+    $csv    = public_path('files/import/import.csv');
+
+   // echo file_get_contents($csv);exit;
+
+    $mailjet = \App::make('App\Droit\Newsletter\Worker\MailjetInterface');
+
+    $dataID = $mailjet->uploadCSVContactslistData(file_get_contents($csv));
+    return $mailjet->importCSVContactslistData($dataID->ID);
+
+    //$subscription = \App::make('App\Droit\Newsletter\Repo\NewsletterUserInterface');
+    //$user = $subscription->findByEmail( 'cindy.leschaud@gmail.com' );
+    //$user->subscriptions()->detach(3);
+
 
     //$campagne  = \App::make('App\Droit\Newsletter\Worker\CampagneInterface');
     //$campagnes = $campagne->getSentCampagneArrets();
@@ -143,13 +151,13 @@ Route::get('testcampagne', function()
     //$campagnes  = \App::make('App\Droit\Newsletter\Repo\NewsletterContentInterface');
     //$campagne = $campagnes->find(2);
 
-    $subscription = \App::make('App\Droit\Newsletter\Repo\NewsletterUserInterface');
+/*    $subscription = \App::make('App\Droit\Newsletter\Repo\NewsletterUserInterface');
     $user = $subscription->findByEmail( 'cindy@leschaud.ch' );
 
     echo '<pre>';
     print_r($user);
 
-    echo '</pre>';
+    echo '</pre>';*/
 
 });
 

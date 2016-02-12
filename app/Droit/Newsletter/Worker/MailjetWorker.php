@@ -68,7 +68,8 @@ class MailjetWorker implements MailjetInterface{
      *  }
      *
      */
-    public function getSubscribers(){
+    public function getSubscribers()
+    {
 
         $params = array(
             "method" => "VIEW",
@@ -410,6 +411,33 @@ class MailjetWorker implements MailjetInterface{
         );
 
         $response = $this->mailjet->openinformation ($params);
+
+        return ($response ? $response : false);
+    }
+
+    function uploadCSVContactslistData($CSVContent) {
+
+        $params = [
+            "method"      => "POST",
+            "ID"          => $this->list,
+            "csv_content" => $CSVContent
+        ];
+
+        $response = $this->mailjet->uploadCSVContactslistData($params);
+
+        return ($response ? $response : false);
+    }
+
+    function importCSVContactslistData($dataID) {
+
+        $params = [
+            "method"         => "POST",
+            "ContactsListID" => $this->list,
+            "DataID"         => $dataID,
+            "Method"         => "addnoforce"
+        ];
+
+        $response = $this->mailjet->csvimport($params);
 
         return ($response ? $response : false);
     }

@@ -2,6 +2,10 @@
 
 interface MailjetInterface {
 
+    public function setList($list);
+    public function setSenderEmail($email);
+    public function getList();
+    public function getAllLists();
     /**
      * Subscriptions
      */
@@ -34,4 +38,9 @@ interface MailjetInterface {
     public function statsListe();
     public function campagneAggregate($id);
 
+    /**
+     * import listes
+     */
+    public function uploadCSVContactslistData($data);
+    public function importCSVContactslistData($data);
 }
