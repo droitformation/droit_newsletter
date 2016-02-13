@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Droit\Newsletter\Repo\NewsletterInterface;
 use App\Http\Controllers\Controller;
+
+use App\Droit\Newsletter\Repo\NewsletterInterface;
 use App\Droit\Service\UploadInterface;
 use App\Droit\Newsletter\Worker\MailjetInterface;
 use App\Droit\Newsletter\Repo\NewsletterUserInterface;
@@ -87,7 +88,7 @@ class ImportController extends Controller
             $filename = basename($files['name'], ".xlsx");
 
             $dataID   = $this->mailjet->uploadCSVContactslistData(file_get_contents(public_path('files/import/'.$filename.'.csv')));
-            $response =  $this->mailjet->importCSVContactslistData($dataID->ID);
+            $response = $this->mailjet->importCSVContactslistData($dataID->ID);
 
             return redirect()->back()->with(array('status' => 'success', 'message' => 'Import terminé' ));
         }

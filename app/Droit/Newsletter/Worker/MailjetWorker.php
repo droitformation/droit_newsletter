@@ -35,7 +35,6 @@ class MailjetWorker implements MailjetInterface{
         return $this->list;
     }
 
-
     public function getAllLists()
     {
         $params = array(
