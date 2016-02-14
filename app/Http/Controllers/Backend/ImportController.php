@@ -84,8 +84,8 @@ class ImportController extends Controller
 
             // Import csv to mailjet
             $this->mailjet->setList(1545458); // testing list
-            
-            $filename = basename($files['name'], ".xlsx");
+
+            $filename = preg_replace('/\\.[^.\\s]{3,4}$/', '', $files['name']);
 
             $dataID   = $this->mailjet->uploadCSVContactslistData(file_get_contents(public_path('files/import/'.$filename.'.csv')));
             $response = $this->mailjet->importCSVContactslistData($dataID->ID);
