@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Backend\Newsletter;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -73,17 +73,14 @@ class ImportController extends Controller
                 {
                     $subscriber->subscriptions()->attach($list);
                 }
-
-                $users[] = $subscriber->email;
             }
 
             // Convert to csv
-            \Excel::load($path, function($file) {
-
-            })->store('csv', public_path('files/import'));
+            \Excel::load($path)->store('csv', public_path('files/import'));
 
             // Import csv to mailjet
-            $this->mailjet->setList(1545458); // testing list
+            $newsletter =  $this->newsletter->find($list);
+            $this->mailjet->setList($newsletter->list_id); // testing list
 
             $filename = preg_replace('/\\.[^.\\s]{3,4}$/', '', $files['name']);
 
