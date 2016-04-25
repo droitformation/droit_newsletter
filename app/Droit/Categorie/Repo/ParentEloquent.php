@@ -25,7 +25,8 @@ class ParentEloquent implements ParentInterface{
     public function create(array $data){
 
         $parent = $this->parent->create(array(
-            'title'  => $data['title']
+            'title'  => $data['title'],
+            'image'  => isset($data['image']) ? $data['image'] : ''
         ));
 
         if( ! $parent )

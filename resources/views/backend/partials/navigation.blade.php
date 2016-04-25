@@ -18,6 +18,7 @@
         <li class="<?php echo (Request::is('admin/analyse/*') ? 'active' : '' ); ?>"><a href="{{ url('admin/analyse')  }}"><i class="fa fa-dot-circle-o"></i> <span>Analyses</span></a></li>
         <li class="<?php echo (Request::is('admin/parent/*') ? 'active' : '' ); ?>"><a href="{{ url('admin/parent') }}"><i class="fa fa-th-list"></i> <span>Categories parente</span></a></li>
         <li class="<?php echo (Request::is('admin/categorie/*') ? 'active' : '' ); ?>"><a href="{{ url('admin/categorie')  }}"><i class="fa fa-list-ul"></i> <span>Categories</span></a></li>
+        <li class="<?php echo (Request::is('admin/page/*') ? 'active' : '' ); ?>"><a href="{{ url('admin/page')  }}"><i class="fa fa-edit"></i> <span>Pages</span></a></li>
         <li class="divider"></li>
 
         <li class="<?php echo (Request::is('admin/newsletter/*') || Request::is('admin/campagne/*') || Request::is('admin/subscriber/*') ? 'active' : '' ); ?>">

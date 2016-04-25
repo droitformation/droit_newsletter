@@ -27,6 +27,28 @@
                             {!! Form::text('title', $parent->title , array('class' => 'form-control') ) !!}
                         </div>
                     </div>
+                    @if(!empty($parent->image ))
+                        <div class="form-group">
+                            <label for="file" class="col-sm-3 control-label">Fichier</label>
+                            <div class="col-sm-3">
+                                <div class="list-group">
+                                    <div class="list-group-item text-center">
+                                        <a href="#"><img height="120" src="{!! asset('newsletter/pictos/'.$parent->image) !!}" alt="{{ $parent->title }}" /></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    <div class="form-group">
+                        <label for="file" class="col-sm-3 control-label">Changer l'image</label>
+                        <div class="col-sm-7">
+                            <div class="list-group">
+                                <div class="list-group-item">
+                                    {!! Form::file('file') !!}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="panel-footer mini-footer ">
                     <div class="col-sm-3">{!! Form::hidden('id', $parent->id )!!}</div>

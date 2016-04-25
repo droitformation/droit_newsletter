@@ -1,4 +1,4 @@
-@if(isset($bloc->arrets))
+@if(isset($bloc->arrets) && !$bloc->arrets->isEmpty())
 
     <table border="0" width="560" align="center" cellpadding="0" cellspacing="0" class="resetTable">
         <tr bgcolor="ffffff">
@@ -35,23 +35,9 @@
                 <td align="center" valign="top" width="160" class="resetMarge">
                     <!-- Categories -->
                     <div class="resetMarge">
-                        <?php
-                        if(!$arret->arrets_categories->isEmpty() )
-                        {
-                            echo '<table border="0" width="160" align="center" cellpadding="0" cellspacing="0">';
-                            foreach($arret->arrets_categories as $categorie)
-                            {
-                                if($categorie->id != $bloc->categorie){
-                                    echo '<tr align="center" style="margin: 0;padding: 0;"><td style="margin: 0;padding: 0;page-break-before: always;" valign="top">';
-                                    echo '<a target="_blank" href="'.url('jurisprudence').'#'.$arret->reference.'" style="margin:0;padding:0;display: block;">
-                                            <img style="margin:0;padding:0;display: block;" width="130" height="158" border="0" alt="'.$categorie->title.'" src="'.asset('newsletter/pictos/'.$categorie->image).'">
-                                        </a>';
-                                    echo '</td></tr>';
-                                }
-                            }
-                            echo '</table>';
-                        }
-                        ?>
+                        @if(!$arret->arrets_categories->isEmpty() )
+                            @include('backend.newsletter.partials.categories',['categories' => $arret->arrets_categories])
+                        @endif
                     </div>
                 </td>
             </tr>

@@ -13,6 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        view()->composer('*', 'App\Http\ViewComposers\CategorieComposer');
     }
 
     /**
@@ -22,6 +23,33 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
+        $this->registerPageService();
+        $this->registerPageWorkerService();
     }
+
+    /**
+     * Page
+     */
+    protected function registerPageService(){
+
+        $this->app->singleton('App\Droit\Page\Repo\PageInterface', function()
+        {
+            return new \App\Droit\Page\Repo\PageEloquent(new \App\Droit\Page\Entities\Page);
+        });
+    }
+
+    /**
+     * Page worker
+     */
+    protected function registerPageWorkerService(){
+
+        $this->app->singleton('App\Droit\Page\Worker\PageWorker', function()
+        {
+            return new \App\Droit\Page\Worker\PageWorker(
+                \App::make('App\Droit\Page\Repo\PageInterface')
+            );
+        });
+    }
+
+
 }

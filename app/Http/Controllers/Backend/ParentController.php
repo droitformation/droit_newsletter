@@ -6,15 +6,19 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\ParentRequest;
 use App\Droit\Categorie\Repo\ParentInterface;
+use App\Droit\Service\UploadInterface;
 
 class ParentController extends Controller {
 
     protected $parent;
+	protected $upload;
 
-    public function __construct( ParentInterface $parent )
+    public function __construct( ParentInterface $parent , UploadInterface $upload)
     {
         $this->parent = $parent;
-    }
+		$this->upload = $upload;
+
+	}
 
     /**
      * Show the form for creating a new resource.
@@ -48,9 +52,14 @@ class ParentController extends Controller {
 	 */
 	public function store(ParentRequest $request)
 	{
-        $parent = $this->parent->create( $request->all() );
+		$data = $request->except('file');
+		$file = $this->upload->upload( $request->file('file') , 'newsletter/pictos' , 'categorie');
 
-        return redirect('admin/parent/'.$parent->id)->with(['status' => 'success' , 'message' => 'Catégorie crée']);
+		$data['image'] = $file['name'];
+
+		$parent = $this->parent->create( $data );
+
+        return redirect('admin/parent/'.$parent->id)->with(['status' => 'success' , 'message' => 'Catégorie parente crée']);
 	}
 
 	/**
@@ -76,7 +85,16 @@ class ParentController extends Controller {
 	 */
 	public function update($id,Request $request)
 	{
-        $this->parent->update( $request->all() );
+		$data  = $request->except('file');
+		$_file = $request->file('file',null);
+
+		if($_file)
+		{
+			$file = $this->upload->upload( $_file , 'newsletter/pictos' , 'categorie');
+			$data['image'] = $file['name'];
+		}
+
+		$this->parent->update( $data );
 
         return redirect('admin/parent/'.$id)->with(['status' => 'success' , 'message' => 'Catégorie parente mise à jour']);
 	}

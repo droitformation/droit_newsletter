@@ -517,4 +517,32 @@ class Helper {
         return $home;
     }
 
+
+	public function renderNode($node)
+	{
+		$form = '<form action="'.url('admin/page/'.$node->id).'" method="POST">
+                              <input type="hidden" name="_method" value="DELETE">'.csrf_field().'
+                              <button data-action="page: '.$node->title.'" class="btn btn-danger btn-xs deleteAction">X</button>
+                          </form>';
+
+		if( $node->isLeaf() )
+		{
+			return '<li class="dd-item" data-id="'.$node->id.'"><div class="dd-handle"><a href="admin/page/'.$node->id.'">' . $node->title . '</a>'.$form.'</div></li>';
+		}
+		else
+		{
+			$html  = '<li class="dd-item" data-id="'.$node->id.'"><div class="dd-handle">';
+			$html .= '<a href="admin/page/'.$node->id.'">' . $node->title.'</a>';
+			$html .= $form;
+			$html .= '</div>';
+			$html .= '<ol class="dd-list">';
+
+			foreach($node->children as $child)
+				$html .= $this->renderNode($child);
+
+			$html .= '</ol>';
+			$html .= '</li>';
+		}
+		return $html;
+	}
 }

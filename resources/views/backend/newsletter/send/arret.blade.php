@@ -17,25 +17,9 @@
                     </td>
                     <td width="25" height="1" class="resetMarge" valign="top" style="font-size: 1px; line-height: 1px;margin: 0;padding: 0;"></td><!-- space -->
                     <td align="center" valign="top" width="160" class="resetMarge">
-
-                       <?php
-                       if(!$bloc->arrets_categories->isEmpty() )
-                       {
-                           echo '<table border="0" width="160" align="center" cellpadding="0" cellspacing="0">';
-                           foreach($bloc->arrets_categories as $categorie)
-                           {
-                               echo '<tr align="center" style="margin: 0;padding: 0;"><td style="margin: 0;padding: 0;page-break-before: always;"  valign="top">';
-                               // Categories
-                               echo '<a target="_blank" href="'.url('jurisprudence').'#'.$bloc->reference.'" style="margin:0;padding:0;display: block;">
-                                        <img width="130" height="158" style="margin:0;padding:0;display: block;" border="0" alt="'.$categorie->title.'" src="'.asset('newsletter/pictos/'.$categorie->image).'">
-                                      </a>';
-
-                               echo '</td></tr>';
-                           }
-                           echo '</table>';
-                        }
-                        ?>
-
+                       @if(!$bloc->arrets_categories->isEmpty() )
+                            @include('backend.newsletter.partials.categories',['categories' => $bloc->arrets_categories])
+                        @endif
                     </td>
                 </tr>
             </table>

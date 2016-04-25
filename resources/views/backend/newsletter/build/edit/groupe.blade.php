@@ -1,6 +1,6 @@
 <div class="edit_content" ng-controller="EditController as edit">
 
-    @if(isset($bloc->arrets))
+    @if(isset($bloc->arrets) && !$bloc->arrets->isEmpty())
 
         <table border="0" width="560" align="center" cellpadding="0" cellspacing="0" class="resetTable">
             <tr bgcolor="ffffff">
@@ -45,17 +45,9 @@
                     <td align="center" valign="top" width="160" class="resetMarge">
                         <!-- Categories -->
                         <div class="resetMarge">
-                            <?php
-                            if(!$arret->arrets_categories->isEmpty() )
-                            {
-                                foreach($arret->arrets_categories as $categorie)
-                                {
-                                    if($categorie->id != $bloc->categorie){
-                                        echo '<a target="_blank" href="'.url('jurisprudence').'#'.$arret->reference.'"><img width="130" border="0" alt="'.$categorie->title.'" src="'.asset('newsletter/pictos/'.$categorie->image).'"></a>';
-                                    }
-                                }
-                            }
-                            ?>
+                            @if(!$arret->arrets_categories->isEmpty() )
+                                @include('backend.newsletter.partials.categories',['categories' => $arret->arrets_categories])
+                            @endif
                         </div>
                     </td>
                 </tr>

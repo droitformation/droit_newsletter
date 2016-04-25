@@ -4,9 +4,20 @@
         <h3><i class="icon-tasks"></i> &nbsp;Catégories</h3>
 
            @if(!$categories->isEmpty())
+            <?php $sorted  = $categories->sortBy('parent_id')->groupBy('parent_id'); ?>
+            <?php $parents = $parents->lists('title','id')->all(); ?>
               <select id="arret-chosen" name="category_check" data-placeholder="Choisir une ou plusieurs catégories" style="width:100%" multiple class="chosen-select category">
-                  @foreach($categories as $categorie)
-                     <option value="c{{ $categorie->id }}">{{ $categorie->title }}</option>
+                  @foreach($sorted as $parent_id => $categories)
+                      @if(isset($parents[$parent_id]))
+                          <?php $label = $parents[$parent_id]; ?>
+                      @else
+                          <?php $label = 'Général'; ?>
+                      @endif
+                      <optgroup label="{{ $label }}">
+                          @foreach($categories as $categorie)
+                              <option value="c{{ $categorie->id }}">{{ $categorie->title }}</option>
+                          @endforeach
+                      </optgroup>
                   @endforeach
               </select>
           @endif

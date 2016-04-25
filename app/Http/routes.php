@@ -50,6 +50,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','administration']], f
     Route::resource('parent', 'Backend\ParentController');
     Route::resource('contenu',   'Backend\ContentController');
     Route::resource('author',    'Backend\AuthorController');
+    Route::resource('page',    'Backend\PageController');
 
     /*
    |--------------------------------------------------------------------------

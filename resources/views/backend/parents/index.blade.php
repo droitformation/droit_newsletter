@@ -21,6 +21,7 @@
                         <tr>
                             <th class="col-sm-2">Action</th>
                             <th class="col-sm-4">Titre</th>
+                            <th class="col-sm-4">Images</th>
                             <th class="col-sm-2 no-sort"></th>
                         </tr>
                         </thead>
@@ -31,6 +32,7 @@
                                     <tr>
                                         <td><a class="btn btn-sky btn-sm" href="{{ url('admin/parent/'.$parent->id) }}">&Eacute;diter</a></td>
                                         <td><strong>{{ $parent->title }}</strong></td>
+                                        <td><img height="60" src="{{ asset('newsletter/pictos/'.$parent->image) }}" alt="{{ $parent->title }}" /></td>
                                         <td class="text-right">
                                             {!! Form::open(['route' => array('admin.parent.destroy', $parent->id), 'method' => 'delete']) !!}
                                                 <button data-id="{{ $parent->id }}" class="btn btn-danger btn-sm deleteParent">Supprimer</button>

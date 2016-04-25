@@ -12,30 +12,20 @@
         <tr>
             <td valign="top" width="375" class="resetMarge contentForm">
                 <div>
-                    <?php
-                        $title = ($bloc->dumois ? 'Arrêt du mois : ' : '');
-                        setlocale(LC_ALL, 'fr_FR.UTF-8');
-                    ?>
+                    <?php $title = ($bloc->dumois ? 'Arrêt du mois : ' : ''); ?>
                     <h3 style="text-align: left;">{{ $title }}{{ $bloc->reference }} du {{ $bloc->pub_date->formatLocalized('%d %B %Y') }}</h3>
                     <p class="abstract">{!! $bloc->abstract !!}</p>
                     <div>{!! $bloc->pub_text !!}</div>
                     <p><a href="{{ asset('files/arrets/'.$bloc->file) }}">Télécharger en pdf</a></p>
-
                 </div>
             </td>
             <td width="25" class="resetMarge"></td><!-- space -->
             <td align="center" valign="top" width="160" class="resetMarge">
                 <!-- Categories -->
                 <div class="resetMarge">
-                    <?php
-                    if(!$bloc->arrets_categories->isEmpty() )
-                    {
-                        foreach($bloc->arrets_categories as $categorie)
-                        {
-                            echo '<a target="_blank" href="'.url('jurisprudence').'#'.$bloc->reference.'"><img width="130" border="0" alt="'.$categorie->title.'" src="'.asset('newsletter/pictos/'.$categorie->image).'"></a>';
-                        }
-                    }
-                    ?>
+                   @if(!$bloc->arrets_categories->isEmpty())
+                       @include('backend.newsletter.partials.categories',['categories' => $bloc->arrets_categories])
+                   @endif
                 </div>
             </td>
         </tr>

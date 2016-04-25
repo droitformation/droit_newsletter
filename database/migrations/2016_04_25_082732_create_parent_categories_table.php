@@ -15,6 +15,7 @@ class CreateParentCategoriesTable extends Migration
         Schema::create('parent_categories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
+            $table->string('image')->nullable();
         });
     }
 

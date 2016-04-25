@@ -24,6 +24,16 @@
                             {!! Form::text('title', null , array('class' => 'form-control') ) !!}
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="file" class="col-sm-3 control-label">Image</label>
+                        <div class="col-sm-7">
+                            <div class="list-group">
+                                <div class="list-group-item">
+                                    {!!  Form::file('file')!!}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="panel-footer mini-footer ">
                     <div class="col-sm-3">
