@@ -1,5 +1,5 @@
 <div class="newsletter">
-    <h3 class="title"><i class="icon-envelope"></i> &nbsp;Inscription à la newsletter</h3>
+    <h4><i class="icon-envelope"></i>&nbsp;Inscription à la newsletter</h3>
 
     <form action="{{ url('subscribe') }}" method="POST" class="form">
         {!! csrf_field() !!}

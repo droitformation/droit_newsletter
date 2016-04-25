@@ -1,15 +1,15 @@
 @extends('layouts.master')
 @section('content')
-
+@include ('partials.small-banner')
 <?php $custom = new \App\Droit\Helper\Helper(); ?>
 
 <div class="row">
     <div id="filteringApp" ng-app="filtering">
-
+		<div class="col-md-12">
         <h1>Jurisprudence</h1>
 
         <hr/>
-
+		</div>
         <div class="col-md-8 col-xs-12">
             <div id="filtering">
                 <div class="arrets">

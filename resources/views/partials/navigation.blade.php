@@ -1,3 +1,4 @@
+<!-- Original -->
 <nav class="navbar">
     <ul class="nav navbar-nav">
         <li><a class="{{ Request::is( '/') ? 'active' : '' }}" href="{{ url('/') }}">Accueil</a></li>
@@ -18,3 +19,5 @@
         <li><a class="{{ Request::is( 'contact') ? 'active' : '' }}" href="{{ url('contact') }}">Contact</a></li>
     </ul>
 </nav>
+
+ <!-- END Container -->

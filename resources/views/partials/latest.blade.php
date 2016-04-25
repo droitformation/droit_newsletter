@@ -1,10 +1,8 @@
-<?php $custom = new \Custom; ?>
-
 <div class="widget">
-    <h3 class="title"><i class="icon-edit"></i> &nbsp;Derniers arrêts commentés</h3>
+    <h4>Derniers actualités</h4>
     <ul class="bra_recent_entries">
 
-        @if($latest && !$latest->isEmpty())
+        @if(isset($latest) && !$latest->isEmpty())
             @foreach($latest as $last)
                 <li>
                     <?php setlocale(LC_ALL, 'fr_FR.UTF-8');  ?>
