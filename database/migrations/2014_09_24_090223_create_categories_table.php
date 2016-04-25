@@ -19,6 +19,7 @@ class CreateCategoriesTable extends Migration {
             $table->text('image');
             $table->integer('ismain');
             $table->tinyInteger('hideOnSite')->default(0);
+			$table->integer('parent_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
 		});

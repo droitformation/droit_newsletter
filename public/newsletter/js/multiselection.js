@@ -64,24 +64,27 @@ var App = angular.module('selection', ["dndLists"] , function($interpolateProvid
 
                 if (result.length == 0) {
                     models.lists.A.push({
-                        title: value.title,
-                        image: value.image.slice(0, -4),
-                        isSelected: false,
-                        itemId: value.id
+                        title      : value.title,
+                        parent     : value.parent ? value.parent.id :'',
+                        image      : value.image.slice(0, -4),
+                        isSelected : false,
+                        itemId     : value.id
                     });
                 }
             });
-
 
             if(selected){
                 angular.forEach( selected , function(value, key){
                     models.lists.B.push({
                         title      : value.title,
+                        parent     : value.parent_id,
                         image      : value.image.slice(0, -4),
                         isSelected : true,
-                        itemId : value.id
+                        itemId     : value.id
                     });
                 });
+
+                console.log(selected);
             }
 
             return models;
@@ -94,13 +97,9 @@ App.filter('getById', function() {
     return function(collection, id) {
 
         angular.forEach( collection , function(value, key){
-            //console.log(value.id);
-            //console.log(id);
-
             if(value.id == id){
                 return id;
             }
-
         });
 
         return null;

@@ -16,7 +16,7 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table" style="margin-bottom: 0px;" id="generic">
+                    <table class="table" style="margin-bottom: 0px;" id="">
                         <thead>
                         <tr>
                             <th class="col-sm-2">Action</th>
@@ -27,18 +27,27 @@
                         </thead>
                         <tbody class="selects">
 
-                        @if(!empty($categories))
-                            @foreach($categories as $categorie)
-                                <tr>
-                                    <td><a class="btn btn-sky btn-sm" href="{{ url('admin/categorie/'.$categorie->id) }}">&Eacute;diter</a></td>
-                                    <td><strong>{{ $categorie->title }}</strong></td>
-                                    <td><img height="60" src="{{ asset('newsletter/pictos/'.$categorie->image) }}" alt="{{ $categorie->title }}" /></td>
-                                    <td class="text-right">
-                                        {!! Form::open(array('id' => 'deleteCategorieForm_'.$categorie->id, 'route' => array('admin.categorie.destroy', $categorie->id), 'method' => 'delete')) !!}
-                                        {!! Form::close() !!}
-                                        <button data-id="{{ $categorie->id }}" class="btn btn-danger btn-sm deleteCategorie">Supprimer</button>
-                                    </td>
-                                </tr>
+                        @if(!$categories->isEmpty())
+                            <?php $parent  = $categories->sortBy('parent_id')->groupBy('parent_id'); ?>
+                            <?php $parents = $parents->lists('title','id')->all(); ?>
+                            @foreach($parent as $parent_id => $categories)
+                                @if(isset($parents[$parent_id]))
+                                    <tr><td colspan="4" class="categorie_parent"><h4>{{ $parents[$parent_id] }}</h4></td></tr>
+                                @else
+                                    <tr><td colspan="4" style="padding: 0; line-height: 0;">&nbsp;</td></tr>
+                                @endif
+                                @foreach($categories as $categorie)
+                                    <tr>
+                                        <td><a class="btn btn-sky btn-sm" href="{{ url('admin/categorie/'.$categorie->id) }}">&Eacute;diter</a></td>
+                                        <td><strong>{{ $categorie->title }}</strong></td>
+                                        <td><img height="60" src="{{ asset('newsletter/pictos/'.$categorie->image) }}" alt="{{ $categorie->title }}" /></td>
+                                        <td class="text-right">
+                                            {!! Form::open(array('id' => 'deleteCategorieForm_'.$categorie->id, 'route' => array('admin.categorie.destroy', $categorie->id), 'method' => 'delete')) !!}
+                                            {!! Form::close() !!}
+                                            <button data-id="{{ $categorie->id }}" class="btn btn-danger btn-sm deleteCategorie">Supprimer</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             @endforeach
                         @endif
 

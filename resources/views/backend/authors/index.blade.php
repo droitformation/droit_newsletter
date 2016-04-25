@@ -35,7 +35,7 @@
                                     <td>{{ $author->occupation }}</td>
                                     <td class="text-right">
                                         {!! Form::open(array('route' => array('admin.author.destroy', $author->id), 'method' => 'delete')) !!}
-                                        <button data-action="{{ $author->name }}" class="btn btn-danger btn-sm deleteAction">Supprimer</button>
+                                        <button data-action="{{ $author->name }}" data-what="Supprimer" class="btn btn-danger btn-sm deleteAction">Supprimer</button>
                                         {!! Form::close() !!}
                                     </td>
                                 </tr>

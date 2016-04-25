@@ -17,7 +17,7 @@
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="<?php echo asset('frontend/css/filter.css');?>">
         <link rel="stylesheet" type="text/css" href="<?php echo asset('frontend/css/chosen.css');?>">
-        <link rel="stylesheet" type="text/css" href="../../../public/frontend/css/styleRCA.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo asset('frontend/css/styleRCA.css');?>">
         <!-- Javascript Files
         ================================================== -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -42,8 +42,8 @@
                     @include('partials.navigation')
                 </div>
                 <div class="col-md-4 logo-nav">
-				<a target="_blank" href="http://www2.unine.ch/droit"><img src="../../../public/files/UniNE_FD_pos_c.png" alt=""></a>
-                <a target="_blank" href="http://www2.unine.ch/cert"><img src="../../../public/files/CERT.jpg" alt=""></a>
+				<a target="_blank" href="http://www2.unine.ch/droit"><img src="<?php echo asset('files/UniNE_FD_pos_c.png');?>" alt=""></a>
+                <a target="_blank" href="http://www2.unine.ch/cert"><img src="<?php echo asset('files/CERT.jpg');?>" alt=""></a>
 				</div>
             </nav>
        </div>   

@@ -86,7 +86,14 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Catégories</label>
+                    <label class="col-sm-3 control-label">
+                        Catégories<br/><br/>
+                        @if(!$parents->isEmpty())
+                            @foreach($parents as $parent)
+                               <small><span class="parent parent_vert parent_{{ $parent->id  }}"></span>{{ $parent->title }}</small><br/>
+                            @endforeach
+                        @endif
+                    </label>
 
                     <div class="col-sm-9" ng-app="selection">
                         <div ng-controller="MultiSelectionController as selectcat">
@@ -98,8 +105,8 @@
                                             dnd-moved="list.splice($index, 1); logEvent('Container moved', event); selectcat.dropped(item)"
                                             dnd-effect-allowed="move"
                                             dnd-selected="models.selected = item"
-                                            ng-class="{'selected': models.selected === item}" >
-                                            {[{ item.title }]}
+                                            ng-class="{'selected': models.selected === item}">
+                                            <span class="parent parent_{[{ item.parent }]}"></span>{[{ item.title }]}
                                             <input type="hidden" name="categories[]" ng-if="item.isSelected" value="{[{ item.itemId }]}" />
                                         </li>
                                     </ul>
@@ -113,9 +120,10 @@
 
             </div>
             <div class="panel-footer mini-footer ">
-                {!! Form::hidden('id', $arret->id )!!}
-                {!! Form::hidden('user_id', \Auth::user()->id )!!}
-                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    {!! Form::hidden('id', $arret->id )!!}
+                    {!! Form::hidden('user_id', \Auth::user()->id )!!}
+                </div>
                 <div class="col-sm-6">
                     <button class="btn btn-primary" type="submit">Envoyer </button>
                 </div>

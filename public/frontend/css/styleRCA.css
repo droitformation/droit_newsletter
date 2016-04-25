@@ -55,7 +55,7 @@ body {
 header {
 	text-align: left;
 	color: #FFF;
-	background-image: url(../../files/shutterstock_3158998.png);
+	background-image: url("../../files/shutterstock_3158998.png");
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: 100% auto;
@@ -64,7 +64,7 @@ header {
 
 }
 .small-banner {
-	background-image: url(../../files/books_creativmarket-1170x120.jpg);
+	background-image: url("../../files/books_creativmarket-1170x120.jpg");
 	height: 120px;
 
 }

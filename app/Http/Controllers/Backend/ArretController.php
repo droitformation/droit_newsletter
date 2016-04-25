@@ -7,21 +7,29 @@ use App\Http\Controllers\Controller;
 
 use App\Droit\Arret\Repo\ArretInterface;
 use App\Droit\Categorie\Repo\CategorieInterface;
+use App\Droit\Categorie\Repo\ParentInterface;
 use App\Droit\Service\UploadInterface;
 
 class ArretController extends Controller {
 
     protected $arret;
     protected $categorie;
+    protected $parent;
     protected $upload;
     protected $helper;
 
-    public function __construct( ArretInterface $arret, CategorieInterface $categorie , UploadInterface $upload )
+    public function __construct( ArretInterface $arret, CategorieInterface $categorie, ParentInterface $parent , UploadInterface $upload )
     {
         $this->arret     = $arret;
         $this->categorie = $categorie;
+        $this->parent    = $parent;
         $this->upload    = $upload;
+
         $this->helper    = new \App\Droit\Helper\Helper();
+
+        $parents = $this->parent->getAll();
+
+        view()->share('parents', $parents);
 
         setlocale(LC_ALL, 'fr_FR');
     }

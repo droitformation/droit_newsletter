@@ -14,8 +14,7 @@
         <div class="panel panel-primary">
 
             <form action="{{ url('admin/campagne/'.$campagne->id) }}" id="newsletter" data-validate="parsley" method="POST" class="validate-form form-horizontal">
-                <input type="hidden" name="_method" value="PUT">
-                {!! csrf_field() !!}
+                <input type="hidden" name="_method" value="PUT">{!! csrf_field() !!}
 
                 <div class="panel-heading">
                     <h4>&Eacute;diter la campagne</h4>

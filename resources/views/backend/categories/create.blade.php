@@ -39,6 +39,20 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label for="message" class="col-sm-3 control-label">Appartient à une catégorie parente</label>
+                    <div class="col-sm-3">
+                        <select class="form-control" name="parent_id">
+                            <option value="">Choisir</option>
+                            @if(!$parents->isEmpty())
+                                @foreach($parents as $parent)
+                                    <option value="{{ $parent->id }}">{{ $parent->title }}</option>
+                                @endforeach
+                            @endif
+                        </select>
+                    </div>
+                </div>
+
             </div>
             <div class="panel-footer mini-footer ">
                 <div class="col-sm-3">

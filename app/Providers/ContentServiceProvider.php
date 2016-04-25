@@ -27,6 +27,7 @@ class ContentServiceProvider extends ServiceProvider
         $this->registerArretService();
         $this->registerAnalyseService();
         $this->registerCategorieService();
+        $this->registerParentService();
         $this->registerGroupeService();
         $this->registerUploadService();
         $this->registerContentService();
@@ -76,6 +77,16 @@ class ContentServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     * Parent
+     */
+    protected function registerParentService(){
+
+        $this->app->bind('App\Droit\Categorie\Repo\ParentInterface', function()
+        {
+            return new \App\Droit\Categorie\Repo\ParentEloquent( new \App\Droit\Categorie\Entities\Parent_categorie );
+        });
+    }
 
     /**
      * Groupe

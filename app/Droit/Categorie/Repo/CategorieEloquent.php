@@ -14,7 +14,7 @@ class CategorieEloquent implements CategorieInterface{
 
     public function getAll(){
 
-        return $this->categorie->orderBy('title', 'ASC')->get();
+        return $this->categorie->with(['parent'])->orderBy('parent_id')->orderBy('title', 'ASC')->get();
     }
 
     public function getAllOnSite(){
@@ -28,7 +28,7 @@ class CategorieEloquent implements CategorieInterface{
 
     public function find($id){
 
-        return $this->categorie->with(array('categorie_arrets'))->findOrFail($id);
+        return $this->categorie->with(['categorie_arrets','parent'])->findOrFail($id);
     }
 
     public function findyByImage($file){
@@ -43,6 +43,7 @@ class CategorieEloquent implements CategorieInterface{
             'image'      => $data['image'],
             'ismain'     => (isset($data['ismain']) && $data['ismain'] == 1 ? 1 : 0),
             'hideOnSite' => (isset($data['hideOnSite']) && $data['hideOnSite'] == 1 ? 1 : 0),
+            'parent_id'  => (isset($data['parent_id']) && !empty($data['parent_id']) ? $data['parent_id'] : null),
             'created_at' => date('Y-m-d G:i:s'),
             'updated_at' => date('Y-m-d G:i:s')
         ));
@@ -70,6 +71,11 @@ class CategorieEloquent implements CategorieInterface{
         if(!empty($data['image']))
         {
             $categorie->image = $data['image'];
+        }
+
+        if(isset($data['parent_id']))
+        {
+            $categorie->parent_id = (isset($data['parent_id']) && !empty($data['parent_id']) ? $data['parent_id'] : null);
         }
 
         $categorie->updated_at = date('Y-m-d G:i:s');

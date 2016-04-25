@@ -7,17 +7,24 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CategorieRequest;
 
 use App\Droit\Categorie\Repo\CategorieInterface;
+use App\Droit\Categorie\Repo\ParentInterface;
 use App\Droit\Service\UploadInterface;
 
 class CategorieController extends Controller {
 
     protected $categorie;
+	protected $parent;
     protected $upload;
 
-    public function __construct( CategorieInterface $categorie, UploadInterface $upload )
+    public function __construct( CategorieInterface $categorie, ParentInterface $parent, UploadInterface $upload )
     {
         $this->categorie = $categorie;
+		$this->parent    = $parent;
         $this->upload    = $upload;
+
+		$parents = $this->parent->getAll();
+
+		view()->share('parents', $parents);
     }
 
     /**
@@ -30,7 +37,7 @@ class CategorieController extends Controller {
     {
         $categories = $this->categorie->getAll();
 
-        return view('backend.categories.index')->with(['categories' => $categories]);
+		return view('backend.categories.index')->with(['categories' => $categories]);
     }
 
 	/**

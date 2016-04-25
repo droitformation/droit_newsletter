@@ -37,7 +37,7 @@
                                 <td>{{ $analyse->abstract }}</td>
                                 <td>
                                     {!! Form::open(array('route' => array('admin.analyse.destroy', $analyse->id), 'method' => 'delete')) !!}
-                                    <button data-action="arrêt {{ $analyse->reference }}" class="btn btn-danger btn-sm deleteAction">Supprimer</button>
+                                        <button data-what="Supprimer" data-action="Analyse {{ $analyse->reference }}" class="btn btn-danger btn-sm deleteAction">Supprimer</button>
                                     {!! Form::close() !!}
                                 </td>
                             </tr>
