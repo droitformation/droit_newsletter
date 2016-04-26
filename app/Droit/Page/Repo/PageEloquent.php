@@ -29,7 +29,7 @@ class PageEloquent implements PageInterface{
 
     public function getRoot()
     {
-        return $this->page->where('parent_id','=',0)->orderBy('rang')->get();
+        return $this->page->whereNull('parent_id')->orderBy('rang')->get();
     }
 
     public function find($id){
@@ -51,12 +51,10 @@ class PageEloquent implements PageInterface{
 
         $page = $this->page->create(array(
             'title'       => (isset($data['title']) ? $data['title'] : null),
+            'excerpt'     => (isset($data['excerpt']) ? $data['excerpt'] : null),
             'content'     => (isset($data['content']) ? $data['content'] : null),
-            'menu_title'  => $data['menu_title'],
-            'slug'        => (isset($data['slug']) && !empty($data['slug']) ? $data['slug'] : \Str::slug($data['menu_title'])),
+            'slug'        => (isset($data['slug']) && !empty($data['slug']) ? $data['slug'] : \Str::slug($data['title'])),
             'rang'        => (isset($data['rang']) ? $data['rang'] : 0),
-            'url'         => (isset($data['url']) ? $data['url'] : null),
-            'isExternal'  => (isset($data['isExternal']) && $data['isExternal'] > 0 ? 1 : null),
             'hidden'      => (isset($data['hidden']) ? 1 : null),
             'created_at'  => date('Y-m-d G:i:s'),
             'updated_at'  => date('Y-m-d G:i:s')
@@ -67,7 +65,7 @@ class PageEloquent implements PageInterface{
             return false;
         }
 
-        if($data['parent_id'] > 0)
+        if(isset($data['parent_id']))
         {
             $parent = $this->page->findOrFail($data['parent_id']);
             $page->makeChildOf($parent);
@@ -93,7 +91,7 @@ class PageEloquent implements PageInterface{
 
         $page->save();
 
-        if($data['parent_id'] > 0)
+        if(isset($data['parent_id']))
         {
             $parent = $this->page->findOrFail($data['parent_id']);
             $page->makeChildOf($parent);

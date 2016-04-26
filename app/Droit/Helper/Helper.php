@@ -520,7 +520,7 @@ class Helper {
 
 	public function renderNode($node)
 	{
-		$form = '<form action="'.url('admin/page/'.$node->id).'" method="POST">
+		$form = '<form action="'.url('admin/page/'.$node->id).'" method="POST" class="pull-right">
                               <input type="hidden" name="_method" value="DELETE">'.csrf_field().'
                               <button data-action="page: '.$node->title.'" class="btn btn-danger btn-xs deleteAction">X</button>
                           </form>';

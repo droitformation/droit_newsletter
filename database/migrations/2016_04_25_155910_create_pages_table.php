@@ -23,19 +23,14 @@ class CreatePagesTable extends Migration
             $table->integer('lft')->nullable()->index();
             $table->integer('rgt')->nullable()->index();
             $table->integer('depth')->nullable();
-
             // Add needed columns here (f.ex: name, slug, path, etc.)
 
             $table->string('title')->nullable();
+            $table->text('excerpt')->nullable();
             $table->longText('content')->nullable();
             $table->string('slug');
-            $table->string('menu_title');
             $table->integer('rang')->nullable();
             $table->integer('hidden')->nullable();
-            $table->string('template')->nullable();
-
-            $table->text('url')->nullable();
-            $table->tinyInteger('isExternal')->nullable();
 
             $table->softDeletes();
             $table->timestamps();

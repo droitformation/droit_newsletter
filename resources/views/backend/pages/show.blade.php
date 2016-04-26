@@ -27,23 +27,7 @@
                 <div class="panel-body event-info">
 
                     <div class="form-group">
-                        <label for="type" class="col-sm-3 control-label">Hiérarchie</label>
-                        <div class="col-sm-4">
-
-                            <select class="form-control" name="parent_id">
-                                <option {{ $page->parent_id == 0 ? 'checked' : '' }} value="0">Base</option>
-                                @if(!empty($pages))
-                                    @foreach($pages as $parent_id => $title)
-                                        <option {{ $page->parent_id  == $parent_id ? 'selected' : '' }}  value="{{ $parent_id }}">{{ $title }}</option>
-                                    @endforeach
-                                @endif
-                            </select>
-
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="message" class="col-sm-3 control-label">Ordre dans le menu</label>
+                        <label for="message" class="col-sm-3 control-label">Ordre</label>
                         <div class="col-sm-2">
                             {!! Form::text('rang', $page->rang , array('class' => 'form-control') ) !!}
                         </div>
@@ -60,51 +44,28 @@
                         </div>
                     </div>
 
+                    <hr/>
+
                     <div class="form-group">
-                        <label for="message" class="col-sm-3 control-label">Titre dans le menu</label>
-                        <div class="col-sm-5">
-                            {!! Form::text('menu_title', $page->menu_title , array('class' => 'form-control') ) !!}
+                        <label for="message" class="col-sm-3 control-label">Titre</label>
+                        <div class="col-sm-7">
+                            {!! Form::text('title', $page->title , array('class' => 'form-control') ) !!}
                         </div>
                     </div>
 
-                    <hr/>
-
-                    @if(!$page->isExternal)
-
-                        <div class="form-group">
-                            <label for="message" class="col-sm-3 control-label">Titre</label>
-                            <div class="col-sm-8">
-                                {!! Form::text('title', $page->title , array('class' => 'form-control') ) !!}
-                            </div>
+                    <div class="form-group">
+                        <label for="contenu" class="col-sm-3 control-label">Extrait</label>
+                        <div class="col-sm-7">
+                            {!! Form::textarea('excerpt', $page->excerpt , array('class' => 'form-control  redactorSimple' )) !!}
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <label for="contenu" class="col-sm-3 control-label">Contenu</label>
-                            <div class="col-sm-8">
-                                {!! Form::textarea('content', $page->content , array('class' => 'form-control  redactor' )) !!}
-                            </div>
+                    <div class="form-group">
+                        <label for="contenu" class="col-sm-3 control-label">Contenu</label>
+                        <div class="col-sm-7">
+                            {!! Form::textarea('content', $page->content , array('class' => 'form-control  redactor' )) !!}
                         </div>
-                    @else
-                        <div class="well">
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">Ceci est un lien externe</label>
-                                <div class="col-sm-5">
-                                    <label class="radio-inline">
-                                        <input type="radio" value="1" {{ $page->isExternal ? 'checked' : '' }} name="isExternal"> Oui
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input type="radio" value="0" {{ !$page->isExternal ? 'checked' : '' }} name="isExternal"> Non
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="contenu" class="col-sm-3 control-label">Lien</label>
-                                <div class="col-sm-7">
-                                    {!! Form::text('url', $page->url, array('class' => 'form-control' )) !!}
-                                </div>
-                            </div>
-                        </div>
-                    @endif
+                    </div>
 
                 </div>
                 <div class="panel-footer mini-footer ">

@@ -8,6 +8,7 @@
 
 Route::get('/', array('as' => 'home', 'uses' => 'Frontend\HomeController@index'));
 Route::get('auteur', 'Frontend\HomeController@auteur');
+Route::get('page/{id}', 'Frontend\HomeController@page');
 Route::get('contact', 'Frontend\HomeController@contact');
 Route::get('jurisprudence', 'Frontend\JurisprudenceController@index');
 Route::get('unsubscribe/{id}', 'Frontend\HomeController@unsubscribe');

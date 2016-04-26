@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Droit\Author\Repo\AuthorInterface;
 use App\Droit\Newsletter\Repo\NewsletterInterface;
 use App\Droit\Content\Repo\ContentInterface;
+use App\Droit\Page\Repo\PageInterface;
 
 class HomeController extends Controller
 {
@@ -16,19 +17,23 @@ class HomeController extends Controller
     protected $newsletter;
     protected $helper;
     protected $content;
+    protected $page;
 
-    public function __construct(AuthorInterface $author, ContentInterface $content, NewsletterInterface $newsletter)
+    public function __construct(AuthorInterface $author, ContentInterface $content,PageInterface $page,  NewsletterInterface $newsletter)
     {
         $this->author     = $author;
         $this->newsletter = $newsletter;
         $this->content    = $content;
+        $this->page       = $page;
         $this->helper     = new \App\Droit\Helper\Helper();
 
         $newsletters = $this->newsletter->getAll();
 
         $sidebar = $this->content->findyByPosition(array('sidebar'));
         $sidebar = $sidebar->groupBy('type');
+        $pages   = $this->page->getAll();
 
+        view()->share('pages', $pages);
         view()->share('sidebar', $sidebar);
         view()->share('newsletters', $newsletters);
     }
@@ -55,6 +60,18 @@ class HomeController extends Controller
         $auteurs = $this->author->getAll();
 
         return view('frontend.auteur')->with(['auteurs' => $auteurs]);
+    }
+
+    /**
+     * Pages
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function page($id)
+    {
+        $page = $this->page->find($id);
+
+        return view('frontend.page')->with(['page' => $page]);
     }
 
     /**
