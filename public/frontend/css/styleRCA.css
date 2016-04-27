@@ -104,7 +104,24 @@ h4 {
 	background-color:#FFF;
 	background-image:linear-gradient(#FFF, #EEE);
 	height: 260px;
-	}			
+	}	
+.bloc-3-col{
+	float:left;
+	width:33%;
+	text-align:center;
+	position:relative;
+	padding:40px 24px 80px 24px;
+	}
+.bloc-3-col h4{
+	color:#0C416E;
+	text-transform:none;
+	font-weight: 400;
+	font-size:	20px;
+	}
+.bloc-3-col p{
+	text-align: center;
+	line-height: 1.55;
+	}		
 .newsletter{
 	margin-top:50px;
 	}
