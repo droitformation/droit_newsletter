@@ -2,7 +2,7 @@
 
 interface ArretInterface {
 
-    public function getAll();
+    public function getAll($nbr = null);
     public function getAllActives($include = []);
     public function getPaginate($nbr);
     public function getLatest($include = []);

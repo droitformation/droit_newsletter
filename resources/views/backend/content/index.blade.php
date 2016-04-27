@@ -39,7 +39,7 @@
                                                 <img height="60" src="{{ asset('files/'.$item->image) }}" alt="{{{ $item->titre or '' }}}" />
                                             @endif
                                         </td>
-                                        <td>{{{ $item->type or '' }}}</td>
+                                        <td>{!! $item->type or '' !!}</td>
                                         <td>{{ $positions[$item->position] }}</td>
                                         <td class="text-right">
                                             {!! Form::open(array('route' => array('admin.contenu.destroy', $item->id), 'method' => 'delete')) !!}

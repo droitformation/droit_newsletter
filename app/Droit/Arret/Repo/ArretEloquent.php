@@ -12,9 +12,15 @@ class ArretEloquent implements ArretInterface{
 		$this->arret = $arret;
 	}
 
-    public function getAll()
+    public function getAll($nbr = null)
     {
-        return $this->arret->with(['arrets_categories','arrets_analyses'])->orderBy('reference', 'ASC')->get();
+        $arrets = $this->arret->with(['arrets_categories','arrets_analyses'])->orderBy('reference', 'ASC');
+
+        if($nbr){
+            $arrets->take(5);
+        }
+
+        return $arrets->get();
     }
 
     public function getAllActives($include = []){

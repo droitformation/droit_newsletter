@@ -2,8 +2,8 @@
 @extends('layouts.master')
 @section('content')
 	<!-- Header et banner -->
-         @include ('partials.banner')
-         @include ('partials.shortcuts')
+     @include ('partials.banner')
+     @include ('partials.shortcuts')
 	<!-- END HEADER -->
     
 <div class="row">
