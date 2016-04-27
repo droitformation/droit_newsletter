@@ -27,17 +27,28 @@
                 </div><!--END POST-->
             </div>
             <div class="col-md-3 listCat">
-                <?php
-                if(!$arret->arrets_categories->isEmpty() )
-                {
-                    foreach($arret->arrets_categories as $categorie)
-                    {
-                        if($categorie->id != $bloc->categorie){
-                            echo '<a target="_blank" href="'.url('jurisprudence').'#'.$arret->reference.'"><img width="130" border="0" alt="Loyer" src="'.asset('newsletter/pictos/'.$categorie->image).'"></a>';
-                        }
-                    }
-                }
-                ?>
+                @if(!$arret->arrets_categories->isEmpty() )
+                    <?php $sorted = $arret->arrets_categories->sortBy('parent_id')->groupBy('parent_id'); ?>
+                    @foreach($sorted as $parent => $categories)
+                        @if(!empty($parent))
+                            <?php $desired_parent = $parents->filter(function($item) use ($parent) { return $item->id == $parent; })->first(); ?>
+
+                            @if($desired_parent->image)
+                                <a target="_blank" href="{{ url('jurisprudence') }}#{{ $bloc->reference }}">
+                                    <img width="130" border="0" alt="{{ $desired_parent->title }}" src="{{ asset('newsletter/pictos/'.$desired_parent->image) }}">
+                                </a>
+                            @else
+                                <h3 style=" font-family: Arial,Helvetica,sans-serif;font-style: normal; line-height: 24px; color: #006eb4;font-size: 14px; margin: 10px 0;">{{ $desired_parent->title }}</h3>
+                            @endif
+                        @endif
+
+                        @foreach($categories as $categorie)
+                            <a target="_blank" href="{{ url('jurisprudence') }}#{{ $bloc->reference }}">
+                                <img width="130" border="0" alt="{{ $categorie->title }}" src="{{ asset('newsletter/pictos/'.$categorie->image) }}">
+                            </a>
+                        @endforeach
+                    @endforeach
+                @endif
             </div>
         </div>
 
