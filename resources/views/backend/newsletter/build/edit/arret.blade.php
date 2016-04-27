@@ -33,7 +33,7 @@
     </table>
     <!-- Bloc content-->
 
-    @if(isset($bloc->analyses))
+    @if(!$bloc->arrets_analyses->isEmpty())
         <!-- Bloc content-->
         <table border="0" width="560" align="center" cellpadding="0" cellspacing="0" class="resetTable">
             <tr bgcolor="ffffff">
@@ -42,14 +42,14 @@
             <tr>
                 <td valign="top" width="375" class="resetMarge contentForm">
                     <?php $i = 1; ?>
-                    @foreach($bloc->analyses as $analyse)
+                    @foreach($bloc->arrets_analyses as $analyse)
                         <table border="0" width="375" align="left" cellpadding="0" cellspacing="0" class="resetTable">
                             <tr>
                                 <td valign="top" width="375" class="resetMarge contentForm">
                                     <?php setlocale(LC_ALL, 'fr_FR.UTF-8');  ?>
                                     <h3 style="text-align: left;">Analyse de l'arrêt {{ $bloc->reference }}</h3>
 
-                                    @if(isset($analyse->analyse_authors))
+                                    @if(!$analyse->analyse_authors->isEmpty())
                                         @foreach($analyse->analyse_authors as $analyse_authors)
                                             <table border="0" width="375" align="left" cellpadding="0" cellspacing="0" class="resetTable">
                                                 <tr>
@@ -72,7 +72,7 @@
                                 </td>
                             </tr>
 
-                            @if( $bloc->analyses->count() > 1 && $bloc->analyses->count() > $i)
+                            @if( $bloc->arrets_analyses->count() > 1 && $bloc->arrets_analyses->count() > $i)
                                 <tr bgcolor="ffffff"><td colspan="3" height="35" class=""></td></tr><!-- space -->
                             @endif
 
@@ -86,7 +86,7 @@
                     <!-- Categories -->
                     <div class="resetMarge">
                         <a target="_blank" href="{{ url('jurisprudence') }}">
-                            <img width="130" border="0" alt="Analyse" src="{{ asset('images/analyse.png') }}">
+                            <img border="0" alt="Analyses" src="<?php echo asset('newsletter/pictos/analyse.png') ?>">
                         </a>
                     </div>
                 </td>

@@ -26,37 +26,8 @@ class NewsletterController extends Controller
         $newsletters = $this->newsletter->getAll();
 
         view()->share('newsletters', $newsletters);
-    }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        setlocale(LC_ALL, 'fr_FR.UTF-8');
     }
 
     /**
@@ -78,7 +49,6 @@ class NewsletterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
     public function campagne($id)
     {
         $campagne      = $this->campagne->find($id);
@@ -89,28 +59,5 @@ class NewsletterController extends Controller
         return view('frontend.newsletter.campagne')->with(
             ['campagne' => $campagne , 'content' => $content, 'categories' => $categories, 'imgcategories' => $imgcategories]
         );
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
