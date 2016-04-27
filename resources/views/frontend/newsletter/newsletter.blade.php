@@ -17,6 +17,8 @@
                     @endif
                 @endforeach
             </ul>
+        @else
+            <p>Encore aucune newsletter</p>
         @endif
     </div>
 

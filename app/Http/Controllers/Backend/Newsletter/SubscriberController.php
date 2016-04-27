@@ -125,14 +125,12 @@ class SubscriberController extends Controller
     {
         $activated_at = ($request->input('activation') ? date('Y-m-d G:i:s') : null);
 
-        $subscriber   = $this->subscriber->update(
-            [
-                'id'            => $id,
-                'email'         => $request->input('email'),
-                'newsletter_id' => $request->input('newsletter_id',[]),
-                'activated_at'  => $activated_at
-            ]
-        );
+        $subscriber = $this->subscriber->update([
+            'id'            => $id,
+            'email'         => $request->input('email'),
+            'newsletter_id' => $request->input('newsletter_id',[]),
+            'activated_at'  => $activated_at
+        ]);
 
         $abos    = $request->input('newsletter_id', []);
         $hadAbos = $subscriber->subscriptions->lists('newsletter_id')->all();

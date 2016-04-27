@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Newsletter;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Droit\Newsletter\Repo\NewsletterInterface;
 use App\Droit\Newsletter\Repo\NewsletterTypesInterface;
 use App\Droit\Newsletter\Repo\NewsletterContentInterface;
 use App\Droit\Arret\Repo\GroupeInterface;
@@ -16,6 +17,7 @@ use App\Http\Requests\SendTestRequest;
 
 class CampagneController extends Controller
 {
+    protected $newsletter;
     protected $campagne;
     protected $worker;
     protected $content;
@@ -25,6 +27,7 @@ class CampagneController extends Controller
     protected $helper;
 
     public function __construct(
+        NewsletterInterface $newsletter,
         NewsletterCampagneInterface $campagne,
         NewsletterContentInterface $content,
         GroupeInterface $groupe,
@@ -34,13 +37,14 @@ class CampagneController extends Controller
         Helper $helper
     )
     {
-        $this->campagne = $campagne;
-        $this->worker   = $worker;
-        $this->content  = $content;
-        $this->types    = $types;
-        $this->groupe   = $groupe;
-        $this->mailjet  = $mailjet;
-        $this->helper   = $helper;
+        $this->newsletter = $newsletter;
+        $this->campagne   = $campagne;
+        $this->worker     = $worker;
+        $this->content    = $content;
+        $this->types      = $types;
+        $this->groupe     = $groupe;
+        $this->mailjet    = $mailjet;
+        $this->helper     = $helper;
 
         setlocale(LC_ALL, 'fr_FR.UTF-8');
     }
@@ -135,13 +139,15 @@ class CampagneController extends Controller
     public function send(Request $request)
     {
         // Get campagne
-        $campagne = $this->campagne->find($request->id);
+        $campagne   = $this->campagne->find($request->input('id'));
+        $newsletter = $this->newsletter->find($campagne->newsletter_id);
 
         //set or update html
         $html = $this->worker->html($campagne->id);
 
-        // Sync html content to api service and send!
+        // Sync html content to api service and send to newsletter list!
         $this->mailjet->setHtml($html,$campagne->api_campagne_id);
+        $this->mailjet->setList($newsletter->list_id); // testing list
 
         $result = $this->mailjet->sendCampagne($campagne->api_campagne_id,$campagne->id);
 

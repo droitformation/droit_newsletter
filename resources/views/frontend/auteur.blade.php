@@ -20,7 +20,7 @@
 
                     <!-- Analyses from author -->
                     @if(!$auteur->analyses->isEmpty())
-                        <h5>{{ ($auteur->analyses->count() > 1 ? 'Analyses des arrêts' : 'Analyse de l\'arrêt') }}</h5>
+                        <h5><strong>{{ ($auteur->analyses->count() > 1 ? 'Analyses des arrêts' : 'Analyse de l\'arrêt') }}:</strong></h5>
                         <ul class="analyse_auteur">
                             @foreach($auteur->analyses as $analyse)
                                 <?php $analyse->load('analyses_arrets'); ?>
