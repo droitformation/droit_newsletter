@@ -35,7 +35,7 @@
             <!-- START HEADER -->
             <nav class="row navbar">
                 <div class="col-md-2 col-xs-12">
-                <a href="#"><div id="logo"></div></a>
+                <a href="{{ url('/') }}"><div id="logo"></div></a>
                 </div>
                 <div class="col-md-6 col-xs-12">
                     <!-- Navigation  -->
