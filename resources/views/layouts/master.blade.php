@@ -82,8 +82,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-8">
-                        <p><strong>Faculté de droit, Avenue du 1er-Mars 26, 2000 Neuchâtel</a></strong></p>
-                        <p class="copyright">Copyright &copy; . Tous droits réservés.</p>
+                        <p><strong>Faculté de droit, Avenue du 1er-Mars 26, 2000 Neuchâtel</strong></p>
+                        <p class="copyright">Copyright &copy; {{ date('Y') }} RC Assurances. Tous droits réservés.</p>
                     </div><!--END ONE-->
                     <div class="col-md-4 text-right">
                         <a class="btn btn-xs btn-default" href="{{ url('admin') }}">administration</a>
