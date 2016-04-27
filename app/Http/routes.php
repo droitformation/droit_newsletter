@@ -25,6 +25,7 @@ Route::get('newsletter/campagne/{id}', 'Frontend\NewsletterController@campagne')
 
 Route::post('unsubscribe', 'Backend\Newsletter\InscriptionController@unsubscribe');
 Route::post('subscribe', 'Backend\Newsletter\InscriptionController@subscribe');
+Route::post('resend', 'Backend\Newsletter\InscriptionController@resend');
 Route::get('activation/{token}', 'Backend\Newsletter\InscriptionController@activation');
 Route::get('campagne/{id}', 'Frontend\CampagneController@show');
 

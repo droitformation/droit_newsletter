@@ -39,7 +39,7 @@ class InscriptionController extends Controller
         //Subscribe to mailjet
         $this->worker->subscribeEmailToList( $user->email );
 
-        return redirect('/')->with(['status' => 'success', 'message' => 'Vous êtes maintenant abonné à la newsletter en droit du travail']);
+        return redirect('/')->with(['status' => 'success', 'message' => 'Vous êtes maintenant abonné à la newsletter']);
     }
 
     /**
@@ -50,7 +50,7 @@ class InscriptionController extends Controller
      */
     public function subscribe(SubscribeRequest $request)
     {
-        $email = $this->subscription->findByEmail($request->email);
+        $email = $this->subscription->findByEmail($request->input('email'));
 
         if($email)
         {
@@ -61,7 +61,7 @@ class InscriptionController extends Controller
                 $messages['resend'] = true;
             }
 
-            return redirect('/')->with($messages);
+            return redirect('/')->withInput()->with($messages);
         }
 
         // Subscribe user with activation token to website list and sync newsletter abos
@@ -102,5 +102,23 @@ class InscriptionController extends Controller
         $this->subscription->delete($abonne->email);
 
         return redirect('/')->with(array('status' => 'success', 'message' => '<strong>Vous avez été désinscrit</strong>'));
+    }
+
+    /**
+     * Resend activation link email
+     * POST /inscription/resend/email
+     *
+     * @return Response
+     */
+    public function resend(Request $request)
+    {
+        $subscribe = $this->subscription->findByEmail($request->input('email'));
+
+        \Mail::send('emails.confirmation', array('token' => $subscribe->activation_token), function($message) use ($subscribe)
+        {
+            $message->to($subscribe->email, $subscribe->email)->subject('Inscription!');
+        });
+
+        return redirect('/')->with(['status'  => 'success', 'message' => '<strong>Lien d\'activation envoyé</strong>']);
     }
 }

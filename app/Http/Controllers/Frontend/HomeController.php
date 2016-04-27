@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 
 use App\Droit\Author\Repo\AuthorInterface;
 use App\Droit\Newsletter\Repo\NewsletterInterface;
+use App\Droit\Newsletter\Repo\NewsletterCampagneInterface;
 use App\Droit\Content\Repo\ContentInterface;
 use App\Droit\Page\Repo\PageInterface;
 
@@ -15,14 +16,16 @@ class HomeController extends Controller
 {
     protected $author;
     protected $newsletter;
+    protected $campagne;
     protected $helper;
     protected $content;
     protected $page;
 
-    public function __construct(AuthorInterface $author, ContentInterface $content,PageInterface $page,  NewsletterInterface $newsletter)
+    public function __construct(AuthorInterface $author, ContentInterface $content,PageInterface $page,  NewsletterInterface $newsletter, NewsletterCampagneInterface $campagne)
     {
         $this->author     = $author;
         $this->newsletter = $newsletter;
+        $this->campagne   = $campagne;
         $this->content    = $content;
         $this->page       = $page;
         $this->helper     = new \App\Droit\Helper\Helper();

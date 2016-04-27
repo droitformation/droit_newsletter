@@ -118,8 +118,12 @@ class CampagneController extends Controller
         $categories    = $this->worker->getCategoriesArrets();
         $imgcategories = $this->worker->getCategoriesImagesArrets();
 
+        /*  Urls  */
+        $unsubscribe  = url('/unsubscribe/'.$infos->newsletter->id);
+        $browser      = url('/campagne/'.$id);
+
         return view('backend.newsletter.campagne.show')->with(
-            ['isNewsletter' => true, 'campagne' => $campagne , 'infos' => $infos, 'blocs' => $blocs, 'categories' => $categories, 'imgcategories' => $imgcategories]
+            ['isNewsletter' => true, 'campagne' => $campagne , 'infos' => $infos,  'unsubscribe' => $unsubscribe , 'browser' => $browser, 'blocs' => $blocs, 'categories' => $categories, 'imgcategories' => $imgcategories]
         );
     }
 

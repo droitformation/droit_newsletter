@@ -53,16 +53,14 @@ class CampagneController extends Controller
      */
     public function show($id)
     {
-        /*
-        * Urls
-        */
-        $unsubscribe  = url('/unsubscribe/'.$id);
-        $browser      = url('/campagne/'.$id);
-
         $infos         = $this->campagne->find($id);
         $campagne      = $this->worker->prepareCampagne($id);
         $categories    = $this->worker->getCategoriesArrets();
         $imgcategories = $this->worker->getCategoriesImagesArrets();
+
+        /*  Urls  */
+        $unsubscribe  = url('/unsubscribe/'.$infos->newsletter->id);
+        $browser      = url('/campagne/'.$id);
 
         return view('frontend.newsletter.view')->with(array('content' => $campagne , 'infos' => $infos , 'unsubscribe' => $unsubscribe , 'browser' => $browser, 'categories' => $categories, 'imgcategories' => $imgcategories));
     }

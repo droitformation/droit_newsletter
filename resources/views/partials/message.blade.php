@@ -16,10 +16,10 @@
 
                 @if( Session::has('jeton') || Session::has('resend') )
 
-                    <form action="{{ url('inscription/resend') }}" method="POST" class="form">
+                    <form action="{{ url('resend') }}" method="POST" class="form">
                         {!! csrf_field() !!}
-                        <input type="hidden" value="{{ Input::old('email') }}" name="email" />
-                        <input type="hidden" value="{{ Input::old('newsletter_id') }}" name="newsletter_id" />
+                        <input type="hidden" value="{{ old('email') }}" name="email" />
+                        <input type="hidden" value="{{ old('newsletter_id') }}" name="newsletter_id" />
                         <button class="btn btn-xs btn-warning" type="submit">Renvoyer le lien d'activation</button>
                    </form>
 
