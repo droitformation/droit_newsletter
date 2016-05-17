@@ -84,7 +84,7 @@
     <div id="page-content">
         <div id='wrap'>
 
-            <div id="page-heading"><h2>DroitNE <small>Administration</small></h2></div>
+            <div id="page-heading"><h2>RC Assurances <small>Administration</small></h2></div>
 
             <div class="container">
 
