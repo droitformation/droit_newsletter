@@ -147,7 +147,7 @@ class CampagneController extends Controller
 
         // Sync html content to api service and send to newsletter list!
         $this->mailjet->setHtml($html,$campagne->api_campagne_id);
-        $this->mailjet->setList($newsletter->list_id); // testing list
+        $this->mailjet->setList($newsletter->list_id); // list id
 
         $result = $this->mailjet->sendCampagne($campagne->api_campagne_id,$campagne->id);
 

@@ -6,7 +6,7 @@ use App\Droit\Newsletter\Service\Mailjet;
 class MailjetWorker implements MailjetInterface{
 
     protected $mailjet;
-    protected $sender = 'info@droitne.ch';
+    protected $sender = 'info@rcassurances.ch';
     protected $list   = '1499252'; // Testing list if we want another just passe it via the constructor
 
     public function __construct(Mailjet $mailjet)
