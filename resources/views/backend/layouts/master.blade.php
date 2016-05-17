@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>Administration | RCAssurances</title>
+    <title>Administration | RC Assurances</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Administration | Droit Formation">
@@ -55,7 +55,7 @@
 <header class="navbar navbar-inverse navbar-fixed-top" role="banner">
 
     <a id="leftmenu-trigger" class="tooltips" data-toggle="tooltip" data-placement="right" title="Toggle Sidebar"></a>
-    <div class="navbar-header pull-left"><a class="navbar-brand" href="{{ url('/')  }}">DroitNE</a></div>
+    <div class="navbar-header pull-left"><a class="navbar-brand" href="{{ url('/')  }}">RC Assurances</a></div>
 
     <ul class="nav navbar-nav pull-right toolbar">
         <li class="dropdown">

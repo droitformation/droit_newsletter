@@ -40,7 +40,7 @@
 
     @endif
 
-    <div id="logo"><a href="{{ url('/') }}">RCAssurances</a></div>
+    <div id="logo"><a href="{{ url('/') }}">RC Assurances</a></div>
     <div class="panel panel-primary">
 
         <!-- Contenu -->

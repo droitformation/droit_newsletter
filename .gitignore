@@ -10,3 +10,4 @@ composer.lock
 public/files/
 public/newsletter/pictos/
 tests/_output/*
+public/newsletter
