@@ -3,10 +3,10 @@
     <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
     <head>
         <meta charset="utf-8" />
-        <title>Droit</title>
+        <title>RC Assurances</title>
 
-        <meta name="description" content="">
-        <meta name="author" content="Droit Formation Unine">
+        <meta name="description" content="L'actualité dans les domaines des assurances et de la RC. Responsabilité civile, assurances privées et assurance sociales. Association des avocats spécialistes FSA, le CERT, Centre d'étude des relations de travail et la faculté de droit de l'université de Neuchâtel.">
+        <meta name="author" content="RCAssurances Unine">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- CSS Files

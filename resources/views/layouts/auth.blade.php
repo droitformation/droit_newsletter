@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>DroitNE</title>
+    <title>RCAssurances</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="DroitNE | login">
@@ -40,7 +40,7 @@
 
     @endif
 
-    <div id="logo"><a href="{{ url('/') }}">DroitNE</a></div>
+    <div id="logo"><a href="{{ url('/') }}">RCAssurances</a></div>
     <div class="panel panel-primary">
 
         <!-- Contenu -->

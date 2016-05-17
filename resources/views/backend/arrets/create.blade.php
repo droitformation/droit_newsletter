@@ -29,7 +29,7 @@
                         <br/>
                         <div class="checkbox">
                             <label>
-                                {!! Form::checkbox('dumois', '1') !!} Arrêt du mois
+                                <input type="checkbox" value="1" name="dumois"> Arrêt du mois
                             </label>
                         </div>
                         <p class="help-block">Attache l'analyse à l'arrêt dans la newsletter</p>
