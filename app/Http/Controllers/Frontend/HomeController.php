@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use App\Http\Requests\SendMessageRequest;
 use App\Http\Controllers\Controller;
 
 use App\Droit\Author\Repo\AuthorInterface;
@@ -101,6 +102,25 @@ class HomeController extends Controller
         }
 
         return view('frontend.unsubscribe')->with(['id' => $id]);
+    }
+
+    /**
+     * Send contact message
+     *
+     * @return Response
+     */
+    public function sendMessage(SendMessageRequest $request)
+    {
+
+        $data = ['email' => $request->input('email'), 'nom' => $request->input('nom'), 'remarque' => $request->input('remarque')];
+
+        \Mail::send('emails.contact', $data , function($message)
+        {
+            $message->to('info@droitdutravail.ch', 'Droit du travail')->subject('Message depuis le site www.droitdutravail.ch');
+        });
+
+        return redirect()->back()->with(['status' => 'success', 'message' => '<strong>Merci pour votre message</strong><br/>Nous vous contacterons dès que possible.']);
+
     }
 
 }

@@ -13,6 +13,7 @@ Route::get('contact', 'Frontend\HomeController@contact');
 Route::get('jurisprudence', 'Frontend\JurisprudenceController@index');
 Route::get('unsubscribe/{id}', 'Frontend\HomeController@unsubscribe');
 
+Route::post('sendMessage', 'Frontend\HomeController@sendMessage');
 /*
 |--------------------------------------------------------------------------
 | Subscriptions adn newsletter Routes
