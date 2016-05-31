@@ -19,7 +19,7 @@ class UserEloquent implements UserInterface{
 
     public function find($id){
 
-        return $this->user->with(['adresses','orders','inscriptions','roles'])->findOrFail($id);
+        return $this->user->with(['roles'])->findOrFail($id);
     }
 
     public function search($term){
@@ -46,6 +46,11 @@ class UserEloquent implements UserInterface{
             return false;
         }
 
+        if(isset($data['role']))
+        {
+            $user->roles()->attach($data['role']);
+        }
+
         return $user;
 
     }
@@ -63,6 +68,16 @@ class UserEloquent implements UserInterface{
 
         $user->updated_at = date('Y-m-d G:i:s');
 
+        if(!empty($data['password']))
+        {
+            $user->password = bcrypt($data['password']);
+        }
+
+        if(isset($data['role']))
+        {
+            $user->roles()->sync([$data['role']]);
+        }
+
         $user->save();
 
         return $user;
@@ -74,51 +89,4 @@ class UserEloquent implements UserInterface{
 
         return $user->delete($id);
     }
-
-    public function findByUserNameOrCreate($userData)
-    {
-        $user = $this->user->where('email', '=', $userData->email)->first();
-
-        if(!$user)
-        {
-            $user = $this->user->create([
-                'provider_id' => $userData->id,
-                'provider'    => $userData->provider,
-                'first_name'  => $userData->first_name,
-                'last_name'   => $userData->last_name,
-                'email'       => $userData->email,
-            ]);
-        }
-
-        $this->checkIfUserNeedsUpdating($userData, $user);
-
-        return $user;
-    }
-
-    public function checkIfUserNeedsUpdating($userData, $user)
-    {
-
-        $socialData = [
-            'email'      => $userData->email,
-            'first_name' => $userData->first_name,
-            'last_name'  => $userData->last_name,
-        ];
-
-        $dbData = [
-            'email'      => $user->email,
-            'first_name' => $user->first_name,
-            'last_name'  => $user->last_name,
-        ];
-
-        $update = array_diff($socialData, $dbData);
-
-        if (!empty($update))
-        {
-            $user->email      = $userData->email;
-            $user->first_name = $userData->first_name;
-            $user->last_name  = $userData->last_name;
-            $user->save();
-        }
-    }
-
 }

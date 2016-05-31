@@ -25,6 +25,18 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->registerPageService();
         $this->registerPageWorkerService();
+        $this->registerUserService();
+    }
+
+    /**
+     * User
+     */
+    protected function registerUserService(){
+
+        $this->app->singleton('App\Droit\User\Repo\UserInterface', function()
+        {
+            return new \App\Droit\User\Repo\UserEloquent( new  \App\Droit\User\Entities\User );
+        });
     }
 
     /**

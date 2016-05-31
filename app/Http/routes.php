@@ -54,6 +54,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','administration']], f
     Route::resource('contenu',   'Backend\ContentController');
     Route::resource('author',    'Backend\AuthorController');
     Route::resource('page',    'Backend\PageController');
+    Route::resource('user', 'Backend\UserController');
 
     /*
    |--------------------------------------------------------------------------

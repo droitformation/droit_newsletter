@@ -33,6 +33,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      */
     protected $hidden = ['password', 'remember_token'];
 
+    public function getNameAttribute()
+    {
+        return $this->first_name.' '.$this->last_name;
+    }
+
     public function roles()
     {
         return $this->belongsToMany('App\Droit\User\Entities\Role', 'users_roles', 'user_id', 'role_id');

@@ -72,19 +72,16 @@
     <div id="page-container">
 
         <!-- Navigation  -->
-        @include('admin.partials.navigation')
+        @include('backend.partials.navigation')
 
         <div id="page-content">
             <div id='wrap'>
-
-                <!-- Breadcrumbs  -->
-                @include('admin.partials.breadcrumbs')
 
                 <div id="page-heading">
                     <h2>{{ $pageTitle or 'Administration' }}</h2>
 
                     <!-- messages and errors -->
-                    @include('admin.partials.message')
+                    @include('backend.partials.message')
 
                 </div>
 
@@ -101,7 +98,7 @@
         <footer role="contentinfo">
             <div class="clearfix">
                 <ul class="list-unstyled list-inline pull-left">
-                    <li>Droit du travail &copy; <?php echo date('Y'); ?></li>
+                    <li>RC Assurances &copy; <?php echo date('Y'); ?></li>
                 </ul>
                 <button class="pull-right btn btn-inverse-alt btn-xs hidden-print" id="back-to-top"><i class="fa fa-arrow-up"></i></button>
             </div>
