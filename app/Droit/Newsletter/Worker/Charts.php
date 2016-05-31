@@ -112,11 +112,17 @@ class Charts{
             $open    =  $stats->OpenedCount;
             $bounce  =  $stats->BouncedCount;
 
-            // Calculations
-            $nonopen  = ($sent - ($open + $bounce))/$sent;
-            $openclic = ($open-$clic-$bounce)/$sent;
-            $onlyopen = $open/$sent;
-            $bounce   = $bounce/$sent;
+            $openclic = 0;
+            $onlyopen = 0;
+            $nonopen  = 0;
+
+            if($sent > 0){
+                // Calculations
+                $nonopen  = ($sent - ($open + $bounce))/$sent;
+                $openclic = ($open-$clic-$bounce)/$sent;
+                $onlyopen = $open/$sent;
+                $bounce   = $bounce/$sent;
+            }
 
             $data['total']     = $sent;
             $data['clicked']   = round($openclic * 100, 2);
