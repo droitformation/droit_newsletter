@@ -116,7 +116,7 @@ class HomeController extends Controller
 
         \Mail::send('emails.contact', $data , function($message)
         {
-            $message->to('info@droitdutravail.ch', 'Droit du travail')->subject('Message depuis le site www.droitdutravail.ch');
+            $message->to('info@rcassurances.ch', 'RC Assurances')->subject('Message depuis le site www.rcassurances.ch');
         });
 
         return redirect()->back()->with(['status' => 'success', 'message' => '<strong>Merci pour votre message</strong><br/>Nous vous contacterons dès que possible.']);

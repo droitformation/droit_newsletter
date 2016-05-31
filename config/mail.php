@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'info@droitne.ch', 'name' => 'DroitNE'],
+    'from' => ['address' => 'info@rcassurances.ch', 'name' => 'RC Assurances'],
 
     /*
     |--------------------------------------------------------------------------
