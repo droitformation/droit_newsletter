@@ -9,7 +9,7 @@
         <hr/>
 
         <h3>Formulaire</h3>
-        <form action="{{ url('sendMessage') }}" class="form-horizontal" method="post">
+        <form action="{{ url('sendMessage') }}" class="form-horizontal" method="post">   {{ csrf_field() }}
             <div class="form-group">
                 <label class="col-sm-2 control-label">Nom</label>
                 <div class="col-sm-10">
