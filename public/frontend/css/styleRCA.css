@@ -11,14 +11,14 @@ html,
 body {
 	padding-top: 0px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 	margin:0;
-	font-family:"Source Sans Pro", Helvetica, "Sans serif";
+	font-family:"Source Sans Pro", Helvetica, "Sans serif"; 
 }
 .container {
 	position: relative;
 	margin-left: auto;
 	margin-right: auto;
 	width: 1170px;
-}
+	}
 #blue-line{
 	display:block;
 	position: relative;
@@ -27,28 +27,29 @@ body {
 	width: 1170px;
 	background-color: #0C416E;
 	height:6px;
-}
+	}	
 .navbar{
 	margin-bottom: 0px;
 	height: 100px;
-}
+	left: 80px;
+	}
 .navbar a {
 	text-transform:uppercase;
-}
+	}
 .navbar-nav {
 	margin-top: 24px;
-}
+	}	
 .img-portfolio {
-	margin-bottom: 30px;
+    margin-bottom: 30px;
 }
 
 .img-hover:hover {
-	opacity: 0.8;
+    opacity: 0.8;
 }
 
 .menu {
 	float:right;
-}
+	}
 
 /* Home Page Carousel */
 
@@ -72,135 +73,135 @@ header {
 	margin: 100px auto 100px auto;
 	width: 90%;
 	text-align:center;
-}
+	}
 .intro-txt h1 {
 	color:#FFF;
-}
+	}	
 .banner-title {
 	font-size: 56px;
 	font-weight: 600;
 	font-family: "Source Sans Pro", Helvetica, "Sans serif";
 	line-height: 0.8;
-}
+	}
 h1 {
 	font-weight: 200;
 	color: #0C416E;
-}
+	}
 h4 {
 	color: #3383C7;
 	text-transform:uppercase;
 	font-weight: 600;
-}
+	}
 .bloc {
 	float:left;
 	width: 33.33333%;
 	position:relative;
 	min-height: 1px;
 	margin-bottom: 20px;
-}
+	}
 .shortnav-bloc {
 	padding:20px;
 	margin: 2px 1px 20px 1px;;
 	background-color:#FFF;
 	background-image:linear-gradient(#FFF, #EEE);
 	height: 260px;
-}
+	}	
 .bloc-3-col{
 	float:left;
 	width:33%;
 	text-align:center;
 	position:relative;
-	padding:40px 24px 80px 24px;
-}
+	padding:40px 28px 90px 28px;
+	}
 .bloc-3-col h4{
 	color:#0C416E;
 	text-transform:none;
 	font-weight: 400;
 	font-size:	20px;
-}
+	}
 .bloc-3-col p{
 	text-align: center;
 	line-height: 1.55;
-}
+	}		
 .newsletter{
 	margin-top:50px;
-}
+	}
 .grey{
 	background-color: #0C416E;
 	border: 1px solid #999;
 	color:#FFF;
-}
+	}
 .bloc-soutien{
 	text-align:center;
-	padding:20px;
-}
+	padding:20px 76px;	
+	}
 .bloc-soutien h5{
 	color:#0C416E;
 	font-size:18px;
 	font-weight: 700;
-}
+	}
 .txt{
-	margin: 10px auto 10px auto;
-}
+	margin: 10px auto 10px auto;	
+	}	
 /* 404 Page Styles */
 
 .error-404 {
-	font-size: 100px;
+    font-size: 100px;
 }
 
 /* Footer Styles */
 
 footer {
-	margin: 20px 0px 0px 10px;
+    margin: 20px 0px 0px 10px;
 }
 
 /* Responsive Styles */
 
 @media(max-width:991px) {
-	.customer-img,
-	.img-related {
-		margin-bottom: 30px;
-	}
+    .customer-img,
+    .img-related {
+        margin-bottom: 30px;
+    }
 	.nav>li>a {
 		margin: 8px 5px 8px 5px;
 		font-size:13px;
 		letter-spacing:normal;
 	}
 
-	.navbar-brand{
-		background: url(../img/RCAssurances_blanc_small.png);
-		background-repeat:no-repeat;
-		background-position:center;
-		margin-top:16px;
-		width:154px;
+.navbar-brand{
+	background: url(../img/RCAssurances_blanc_small.png);
+	background-repeat:no-repeat;
+	background-position:center;
+	margin-top:16px;
+	width:154px;
 	}
-	h1 {
-		font-size: 40px;
+h1 {
+		font-size: 40px;	
 	}
 }
 
 @media(max-width:767px) {
-	.img-portfolio {
-		margin-bottom: 15px;
-	}
+    .img-portfolio {
+        margin-bottom: 15px;
+    }
 }
 .col-md-11 {
 	position:relative;
 	padding-right: 20px;
 	min-height: 1px;
 	margin-bottom:40px;
-}
+	}
 h4 {
 	margin-bottom: 8px;
-}
+	}
 a {
 	font-family: inherit;
 	text-decoration: none;
-}
+	}
 a:active, a:hover {
 	text-decoration: none;
 	color: #0B416D;
-}
+	}
 p	{
 	color: #333;
 	font-family: "Source Sans Pro", Helvetica, Arial, "Sans serif";
@@ -212,7 +213,7 @@ p	{
 	padding-bottom: 9px;
 	margin: 40px 0 25px;
 	border-bottom: 1px solid #ddd
-}
+	}
 .titreNews	{
 	color: #0B416D;
 	font-size: 18px;
@@ -220,114 +221,114 @@ p	{
 	padding-bottom: 20px;
 	margin: 50px 0 20px;
 	border-bottom: 1px solid #ddd;
-}
+	}
 ul {
 	list-style: none;
 	margin-left: 0px;
 	padding-left: 0px;
-}
+	}	
 .news li {
 	margin-left: 26px;
 	margin-bottom:16px;
 	padding-bottom: 10px;
 	border-bottom: 1px solid #ddd;
-}
+	}
 .fa {
 	color	:#0B416D;
-}
+	}
 .fa-list {
 	margin-right: 12px;
-}
+	}
 .fa-envelope {
 	margin-right: 12px;
-}
+	}
 .fa-calendar-o {
 	margin-right: 12px;
-}
+	}
 .fa-plus {
 	margin-left: 5px;
-}
+	}
 .grand-bleu {
 	color: #0B416D;
-}
+	}
 .date {
 	color: #0B416D;
 	font-size:15px;
 	margin-left: 10px;
-}
+	}
 .partner {
 	color:#fff;
 	text-align:center;
 	margin:	-15px 70px 0px 70px;
-}
+	}
 #logo {
 	display:block;
 	float:left;
 	background-image: url(../images/RCassu_178x21_bleu.jpg);
-	background-position:center;
 	background-repeat:no-repeat;
-	width:178px;
-	height: 21px;
+	width:200px;
+	height: 40px;
 	margin-top:40px;
-}
+	}
 .logo-nav{
 	margin-top: 10px;
-}
+	left:184px;
+	}	
 .logo-nav img {
-	padding-right: 20px;
-}
+	padding-right: 30px; 
+	}
 .blue-line {
 	display:block;
 	background-color:#0B416D;
 	height: 6px;
 	margin-top:46px;
-}
+	}
 .blue-line-default{
 	margin-top: 170px;
-}
+	}
 b {
 	color: #0B416D;
 	font-weight:600;
-}
+	}
 .thin-col-right {
 	padding-right: 40px;
-}
+	}
 .thin-col-left {
 	padding-left: 40px;
-}
+	}
 .categories {
 	line-height: 1.6em;
 	color:#666;
 	font-weight:300;
-}
+	}
 .sidebar-margin{
 	margin-top:25px;
 	padding-left: 50px;
-}
+	}
 input[type=checkbox] {
 	margin-right:8px;
 	display:inline-block;
-}
+		}
 .margin-top {
 	margin-top:46px;
-}
+	}
 .ico{
 	text-align:center;
-}
+	}
 .ico img {
 	height:140px;
-}
+	}
 .pict img {
 	margin-top:30px;
 	height: 72px;
-}
+	}
 .pict-right img {
 	float:right;
 	height: 72px;
-}
+	}
 .article {
 	margin-bottom: 40px;
-}
+	}
 .search-bar {
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
@@ -335,7 +336,7 @@ input[type=checkbox] {
 	border: solid 1px #CCC;
 	padding-left:6px;
 	color:#aaa;
-}
+	}	
 summary::-webkit-details-marker {
 	display:none;
 }
@@ -346,7 +347,7 @@ summary {
 	font-weight: 600;
 	text-transform:uppercase;
 	margin-bottom:4px;
-}
+	}
 summary:after {
 	font-family: FontAwesome;
 	font-size: 12;
@@ -354,7 +355,7 @@ summary:after {
 	float:left;
 	content: "\f105 ";
 	margin-right: 6px;
-}
+	}
 details[open] summary:after {
 	font-family: FontAwesome;
 	font-size: 12;

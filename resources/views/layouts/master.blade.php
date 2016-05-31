@@ -3,10 +3,10 @@
     <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
     <head>
         <meta charset="utf-8" />
-        <title>RC Assurances</title>
+        <title>Droit</title>
 
-        <meta name="description" content="L'actualité dans les domaines des assurances et de la RC. Responsabilité civile, assurances privées et assurance sociales. Association des avocats spécialistes FSA, le CERT, Centre d'étude des relations de travail et la faculté de droit de l'université de Neuchâtel.">
-        <meta name="author" content="RCAssurances Unine">
+        <meta name="description" content="">
+        <meta name="author" content="Droit Formation Unine">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- CSS Files
@@ -17,7 +17,7 @@
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="<?php echo asset('frontend/css/filter.css');?>">
         <link rel="stylesheet" type="text/css" href="<?php echo asset('frontend/css/chosen.css');?>">
-        <link rel="stylesheet" type="text/css" href="<?php echo asset('frontend/css/styleRCA.css');?>">
+        <link rel="stylesheet" type="text/css" href="../../../public/frontend/css/styleRCA.css">
         <!-- Javascript Files
         ================================================== -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -33,7 +33,7 @@
     <div class="container">
 <div id="blue-line"></div>
             <!-- START HEADER -->
-            <nav class="row navbar">
+            <nav class="row">
                 <div class="col-md-2 col-xs-12">
                 <a href="{{ url('/') }}"><div id="logo"></div></a>
                 </div>
@@ -42,8 +42,8 @@
                     @include('partials.navigation')
                 </div>
                 <div class="col-md-4 logo-nav">
-				<a target="_blank" href="http://www2.unine.ch/droit"><img src="<?php echo asset('files/UniNE_FD_pos_c.png');?>" alt=""></a>
-                <a target="_blank" href="http://www2.unine.ch/cert"><img src="<?php echo asset('files/CERT.jpg');?>" alt=""></a>
+                <a target="_blank" href="http://www2.unine.ch/cert"><img src="../../../public/files/CERT.jpg" alt="Faculté de droit"></a>
+                <a target="_blank" href="http://www2.unine.ch/droit"><img src="../../../public/files/UniNE_logo_90x58.png" alt=""></a>
 				</div>
             </nav>
        </div>   
@@ -66,7 +66,9 @@
             <div class="container"><div class="row">
             <div class="col-md-6">
             	<div class="bloc-soutien">
-                <h5>Association des avocats spécialistes FSA</h5>
+                <img src="../../../public/files/pict_FSA_77x80.jpg">
+                <h5>Association des avocats spécialistes FSA<br>Responsabilité civile & droit des assurances</h5>
+                Tous les membres ont acquis une formation complémentaire étendue ou disposent déjà de vastes connaissances dans le domaine du droit de la responsabilité civile et du droit des assurances.
                 </div>
             </div>
             <div class="col-md-6">
@@ -82,8 +84,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-8">
-                        <p><strong>Faculté de droit, Avenue du 1er-Mars 26, 2000 Neuchâtel</strong></p>
-                        <p class="copyright">Copyright &copy; {{ date('Y') }} RC Assurances. Tous droits réservés.</p>
+                        <p><strong>Faculté de droit, Avenue du 1er-Mars 26, 2000 Neuchâtel</a></strong></p>
+                        <p class="copyright">Copyright &copy; . Tous droits réservés.</p>
                     </div><!--END ONE-->
                     <div class="col-md-4 text-right">
                         <a class="btn btn-xs btn-default" href="{{ url('admin') }}">administration</a>
