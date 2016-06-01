@@ -170,17 +170,23 @@ Route::get('testcampagne', function()
 Route::get('test', function()
 {
 
-    $hadAbos = [1,2,3];
-    $abos    = [2,3,4];
+    $migrate = new \App\Droit\Service\MigrateWorker();
+    $migrate->setCampagne(47)->getData();
+    
+    $arrets = $migrate->getNewsletter();
+    $date   = $migrate->getNewsletterDate();
+    $sujet   = $migrate->getNewsletterSujet();
+    $header  = $arrets->splice(0,3);
+    $authors = $migrate->getAuthors();
 
-    $added   = array_diff($abos,$hadAbos);
-    $removed = array_diff($hadAbos,$abos);
+    $campagne = $migrate->makeCampagne();
+    //$arret   = $arrets->pull(1);
 
     echo '<pre>';
-    echo 'removed';
-    print_r($removed);
-    echo 'added';
-    print_r($added);
+    print_r($campagne);
+   // echo '<br/>';
+   // print_r($arrets);
+    //print_r($date);
     echo '</pre>';
 
 });

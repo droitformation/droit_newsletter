@@ -16,6 +16,9 @@
         <testsuite name="newsletter">
             <directory>./tests/newsletter/</directory>
         </testsuite>
+        <testsuite name="migrate">
+            <directory>./tests/migrate/</directory>
+        </testsuite>
     </testsuites>
     <filter>
         <whitelist>
