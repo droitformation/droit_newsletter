@@ -60,3 +60,26 @@ $factory->define(App\Droit\Newsletter\Entities\Newsletter_campagnes::class, func
         'newsletter_id' => 1
     ];
 });
+
+$factory->define(App\Droit\Newsletter\Entities\Newsletter_contents::class, function (Faker\Generator $faker) {
+    return [
+        'type_id'  => 1,
+        'arret_id' => 0,
+        'titre'    => 'title'
+    ];
+});
+
+$factory->define(App\Droit\Arret\Entities\Arret::class, function (Faker\Generator $faker) {
+    return [
+        'user_id'    => 1,
+        'reference'  => 'reference',
+        'pub_date'   => date('Y-m-d G:i:s'),
+        'abstract'   => 'abstract',
+        'pub_text'   => 'pub_text',
+        'categories' => 0,
+        'file'       => null,
+        'dumois'     => 0,
+        'created_at' => date('Y-m-d G:i:s'),
+        'updated_at' => date('Y-m-d G:i:s')
+    ];
+});

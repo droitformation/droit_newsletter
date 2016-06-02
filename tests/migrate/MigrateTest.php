@@ -63,9 +63,40 @@ class MigrateTest extends TestCase
             ],
         ];
 
-        $actual = $migrate->process($collection);
+        $actual = $migrate->prepare($collection);
 
         $this->assertEquals($expect,$actual);
+
+    }
+
+    public function testBlocType()
+    {
+        $migrate = new \App\Droit\Service\MigrateWorker();
+
+        $article =  [
+            'type'    => 'text',
+            'content' => ['content' => 'test content']
+        ];
+
+        $article1 =  [
+            'type'    => 'text',
+            'content' => ['title' => 'Test', 'content' => 'test content','image' => 'dwer.png']
+        ];
+
+        $article2 =  [
+            'type'    => 'arret',
+            'content' => ['title' => 'TF title', 'content' => 'test content', 'author' => 'Cindy Leschaud, webmaster']
+        ];
+
+        $article3 =  [
+            'type'    => 'image',
+            'content' => ['image' => 'dwer.png']
+        ];
+
+        $this->assertEquals(6, $migrate->blocType($article));
+        $this->assertEquals(2, $migrate->blocType($article1));
+        $this->assertEquals(5, $migrate->blocType($article2));
+        $this->assertEquals(1, $migrate->blocType($article3));
 
     }
 
