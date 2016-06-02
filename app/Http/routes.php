@@ -169,23 +169,32 @@ Route::get('testcampagne', function()
 
 Route::get('test', function()
 {
-
     $migrate = new \App\Droit\Service\MigrateWorker();
-    $migrate->setCampagne(47)->getData();
-    
-    $arrets = $migrate->getNewsletter();
-    $date   = $migrate->getNewsletterDate();
-    $sujet   = $migrate->getNewsletterSujet();
-    $header  = $arrets->splice(0,3);
-    $authors = $migrate->getAuthors();
 
-    $campagne = $migrate->makeCampagne();
-    //$arret   = $arrets->pull(1);
+    $articles = $migrate->getNewsletter();
+    $articles = $articles->slice(3);
+    $articles = $migrate->prepare($articles);
+
+    $all = $migrate->getall();
+
+    foreach($all as $campagne){
+        $migrate->setCampagne($campagne)->getData();
+        $migrate->process();
+    }
+    
+    $slice = array_slice($articles, -3, 1);
+    $text =  $slice[0]['content'];
+
+    $date     = $migrate->getNewsletterDate();
+    $sujet    = $migrate->getNewsletterSujet();
+    $authors  = $migrate->getAuthors();
+    //$campagne = $migrate->makeCampagne();
 
     echo '<pre>';
-    print_r($campagne);
-   // echo '<br/>';
-   // print_r($arrets);
+    print_r($all);
+    print_r($articles);
+    // echo '<br/>';
+    // print_r($arrets);
     //print_r($date);
     echo '</pre>';
 

@@ -6,15 +6,23 @@
             <tr class="resetMarge" style="display:block;">
                 <td width="600" style="margin: 0;padding: 0;display:block;border: 1px solid #ededed; border-bottom: 0;line-height: 0;">
                     <a href="{{ url('/') }}">
-                        <?php list($width, $height) = getimagesize(public_path('newsletter/'.$infos->newsletter->logos )); ?>
-                        <img width="{{ $width }}" height="{{ $height }}" style="display:block;margin: 0;padding: 0;" alt="{{ $infos->newsletter->from_name }}" src="{{ asset('newsletter/'.$infos->newsletter->logos ) }}" />
+                        <?php
+                            if( \File::exists('newsletter/'.$infos->newsletter->logos)){
+                                list($width, $height) = getimagesize(public_path('newsletter/'.$infos->newsletter->logos ));
+                            }
+                        ?>
+                        <img width="{{ $width or '130' }}" height="{{ $height or '60'  }}" style="display:block;margin: 0;padding: 0;" alt="{{ $infos->newsletter->from_name }}" src="{{ asset('newsletter/'.$infos->newsletter->logos ) }}" />
                     </a>
                 </td>
             </tr>
             <tr class="resetMarge" style="display:block;">
                 <td width="600" class="resetMarge" style="margin: 0 0 0 1px;padding: 0;display:block;border: 0; line-height: 0;">
-                    <?php list($width, $height) = getimagesize(public_path('newsletter/'.$infos->newsletter->header )); ?>
-                    <img width="{{ $width }}" height="{{ $height }}" alt="{{ $infos->newsletter->from_name }}" src="{{ asset('newsletter/'.$infos->newsletter->header ) }}" />
+                    <?php
+                    if( \File::exists('newsletter/'.$infos->newsletter->header)){
+                        list($width, $height) = getimagesize(public_path('newsletter/'.$infos->newsletter->header ));
+                    }
+                    ?>
+                    <img width="{{ $width or '130' }}" height="{{ $height or '60'  }}" alt="{{ $infos->newsletter->from_name }}" src="{{ asset('newsletter/'.$infos->newsletter->header ) }}" />
                 </td>
             </tr>
         </table>
