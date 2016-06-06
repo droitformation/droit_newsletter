@@ -6,7 +6,7 @@
             <ul class="list-group">
                 @foreach($newsletters->sent as $campagne)
                     @if($campagne->status == 'envoyé')
-                        <a href="{{ url('newsletter/campagne/'.$campagne->id) }}" class="list-group-item">{{ $campagne->sujet }}</a>
+                        <a href="{{ url('newsletter/campagne/'.$campagne->id) }}" class="list-group-item {{ Request::is('newsletter/campagne/'.$campagne->id) ? 'active' : '' }}">{{ $campagne->sujet }}</a>
                     @endif
                 @endforeach
             </ul>
