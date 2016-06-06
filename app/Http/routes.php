@@ -167,7 +167,7 @@ Route::get('testcampagne', function()
 
 });
 
-Route::get('test', function()
+Route::get('migration', function()
 {
     $migrate = new \App\Droit\Service\MigrateWorker();
 
@@ -181,8 +181,10 @@ Route::get('test', function()
         $migrate->setCampagne($campagne)->getData();
         $migrate->process();
     }
+
+    echo 'End';
     
-    $slice = array_slice($articles, -3, 1);
+/*    $slice = array_slice($articles, -3, 1);
     $text =  $slice[0]['content'];
 
     $date     = $migrate->getNewsletterDate();
@@ -196,7 +198,7 @@ Route::get('test', function()
     // echo '<br/>';
     // print_r($arrets);
     //print_r($date);
-    echo '</pre>';
+    echo '</pre>';*/
 
 });
 
