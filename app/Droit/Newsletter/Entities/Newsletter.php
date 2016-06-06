@@ -25,4 +25,9 @@ class Newsletter extends Model {
     {
         return $this->hasMany('\App\Droit\Newsletter\Entities\Newsletter_campagnes')->orderBy('updated_at','DESC');
     }
+
+    public function sent()
+    {
+        return $this->hasMany('\App\Droit\Newsletter\Entities\Newsletter_campagnes')->where('status','=','envoyé')->orderBy('updated_at','DESC');
+    }
 }

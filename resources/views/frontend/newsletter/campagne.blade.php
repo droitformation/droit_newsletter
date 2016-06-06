@@ -21,6 +21,7 @@
         <!-- Sidebar  -->
         <div id="sidebar" class="col-md-4 col-xs-12">
             @include('partials.subscribe')
+            @include('partials.liste')
         </div>
         <!-- END Sidebar  -->
 

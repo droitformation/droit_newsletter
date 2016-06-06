@@ -1,19 +1,17 @@
-<?php $custom = new \Custom; ?>
-
 <div class="widget">
-    <h3 class="title"><i class="icon-envelope"></i> &nbsp;Newsletter</h3>
+    <h3 class="title"><i class="icon-envelope"></i> &nbsp;Archives</h3>
     <ul class="bra_recent_entries">
 
-        @if(!$listCampagnes->isEmpty())
-            @foreach($listCampagnes as $campagnes)
-                <li>
-                    <span class="date">{{ $campagnes->created_at->formatLocalized('%d %B %Y') }}</span>
-                    <a href="{{ url('newsletters').'/'.$campagnes->id }}">{{ $campagnes->sujet }}</a>
-                    <p>{{ $campagnes->auteurs }}</p>
-                </li>
-            @endforeach
+        @if(!$newsletters->sent->isEmpty())
+            <ul class="list-group">
+                @foreach($newsletters->sent as $campagne)
+                    @if($campagne->status == 'envoyé')
+                        <a href="{{ url('newsletter/campagne/'.$campagne->id) }}" class="list-group-item">{{ $campagne->sujet }}</a>
+                    @endif
+                @endforeach
+            </ul>
         @else
-        <p>Aucune newsletter pour le moment</p>
+            <p>Encore aucune newsletter</p>
         @endif
 
     </ul><!--END UL-->
