@@ -183,10 +183,17 @@ class SubscriberController extends Controller
         // Delete the subscriber from DB
         $this->subscriber->delete($subscriber->email);
 
-        // Remove subscriber from list mailjet
-        if(!$this->worker->removeContact($subscriber->email))
+        $newsletters = $this->newsletter->getAll();
+
+        foreach($newsletters as $newsletter)
         {
-            throw new \App\Exceptions\DeleteUserException('Erreur avec la suppression de l\'abonnés sur mailjet');
+            $this->worker->setList($newsletter->list_id);
+
+            // Remove subscriber from list mailjet
+            if(!$this->worker->removeContact($subscriber->email))
+            {
+                throw new \App\Exceptions\DeleteUserException('Erreur avec la suppression de l\'abonnés sur mailjet');
+            }
         }
 
         return redirect('admin/subscriber')->with(array('status' => 'success', 'message' => 'Abonné supprimé' ));
