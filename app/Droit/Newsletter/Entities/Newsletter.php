@@ -23,6 +23,6 @@ class Newsletter extends Model {
 
     public function campagnes()
     {
-        return $this->hasMany('\App\Droit\Newsletter\Entities\Newsletter_campagnes');
+        return $this->hasMany('\App\Droit\Newsletter\Entities\Newsletter_campagnes')->orderBy('updated_at','DESC');
     }
 }
