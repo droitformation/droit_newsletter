@@ -23,10 +23,6 @@ class NewsletterController extends Controller
         $this->worker     = $worker;
         $this->newsletter = $newsletter;
 
-        $newsletters = $this->newsletter->getAll();
-
-        view()->share('newsletters', $newsletters);
-
         setlocale(LC_ALL, 'fr_FR.UTF-8');
     }
 

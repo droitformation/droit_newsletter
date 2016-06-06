@@ -1,15 +1,16 @@
 
 @if(isset($bloc->arrets))
 
-    <div class="row">
-        <div class="col-md-9">
-            <h3 style="text-align: left;">{{ $categories[$bloc->categorie] }}</h3>
+    @if(isset($categories[$bloc->categorie]))
+        <div class="row">
+            <div class="col-md-9">
+                <h3 style="text-align: left;">{{ $categories[$bloc->categorie] }}</h3>
+            </div>
+            <div class="col-md-3 listCat">
+                <img width="130" border="0" src="{{ asset('newsletter/pictos/'.$bloc->image) }}" alt="{{ $categories[$bloc->categorie] }}" />
+            </div>
         </div>
-        <div class="col-md-3 listCat">
-            <img width="130" border="0" src="{{ asset('newsletter/pictos/'.$bloc->image) }}" alt="{{ $categories[$bloc->categorie] }}" />
-        </div>
-    </div>
-
+    @endif
     <!-- Bloc content-->
     @foreach($bloc->arrets as $arret)
 
