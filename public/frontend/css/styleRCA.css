@@ -17,27 +17,44 @@ body {
 	position: relative;
 	margin-left: auto;
 	margin-right: auto;
-	width: 1170px;
+	width:1170px;
 	}
 #blue-line{
 	display:block;
 	position: relative;
 	margin-left: auto;
 	margin-right: auto;
-	width: 1170px;
+	width: 100%;
 	background-color: #0C416E;
 	height:6px;
+	}
+#logo {
+	display:block;
+	float:left;
+	background-image: url(../images/RCassu_178x21_bleu.jpg);
+	background-repeat:no-repeat;
+	width:200px;
+	height: 40px;
+	margin-top:40px;
+	}
+.logo-nav{
+	margin-top: 16px;
+	left:50px;
+	display:block;
+	}	
+.logo-nav img {
+	padding-right: 30px; 
 	}	
 .navbar{
 	margin-bottom: 0px;
 	height: 100px;
-	left: 80px;
 	}
 .navbar a {
 	text-transform:uppercase;
 	}
 .navbar-nav {
 	margin-top: 24px;
+	display:block;
 	}	
 .img-portfolio {
     margin-bottom: 30px;
@@ -61,8 +78,7 @@ header {
 	background-repeat: no-repeat;
 	background-size: 100% auto;
 	position:relative;
-	width: 1170px;
-
+	height:360px;
 }
 .small-banner {
 	background-image: url(../../files/books_creativmarket-1170x120.jpg);
@@ -70,6 +86,8 @@ header {
 
 }
 .intro-txt {
+	position:relative;
+	top:120px;
 	margin: 100px auto 100px auto;
 	width: 90%;
 	text-align:center;
@@ -107,11 +125,11 @@ h4 {
 	height: 260px;
 	}	
 .bloc-3-col{
-	float:left;
-	width:33%;
+	/*float:left;
+	width:33.3333%;*/
 	text-align:center;
 	position:relative;
-	padding:40px 28px 90px 28px;
+	padding:40px 24px 90px 24px;
 	}
 .bloc-3-col h4{
 	color:#0C416E;
@@ -157,31 +175,45 @@ footer {
 
 /* Responsive Styles */
 
-@media(max-width:991px) {
-    .customer-img,
-    .img-related {
+@media(max-width:1020px) {
+#logo {
+	display:block;
+	float:left;
+	background-image: url(../../files/RCassurances-138x16.png);
+	background-repeat:no-repeat;
+	width:140px;
+	height: 16px;
+	margin-top:36px;
+	}
+  .customer-img,.img-related {
         margin-bottom: 30px;
     }
-	.nav>li>a {
-		margin: 8px 5px 8px 5px;
-		font-size:13px;
-		letter-spacing:normal;
+.nav>li>a {
+	padding: 10px;
+	font-size:13px;
 	}
+.navbar{
+	left:0px;
+	height:80px;
+	}
+.navbar-nav {
+	display:none;
+}
+.logo-nav{
+	display:none;
+	}	
 
-.navbar-brand{
-	background: url(../img/RCAssurances_blanc_small.png);
-	background-repeat:no-repeat;
-	background-position:center;
-	margin-top:16px;
-	width:154px;
-	}
-h1 {
-		font-size: 40px;	
+.bloc-3-col{
+	padding:40px 18px 90px 18px;
 	}
 }
 
 @media(max-width:767px) {
-    .img-portfolio {
+.logo-nav{
+	visibility:hidden;
+	}
+	
+.img-portfolio {
         margin-bottom: 15px;
     }
 }
@@ -260,22 +292,6 @@ ul {
 	color:#fff;
 	text-align:center;
 	margin:	-15px 70px 0px 70px;
-	}
-#logo {
-	display:block;
-	float:left;
-	background-image: url(../images/RCassu_178x21_bleu.jpg);
-	background-repeat:no-repeat;
-	width:200px;
-	height: 40px;
-	margin-top:40px;
-	}
-.logo-nav{
-	margin-top: 10px;
-	left:184px;
-	}	
-.logo-nav img {
-	padding-right: 30px; 
 	}
 .blue-line {
 	display:block;

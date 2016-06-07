@@ -17,7 +17,7 @@
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="<?php echo asset('frontend/css/filter.css');?>">
         <link rel="stylesheet" type="text/css" href="<?php echo asset('frontend/css/chosen.css');?>">
-        <link rel="stylesheet" type="text/css" href="<?php echo asset('frontend/css/styleRCA.css');?>">
+        <link rel="stylesheet" type="text/css" href="../../../public/frontend/css/styleRCA.css">
         <!-- Javascript Files
         ================================================== -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -29,27 +29,20 @@
     </head>
 
     <body>
-
     <div class="container">
-<div id="blue-line"></div>
+	<div id="blue-line"></div>
             <!-- START HEADER -->
-            <nav class="row">
-                <div class="col-md-2 col-xs-12">
-                <a href="{{ url('/') }}"><div id="logo"></div></a>
-                </div>
-                <div class="col-md-6 col-xs-12">
-                    <!-- Navigation  -->
-                    @include('partials.navigation')
-                </div>
-                <div class="col-md-4 logo-nav">
-                <a target="_blank" href="http://www2.unine.ch/cert"><img src="{{ asset('files/CERT.jpg') }}" alt="Faculté de droit"></a>
-                <a target="_blank" href="http://www2.unine.ch/droit"><img src="{{ asset('files/UniNE_logo_90x58.png') }}" alt=""></a>
-				</div>
-            </nav>
-       </div>   
-            
-		<!-- START container -->
-        <div class="container">
+         <div class="col-md-3 col-sm-3 col-xs-6">
+         <a href="{{ url('/') }}"><div id="logo"></div></a>
+         </div>
+         <div class="col-md-6 col-sm-6 col-xs-6">
+         	<!-- Navigation  -->
+          	@include('partials.navigation')
+         </div>
+        <div class="col-md-3 logo-nav">
+                <a target="_blank" href="http://www2.unine.ch/cert"><img src="../../../public/files/CERT-logo.png" alt="CERT"></a>
+                <a target="_blank" href="http://www2.unine.ch/droit"><img src="../../../public/files/UniNE_logo_90x58.png" alt="Faculté de droit"></a>
+		</div>            
             <!-- START CONTENT -->
             <section>
 
@@ -66,14 +59,16 @@
             <div class="container"><div class="row">
             <div class="col-md-6">
             	<div class="bloc-soutien">
-                <img src="{{ asset('files/pict_FSA_77x80.jpg') }}">
+                <img src="../../../public/files/pict_FSA_77x80.jpg">
                 <h5>Association des avocats spécialistes FSA<br>Responsabilité civile & droit des assurances</h5>
                 Tous les membres ont acquis une formation complémentaire étendue ou disposent déjà de vastes connaissances dans le domaine du droit de la responsabilité civile et du droit des assurances.
                 </div>
             </div>
             <div class="col-md-6">
             	<div class="bloc-soutien">
+                <img src="../../../public/files/CERT-logo.png">
                 <h5>CERT Centre d'étude des relations de travail</h5>
+                Le CERT, rattaché à la faculté de droit de l'Université de Neuchâtel, est à la disposition des entreprises, des administrations publiques et de tous les autres milieux intéressés aux questions relatives au droit du travail et, plus largement, à la relation d'emploi.
                 </div>
             </div>
             </div>
@@ -95,7 +90,7 @@
             </footer><!--END FOOTER-->
             <!-- END FOOTER -->
 
-        </div> <!-- END Container -->
+        </div></div><!-- END Container -->
 
     </body>
 </html>
