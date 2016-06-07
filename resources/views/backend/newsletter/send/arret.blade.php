@@ -9,8 +9,12 @@
             <table border="0" width="560" align="center" cellpadding="0" cellspacing="0" class="tableReset contentForm">
                 <tr>
                     <td valign="top" width="375" class="resetMarge">
-                        <?php setlocale(LC_ALL, 'fr_FR.UTF-8');  ?>
-                        <h3 style="text-align: left;font-family: sans-serif;">{{ $bloc->reference }} du {{ $bloc->pub_date->formatLocalized('%d %B %Y') }}</h3>
+
+                        <?php
+                        $title = ($bloc->dumois ? 'Arrêt du mois : ' : '');
+                        setlocale(LC_ALL, 'fr_FR.UTF-8');
+                        ?>
+                        <h3 style="text-align: left;font-family: sans-serif;">{{ $title }}{{ $bloc->reference }} du {{ $bloc->pub_date->formatLocalized('%d %B %Y') }}</h3>
                         <p class="abstract">{!! $bloc->abstract !!}</p>
                         <div>{!! $bloc->pub_text !!}</div>
                         <p><a href="{{ asset('files/arrets/'.$bloc->file) }}">Télécharger en pdf</a></p>

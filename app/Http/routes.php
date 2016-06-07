@@ -175,12 +175,12 @@ Route::get('migration', function()
     $articles = $articles->slice(3);
     $articles = $migrate->prepare($articles);
 
-    $all = $migrate->getall();
+  /*  $all = $migrate->getall();
 
     foreach($all as $campagne){
         $migrate->setCampagne($campagne)->getData();
         $migrate->process();
-    }
+    }*/
 
     echo 'End';
     
