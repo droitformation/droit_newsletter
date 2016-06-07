@@ -40,6 +40,8 @@ class HomeController extends Controller
         view()->share('pages', $pages);
         view()->share('sidebar', $sidebar);
         view()->share('newsletters', $newsletters);
+
+        setlocale(LC_ALL, 'fr_FR.UTF-8');
     }
 
     /**

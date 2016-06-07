@@ -1,8 +1,7 @@
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-{{ $bloc->arrets_categories->isEmpty() ? '12' : 9 }}">
         <div class="post">
             <div class="post-title">
-                <?php setlocale(LC_ALL, 'fr_FR.UTF-8');  ?>
                 <h2 class="title">{{ $bloc->reference }} du {{ $bloc->pub_date->formatLocalized('%d %B %Y') }}</h2>
                 <p>{!! $bloc->abstract !!}</p>
             </div><!--END POST-TITLE-->
@@ -14,15 +13,15 @@
             </div>
         </div><!--END POST-->
     </div>
-    <div class="col-md-3 listCat">
-        @if(!$bloc->arrets_categories->isEmpty() )
+    @if(!$bloc->arrets_categories->isEmpty() )
+        <div class="col-md-3 listCat">
             @foreach($bloc->arrets_categories as $categorie)
                 <a target="_blank" href="{{ url('jurisprudence') }}#{{ $bloc->reference }}">
                     <img width="130" border="0" alt="{{ $categorie->title }}" src="{{ asset('newsletter/pictos/'.$categorie->image) }}">
                 </a>
             @endforeach
-         @endif
-    </div>
+        </div>
+    @endif
 </div>
 
 @if(!$bloc->arrets_analyses->isEmpty())
