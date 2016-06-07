@@ -13,14 +13,14 @@
                         <tr>
                             <td valign="top" width="375" class="resetMarge contentForm">
                                 <?php setlocale(LC_ALL, 'fr_FR.UTF-8');  ?>
-                                <h3 style="text-align: left;font-family: sans-serif;">Analyse de l'arrêt {{ $bloc->reference }}</h3>
+                                <h3 style="text-align: left;">Analyse de l'arrêt {{ $bloc->reference }}</h3>
 
                                 @if(!$analyse->analyse_authors->isEmpty())
                                     @foreach($analyse->analyse_authors as $analyse_authors)
                                         <table border="0" width="375" align="left" cellpadding="0" cellspacing="0" class="resetTable">
                                             <tr>
                                                 <td valign="top" class="resetMarge">
-                                                    <h3 style="text-align: left;font-family: sans-serif; color: #000;">{{ $analyse_authors->name }}</h3>
+                                                    <p style="text-align: left; color: #000; font-size: 13px;">{{ $analyse_authors->name }}</p>
                                                 </td>
                                             </tr>
                                             <tr bgcolor="ffffff"><td colspan="3" height="5" class=""></td></tr><!-- space -->
