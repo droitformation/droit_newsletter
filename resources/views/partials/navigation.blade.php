@@ -1,6 +1,6 @@
 <!-- Original -->
 <nav class="navbar">
-    <ul class="nav navbar-nav">
+    <ul class="nav navbar-nav pull-right">
         <li><a class="{{ Request::is( '/') ? 'active' : '' }}" href="{{ url('/') }}">Accueil</a></li>
         <li><a class="{{ Request::is( 'jurisprudence') ? 'active' : '' }}" href="{{ url('jurisprudence') }}">Jurisprudence</a></li>
         <li><a href="{{ url('newsletter/campagne/'.$newsletters->sent->first()->id) }}">Newsletter</a></li>
