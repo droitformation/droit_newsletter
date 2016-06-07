@@ -3,9 +3,9 @@
     <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
     <head>
         <meta charset="utf-8" />
-        <title>Droit</title>
+        <title>RC Assurances</title>
 
-        <meta name="description" content="">
+        <meta name="description" content="RC Assurances, L'actualité dans les domaines des assurances et de la RC">
         <meta name="author" content="Droit Formation Unine">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -17,7 +17,7 @@
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="<?php echo asset('frontend/css/filter.css');?>">
         <link rel="stylesheet" type="text/css" href="<?php echo asset('frontend/css/chosen.css');?>">
-        <link rel="stylesheet" type="text/css" href="../../../public/frontend/css/styleRCA.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo asset('frontend/css/styleRCA.css');?>">
         <!-- Javascript Files
         ================================================== -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -40,8 +40,8 @@
           	@include('partials.navigation')
          </div>
         <div class="col-md-3 logo-nav">
-                <a target="_blank" href="http://www2.unine.ch/cert"><img src="../../../public/files/CERT-logo.png" alt="CERT"></a>
-                <a target="_blank" href="http://www2.unine.ch/droit"><img src="../../../public/files/UniNE_logo_90x58.png" alt="Faculté de droit"></a>
+            <a target="_blank" href="http://www2.unine.ch/cert"><img src="{{ asset('files/CERT-logo.png') }}" alt="Faculté de droit"></a>
+            <a target="_blank" href="http://www2.unine.ch/droit"><img src="{{ asset('files/UniNE_logo_90x58.png') }}" alt=""></a>
 		</div>            
             <!-- START CONTENT -->
             <section>
@@ -59,14 +59,15 @@
             <div class="container"><div class="row">
             <div class="col-md-6">
             	<div class="bloc-soutien">
-                <img src="../../../public/files/pict_FSA_77x80.jpg">
-                <h5>Association des avocats spécialistes FSA<br>Responsabilité civile & droit des assurances</h5>
-                Tous les membres ont acquis une formation complémentaire étendue ou disposent déjà de vastes connaissances dans le domaine du droit de la responsabilité civile et du droit des assurances.
+                <img src="{{ asset('files/pict_FSA_77x80.jpg') }}">
+                    <h5>Association des avocats spécialistes FSA<br>Responsabilité civile & droit des assurances</h5>
+                    Tous les membres ont acquis une formation complémentaire étendue ou disposent déjà de vastes connaissances
+                    dans le domaine du droit de la responsabilité civile et du droit des assurances.
                 </div>
             </div>
             <div class="col-md-6">
             	<div class="bloc-soutien">
-                <img src="../../../public/files/CERT-logo.png">
+                <img src="{{ asset('files/CERT-logo.png') }}">
                 <h5>CERT Centre d'étude des relations de travail</h5>
                 Le CERT, rattaché à la faculté de droit de l'Université de Neuchâtel, est à la disposition des entreprises, des administrations publiques et de tous les autres milieux intéressés aux questions relatives au droit du travail et, plus largement, à la relation d'emploi.
                 </div>
