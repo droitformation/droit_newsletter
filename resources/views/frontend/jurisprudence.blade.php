@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-@include ('partials.small-banner')
+
 <?php $custom = new \App\Droit\Helper\Helper(); ?>
 
 <div class="row">
