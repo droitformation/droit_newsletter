@@ -52,7 +52,7 @@
     @if(!$bloc->arrets_categories->isEmpty() )
         <div class="col-md-3 listCat">
             @foreach($bloc->arrets_categories as $categorie)
-                <a style="margin-bottom: 10px;" target="_blank" href="{{ url('jurisprudence') }}#{{ $bloc->reference }}">
+                <a style="margin-bottom: 15px; display: block;" target="_blank" href="{{ url('jurisprudence') }}#{{ $bloc->reference }}">
                     <img border="0" alt="{{ $categorie->title }}" src="{{ asset('newsletter/pictos/'.$categorie->image) }}">
                 </a>
             @endforeach
