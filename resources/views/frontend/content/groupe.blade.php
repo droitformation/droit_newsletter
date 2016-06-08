@@ -44,7 +44,7 @@
                         @endif
 
                         @foreach($categories as $categorie)
-                            <a target="_blank" href="{{ url('jurisprudence') }}#{{ $bloc->reference }}">
+                            <a style="margin-bottom: 10px;" target="_blank" href="{{ url('jurisprudence') }}#{{ $bloc->reference }}">
                                 <img border="0" alt="{{ $categorie->title }}" src="{{ asset('newsletter/pictos/'.$categorie->image) }}">
                             </a>
                         @endforeach
