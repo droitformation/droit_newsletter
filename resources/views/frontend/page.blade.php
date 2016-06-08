@@ -13,7 +13,7 @@
 
     <!-- Sidebar  -->
     <div class="col-md-4 col-xs-12">
-        @include('partials.sidebar')
+
     </div>
     <!-- END Sidebar  -->
 </div><!--END CONTENT-->
