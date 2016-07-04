@@ -101,6 +101,10 @@ header {
 	font-family: "Source Sans Pro", Helvetica, "Sans serif";
 	line-height: 0.8;
 	}
+.italic{
+	font-style:italic;
+	}
+
 h1 {
 	font-weight: 200;
 	color: #0C416E;
@@ -129,7 +133,7 @@ h4 {
 	width:33.3333%;*/
 	text-align:center;
 	position:relative;
-	padding:40px 24px 90px 24px;
+	padding:40px 24px 60px 24px;
 	}
 .bloc-3-col h4{
 	color:#0C416E;
@@ -151,7 +155,7 @@ h4 {
 	}
 .bloc-soutien{
 	text-align:center;
-	padding:20px 76px;	
+	padding:20px 76px;
 	}
 .bloc-soutien h5{
 	color:#0C416E;
@@ -238,6 +242,8 @@ p	{
 	color: #333;
 	font-family: "Source Sans Pro", Helvetica, Arial, "Sans serif";
 	margin-bottom: 20px;
+	font-size: 15px;
+	line-height: 1.68;
 	text-align:justify;
 	text-justify: inter-word;
 }

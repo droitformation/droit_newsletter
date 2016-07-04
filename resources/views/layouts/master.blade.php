@@ -55,15 +55,15 @@
 
             <hr/></div>
             <!-- Soutien -->
-            <div class="container"><div class="row">
-            <div class="col-md-12">
+            <div class="container"><div class="row" style="margin-left:25%; margin-right:25%">
+            <!--div class="col-md-12"-->
             	<div class="bloc-soutien">
-                <img src="{{ asset('files/pict_FSA_77x80.jpg') }}">
+                <a href="http://www.versicherungsfachanwalt.ch" target="_blank"><img src="{{ asset('files/pict_FSA_77x80.jpg') }}"></a>
                     <h5>Association des avocats spécialistes FSA<br>Responsabilité civile & droit des assurances</h5>
                     Tous les membres ont acquis une formation complémentaire étendue ou disposent déjà de vastes connaissances
                     dans le domaine du droit de la responsabilité civile et du droit des assurances.
                 </div>
-            </div>
+            <!--/div-->
    {{--         <div class="col-md-6">
             	<div class="bloc-soutien">
                 <img src="{{ asset('files/CERT-logo.png') }}">

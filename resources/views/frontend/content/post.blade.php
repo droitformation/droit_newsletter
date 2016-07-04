@@ -6,7 +6,7 @@
             <div class="post">
                 <div class="post-title">
                     <h3 class="title">{{ $post->humanTitle }}</h3>
-                    <p>{{ $post->abstract }}</p>
+                    <p class="italic">{{ $post->abstract }}</p>
                 </div><!--END POST-TITLE-->
                 <div class="post-entry">
                     <a class="anchor" name="{{ $post->reference }}"></a>
