@@ -47,7 +47,7 @@
                 <!-- Categories -->
                 <div class="resetMarge">
                     <a target="_blank" href="{{ url('jurisprudence') }}">
-                        <img border="0" alt="Analyses" src="<?php echo asset('newsletter/pictos/analyse.png') ?>">
+                        <img width="100" border="0" alt="Analyses" src="<?php echo asset('newsletter/pictos/analyse.png') ?>">
                     </a>
                 </div>
             </td>

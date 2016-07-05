@@ -17,7 +17,7 @@
                     <h3 style="text-align: left;">{{ $categories[$bloc->categorie_id] }}</h3>
                 </td>
                 <td width="160" align="center" valign="top" class="resetMarge">
-                    <img width="130" border="0" src="{{ asset('newsletter/pictos/'.$bloc->image) }}" alt="{{ $categories[$bloc->categorie] }}" />
+                    <img width="100" border="0" src="{{ asset('newsletter/pictos/'.$bloc->image) }}" alt="{{ $categories[$bloc->categorie] }}" />
                 </td>
             </tr><!-- space -->
         </table>

@@ -3,7 +3,7 @@
         <td style="margin: 0;padding: 0;page-break-before: always;" valign="top">
             @foreach($categories as $categorie)
                <a target="_blank" href="{{ url('jurisprudence') }}#{{ $bloc->reference }}">
-                    <img style="max-width: 130px;" border="0" alt="{{ $categorie->title }}" src="{{ asset('newsletter/pictos/'.$categorie->image) }}">
+                    <img style="max-width: 100px;" border="0" alt="{{ $categorie->title }}" src="{{ asset('newsletter/pictos/'.$categorie->image) }}">
                </a>
             @endforeach
         </td>
