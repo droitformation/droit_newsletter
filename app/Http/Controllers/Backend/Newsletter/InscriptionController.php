@@ -69,10 +69,14 @@ class InscriptionController extends Controller
 
         $suscribe->subscriptions()->attach($request->newsletter_id);
 
-        \Mail::send('emails.confirmation', array('token' => $suscribe->activation_token), function($message) use ($suscribe)
+        $html = view('emails.confirmation')->with(['token' => $suscribe->activation_token]);
+
+        $this->worker->sendTest($request->input('email'),$html,'Inscription');
+
+/*        \Mail::send('emails.confirmation', array('token' => $suscribe->activation_token), function($message) use ($suscribe)
         {
             $message->to($suscribe->email, $suscribe->email)->subject('Inscription!');
-        });
+        });*/
 
         return redirect('/')
             ->with([
