@@ -39,7 +39,7 @@
          	<!-- Navigation  -->
           	@include('partials.navigation')
          </div>
-        <div class="col-md-2 logo-nav text-right">
+        <div class="col-md-2 col-sm-2 logo-nav text-right">
             <a target="_blank" href="http://www2.unine.ch/droit"><img src="{{ asset('files/UniNE_logo_90x58.png') }}" alt=""></a>
 		</div>            
             <!-- START CONTENT -->

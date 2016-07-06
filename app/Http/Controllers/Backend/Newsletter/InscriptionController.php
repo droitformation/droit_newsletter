@@ -110,7 +110,7 @@ class InscriptionController extends Controller
      *
      * @return Response
      */
-    public function resend(Request $request)
+   public function resend(Request $request)
     {
         $subscribe = $this->subscription->findByEmail($request->input('email'));
 

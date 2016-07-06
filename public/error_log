@@ -13,3 +13,10 @@
 [22-Feb-2016 11:32:44 Europe/Zurich] PHP Fatal error:  Class 'Custom' not found in /home/droitdut/public_html/rca/storage/framework/views/34f3e46deb4665cb5e43fb03397e8bb1 on line 1
 [22-Feb-2016 11:32:46 Europe/Zurich] PHP Fatal error:  Class 'Custom' not found in /home/droitdut/public_html/rca/storage/framework/views/34f3e46deb4665cb5e43fb03397e8bb1 on line 1
 [22-Feb-2016 11:35:51 Europe/Zurich] PHP Fatal error:  Class 'Custom' not found in /home/droitdut/public_html/rca/storage/framework/views/34f3e46deb4665cb5e43fb03397e8bb1 on line 1
+[06-Jun-2016 13:37:40 Europe/Zurich] PHP Fatal error:  Class 'Excel' not found in /home/droitdut/public_html/rca/app/Http/Controllers/Backend/Newsletter/ImportController.php on line 51
+[06-Jun-2016 13:39:28 Europe/Zurich] PHP Fatal error:  Class 'Excel' not found in /home/droitdut/public_html/rca/app/Http/Controllers/Backend/Newsletter/ImportController.php on line 51
+[06-Jun-2016 14:41:04 Europe/Zurich] PHP Fatal error:  Class 'Maatwebsite\Excel\ExcelServiceProvider' not found in /home/droitdut/public_html/rca/vendor/laravel/framework/src/Illuminate/Foundation/ProviderRepository.php on line 146
+[14-Jun-2016 14:31:45 Europe/Zurich] PHP Fatal error:  Call to a member function subscriptions() on null in /home/droitdut/public_html/rca/app/Http/Controllers/Backend/Newsletter/InscriptionController.php on line 95
+[14-Jun-2016 14:32:04 Europe/Zurich] PHP Fatal error:  Call to a member function subscriptions() on null in /home/droitdut/public_html/rca/app/Http/Controllers/Backend/Newsletter/InscriptionController.php on line 95
+[06-Jul-2016 16:09:42 Europe/Zurich] PHP Parse error:  syntax error, unexpected 'echo' (T_ECHO) in /home/droitdut/public_html/rca/app/Http/Controllers/Backend/Newsletter/InscriptionController.php on line 124
+[06-Jul-2016 16:34:23 Europe/Zurich] PHP Parse error:  syntax error, unexpected '=' in /home/droitdut/public_html/rca/app/Http/Controllers/Backend/Newsletter/InscriptionController.php on line 142
