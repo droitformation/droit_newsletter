@@ -69,10 +69,9 @@ class InscriptionController extends Controller
 
         $suscribe->subscriptions()->attach($request->newsletter_id);
 
-        \Mail::send('emails.confirmation', array('token' => $suscribe->activation_token), function($message) use ($suscribe)
-        {
-            $message->to($suscribe->email, $suscribe->email)->subject('Inscription!');
-        });
+        $html = view('emails.confirmation')->with(['token' => $suscribe->activation_token]);
+
+        $this->worker->sendTest($request->input('email'),$html,'Inscription');
 
         return redirect('/')
             ->with([
@@ -110,18 +109,13 @@ class InscriptionController extends Controller
      *
      * @return Response
      */
-    public function resend(Request $request)
+   public function resend(Request $request)
     {
         $subscribe = $this->subscription->findByEmail($request->input('email'));
 
         $html = view('emails.confirmation')->with(['token' => $subscribe->activation_token]);
 
         $this->worker->sendTest($request->input('email'),$html,'Inscription');
-
-        /*      \Mail::send('emails.confirmation', array('token' => $subscribe->activation_token), function($message) use ($subscribe)
-              {
-                  $message->to($subscribe->email, $subscribe->email)->subject('Inscription!');
-              });*/
 
         return redirect('/')->with(['status'  => 'success', 'message' => '<strong>Lien d\'activation envoyé</strong>']);
     }
