@@ -164,7 +164,7 @@ App.controller("EditController",['$scope','$http','myService', function($scope,$
 
         $('.finishEdit').hide();
         $('.editContent').show();
-        $( "#sortable" ).sortable( "enable" );
+        //$( "#sortable" ).sortable( "enable" );
     }
 
     this.editContent = function(idItem){
@@ -181,7 +181,7 @@ App.controller("EditController",['$scope','$http','myService', function($scope,$
         var content = $('#bloc_rang_'+idItem);
         content.find('.edit_content_form').css("width",w).show();
 
-        $( "#sortable" ).sortable( "disable" );
+        //$( "#sortable" ).sortable( "disable" );
         content.find('.finishEdit').show();
 
         var groupe_id = content.find('.sortGroupe').data('group');

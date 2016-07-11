@@ -73,6 +73,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','administration']], f
 
     Route::resource('newsletter', 'Backend\Newsletter\NewsletterController');
 
+    Route::post('clipboard/copy', 'Backend\Newsletter\ClipboardController@copy');
+    Route::post('clipboard/paste','Backend\Newsletter\ClipboardController@paste');
+    Route::get('clipboard/{id}',  'Backend\Newsletter\ClipboardController@show');
+
     Route::post('campagne/send', 'Backend\Newsletter\CampagneController@send');
     Route::post('campagne/test', 'Backend\Newsletter\CampagneController@test');
     Route::post('campagne/sorting', 'Backend\Newsletter\CampagneController@sorting');

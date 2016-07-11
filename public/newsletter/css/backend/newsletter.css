@@ -423,3 +423,16 @@ div#fieldChooser,div#fieldChooser2 {
 .errorUpload{
     text-align: center !important;
 }
+
+.bloc_move{
+    background: #f5f5f5;
+    border: 1px solid #ccc;
+    padding: 0 10px;
+    cursor: move;
+}
+
+.bloc_move h4{
+    font-size: 14px;
+    margin: 0;
+    line-height: 35px;
+}

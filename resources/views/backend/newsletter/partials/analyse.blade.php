@@ -1,5 +1,4 @@
-
-@if(!$bloc->arrets_analyses->isEmpty())
+@if(isset($bloc->arrets_analyses) && !$bloc->arrets_analyses->isEmpty())
     <!-- Bloc content-->
     <table border="0" width="560" align="center" cellpadding="0" cellspacing="0" class="resetTable">
         <tr bgcolor="ffffff">

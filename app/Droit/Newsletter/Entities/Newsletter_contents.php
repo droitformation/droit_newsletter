@@ -8,6 +8,19 @@ class Newsletter_contents extends Model {
 
     public $timestamps = false;
 
+    public function getContentTitleAttribute()
+    {
+        if(!empty($this->titre) || !empty($this->contenu)){
+            return !empty(trim($this->titre)) ? $this->titre : str_limit(strip_tags($this->contenu), 90);
+        }
+        elseif(isset($this->arret)){
+            return $this->arret->reference;
+        }
+        elseif(isset($this->groupe)){
+            return 'Groupe: '.$this->groupe->categorie->title;
+        }
+    }
+
     public function campagne(){
 
         return $this->belongsTo('App\Droit\Newsletter\Entities\Newsletter_campagnes');
@@ -28,4 +41,13 @@ class Newsletter_contents extends Model {
         return $this->hasMany('App\Droit\Arret\Entities\Arret', 'id', 'arret_id');
     }
 
+    public function arret()
+    {
+        return $this->hasOne('App\Droit\Arret\Entities\Arret', 'id', 'arret_id');
+    }
+
+    public function groupe()
+    {
+        return $this->hasOne('App\Droit\Arret\Entities\Groupe', 'id', 'groupe_id');
+    }
 }

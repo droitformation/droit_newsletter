@@ -19,6 +19,8 @@
                 <div id="optionsNewsletter">
                     <a href="{{ url('admin/campagne/'.$infos->id.'/edit') }}" class="btn btn-primary btn-block"><i class="fa fa-pencil"></i>  &nbsp;&Eacute;diter la campagne</a>
                     <a target="_blank" href="{{ url('campagne/'.$infos->id) }}" class="btn btn-sky btn-block"><i class="fa fa-eye"></i>  &nbsp;Aperçu de la campagne</a>
+                    <a href="{{ url('admin/clipboard/'.$infos->id) }}" class="btn btn-warning btn-block"><i class="fa fa-sort"></i>  &nbsp;Ordre</a>
+
                     <hr/>
                     <form action="{{ url('admin/campagne/test') }}" enctype="multipart/form-data" method="POST" class="form">
                         {!! csrf_field() !!}

@@ -42,6 +42,7 @@ class NewsletterServiceProvider extends ServiceProvider
         $this->registerCampagneWorkerService();
         $this->registerInscriptionService();
         $this->registerSubscribeService();
+        $this->registerClipboardService();
 
     }
 
@@ -142,6 +143,17 @@ class NewsletterServiceProvider extends ServiceProvider
         $this->app->bind('App\Droit\Newsletter\Repo\NewsletterSubscriptionInterface', function()
         {
             return new \App\Droit\Newsletter\Repo\NewsletterSubscriptionEloquent( new \App\Droit\Newsletter\Entities\Newsletter_subscriptions );
+        });
+    }
+
+    /**
+     * Newsletter clipboard
+     */
+    protected function registerClipboardService(){
+
+        $this->app->singleton('App\Droit\Newsletter\Repo\NewsletterClipboardInterface', function()
+        {
+            return new \App\Droit\Newsletter\Repo\NewsletterClipboardEloquent( new \App\Droit\Newsletter\Entities\Newsletter_clipboards() );
         });
     }
 

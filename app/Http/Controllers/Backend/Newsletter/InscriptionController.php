@@ -65,7 +65,7 @@ class InscriptionController extends Controller
         }
 
         // Subscribe user with activation token to website list and sync newsletter abos
-        $suscribe = $this->subscription->create(['email' => $request->email, 'activation_token' => md5($request->email.\Carbon\Carbon::now()) ]);
+        $suscribe = $this->subscription->create(['email' => $request->input('email'), 'activation_token' => md5($request->input('email').\Carbon\Carbon::now()) ]);
 
         $suscribe->subscriptions()->attach($request->newsletter_id);
 
@@ -114,10 +114,14 @@ class InscriptionController extends Controller
     {
         $subscribe = $this->subscription->findByEmail($request->input('email'));
 
-        \Mail::send('emails.confirmation', array('token' => $subscribe->activation_token), function($message) use ($subscribe)
-        {
-            $message->to($subscribe->email, $subscribe->email)->subject('Inscription!');
-        });
+        $html = view('emails.confirmation')->with(['token' => $subscribe->activation_token]);
+
+        $this->worker->sendTest($request->input('email'),$html,'Inscription');
+
+        /*      \Mail::send('emails.confirmation', array('token' => $subscribe->activation_token), function($message) use ($subscribe)
+              {
+                  $message->to($subscribe->email, $subscribe->email)->subject('Inscription!');
+              });*/
 
         return redirect('/')->with(['status'  => 'success', 'message' => '<strong>Lien d\'activation envoyé</strong>']);
     }
