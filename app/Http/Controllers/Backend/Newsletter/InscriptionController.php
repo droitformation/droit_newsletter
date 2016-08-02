@@ -8,16 +8,20 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SubscribeRequest;
 
 use App\Droit\Newsletter\Repo\NewsletterUserInterface;
+use App\Droit\Newsletter\Repo\NewsletterInterface;
 use App\Droit\Newsletter\Worker\MailjetInterface;
 
 class InscriptionController extends Controller
 {
     protected $subscription;
+    protected $worker;
+    protected $newsletter;
 
-    public function __construct(MailjetInterface $worker, NewsletterUserInterface $subscription)
+    public function __construct(MailjetInterface $worker, NewsletterUserInterface $subscription, NewsletterInterface $newsletter)
     {
         $this->worker        = $worker;
         $this->subscription  = $subscription;
+        $this->newsletter    = $newsletter;
     }
 
     /**
@@ -36,7 +40,15 @@ class InscriptionController extends Controller
             return redirect('/')->with(['status' => 'danger', 'jeton' => true ,'message' => 'Le jeton ne correspond pas ou à expiré']);
         }
 
+        $newsletter = $this->newsletter->find(3);
+
+        if(!$newsletter)
+        {
+            return redirect('/')->with(['status' => 'danger', 'message' => 'Cette newsletter n\'existe pas']);
+        }
+
         //Subscribe to mailjet
+        $this->worker->setList($newsletter->list_id);
         $this->worker->subscribeEmailToList( $user->email );
 
         return redirect('/')->with(['status' => 'success', 'message' => 'Vous êtes maintenant abonné à la newsletter']);
@@ -71,7 +83,7 @@ class InscriptionController extends Controller
 
         $html = view('emails.confirmation')->with(['token' => $suscribe->activation_token]);
 
-        $this->worker->sendTest($request->input('email'),$html,'Inscription');
+        $result = $this->worker->sendTest($request->input('email'),$html,'Inscription');
 
         return redirect('/')
             ->with([
