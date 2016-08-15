@@ -12,8 +12,9 @@
     </div>
 
     <!-- Sidebar  -->
-    <div class="col-md-4 col-xs-12">
-
+    <div id="sidebar-right" class="col-md-4 col-xs-12">
+        @include('partials.subscribe')
+        @include('partials.latest')
     </div>
     <!-- END Sidebar  -->
 </div><!--END CONTENT-->

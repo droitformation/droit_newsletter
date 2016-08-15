@@ -31,18 +31,20 @@
     <body>
     <div class="container">
 	<div id="blue-line"></div>
-            <!-- START HEADER -->
-         <div class="col-md-3 col-sm-3 col-xs-6">
-         <a href="{{ url('/') }}"><div id="logo"></div></a>
-         </div>
-         <div class="col-md-7 col-sm-7 col-xs-7">
-         	<!-- Navigation  -->
-          	@include('partials.navigation')
-         </div>
-        <div class="col-md-2 col-sm-2 logo-nav text-right">
-            <a target="_blank" href="http://www2.unine.ch/droit"><img src="{{ asset('files/UniNE_logo_90x58.png') }}" alt=""></a>
-		</div>            
-            <!-- START CONTENT -->
+        <!-- START HEADER -->
+        <div class="row">
+             <div class="col-md-3 col-sm-3 col-xs-6">
+             <a href="{{ url('/') }}"><div id="logo"></div></a>
+             </div>
+             <div class="col-md-7 col-sm-7 col-xs-7">
+                <!-- Navigation  -->
+                @include('partials.navigation')
+             </div>
+            <div class="col-md-2 col-sm-2 logo-nav text-right">
+                <a target="_blank" href="http://www2.unine.ch/droit"><img src="{{ asset('files/UniNE_logo_90x58.png') }}" alt=""></a>
+            </div>
+        </div>
+        <!-- START CONTENT -->
             <section>
 
                 @include('partials.message')

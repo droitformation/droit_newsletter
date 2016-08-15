@@ -10,7 +10,7 @@
                         <div class="post">
                             <div class="post-title">
                                 <a class="anchor_top" name="analyse_{{ $analyse->id }}"></a>
-                                <h3 class="title">Analyse de {{ $analyse->authors }}</h3>
+                                <h3 class="title">Analyse de {{ $analyse->authors->implode('name', ', ') }}</h3>
                                 @if(!$analyse->arrets->isEmpty())
                                     <ul>
                                         @foreach($analyse->arrets as $arret)

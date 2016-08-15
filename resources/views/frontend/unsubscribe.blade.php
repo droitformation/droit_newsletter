@@ -25,7 +25,7 @@
     </div>
 
     <!-- Sidebar  -->
-    <div class="col-md-4 col-xs-12">
+    <div id="sidebar-right" class="col-md-4 col-xs-12">
 
     </div>
     <!-- END Sidebar  -->

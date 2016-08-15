@@ -28,7 +28,7 @@
                 <div class="form-group">
                     <label for="message" class="col-sm-3 control-label">Auteurs</label>
                     <div class="col-sm-3">
-                        {!! Form::text('authors', $analyse->author , array('class' => 'form-control') )  !!}
+                        {!! Form::text('author', $analyse->author , array('class' => 'form-control') )  !!}
                     </div>
                 </div>
 

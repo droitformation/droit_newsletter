@@ -88,7 +88,7 @@ header {
 .intro-txt {
 	position:relative;
 	top:120px;
-	margin: 100px auto 100px auto;
+	margin: 5px auto;
 	width: 90%;
 	text-align:center;
 	}
@@ -390,3 +390,7 @@ details[open] summary:after {
 	float:left;
 	content: "\f107 ";
 	margin-right: 6px;	}
+
+#sidebar-right h4{
+	margin-bottom: 15px;
+}

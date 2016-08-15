@@ -25,7 +25,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('archive', 'Frontend\NewsletterController@archive');
     Route::resource('newsletter', 'Frontend\NewsletterController');
     Route::get('newsletter/campagne/{id}', 'Frontend\NewsletterController@campagne');
-   // Route::get('campagne/{id}', 'Frontend\CampagneController@show');
 
     /*
     |--------------------------------------------------------------------------
@@ -63,7 +62,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('ajax/arrets/{id?}', 'Backend\ArretController@arrets'); // build.js
         Route::get('ajax/categories/{id?}', 'Backend\CategorieController@categories'); // utils.js
         Route::get('ajax/analyses/{id}', 'Backend\AnalyseController@simple');
-
+        Route::post('ajax/categorie/arrets', 'Backend\CategorieController@arrets');
+        
        /* Route::post('sorting', 'Backend\Newsletter\CampagneController@sorting');
         Route::post('sortingGroup', 'Backend\Newsletter\CampagneController@sortingGroup');
 
