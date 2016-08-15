@@ -214,7 +214,6 @@ footer {
     width: 65%;
 }
 	}
-}
 
 @media(max-width:767px) {
 .logo-nav{
@@ -294,9 +293,11 @@ ul {
 	color: #0B416D;
 	}
 .date {
-	color: #0B416D;
-	font-size:15px;
-	margin-left: 10px;
+	color: #0b416d;
+	display: block;
+	font-size: 16px;
+	font-weight: bold;
+	margin-left: 0;
 	}
 .partner {
 	color:#fff;

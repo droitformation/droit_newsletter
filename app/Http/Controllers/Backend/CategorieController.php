@@ -120,26 +120,26 @@ class CategorieController extends Controller {
         return redirect()->back()->with(['status' => 'success', 'message' => 'Catégorie supprimée']);
 	}
 
-    /**
-     * For AJAX
-     * Return response categories
-     *
-     * @return response
-     */
-    public function categories()
-    {
-        $categories = $this->categorie->getAll();
+	/**
+	 * For AJAX
+	 * Return response categories
+	 *
+	 * @return response
+	 */
+	public function categories($site = null)
+	{
+		$categories = $this->categorie->getAll();
 
-        return response()->json( $categories, 200 );
-    }
+		return response()->json( $categories, 200 );
+	}
 
-    public function arrets(Request $request){
+	public function arrets(Request $request){
 
-        $categorie = $this->categorie->find($request->input('id'));
+		$categorie = $this->categorie->find($request->input('id'));
 
-        $references = (!$categorie->categorie_arrets->isEmpty() ? $categorie->categorie_arrets->lists('reference') : null);
+		$references = (!$categorie->categorie_arrets->isEmpty() ? $categorie->categorie_arrets->lists('reference') : null);
 
-        return response()->json( $references, 200 );
-    }
+		return response()->json( $references, 200 );
+	}
 
 }

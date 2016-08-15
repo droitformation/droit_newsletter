@@ -11,30 +11,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo asset('backend/css/styles.css?=121');?>">
-
-    @if(isset($isNewsletter))
-        <link rel="stylesheet" href="<?php echo asset('newsletter/css/backend/newsletter.css'); ?>">
-        <link rel="stylesheet" href="<?php echo asset('newsletter/css/frontend/newsletter.css'); ?>">
-
-        @if(isset($infos))
-            <style type="text/css">
-                #StyleNewsletter h2, #StyleNewsletterCreate h2{
-                    color: {{ $infos->newsletter->color }};
-                }
-                #StyleNewsletter .contentForm h3,
-                #StyleNewsletter .contentForm h4,
-                #StyleNewsletterCreate .contentForm h3,
-                #StyleNewsletterCreate .contentForm h4
-                {
-                    color: {{ $infos->newsletter->color }};
-                }
-            </style>
-        @endif
-
-    @endif
-
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/bs/dt-1.10.9/datatables.min.css"/>
-    <link rel="stylesheet" type="text/css" href="<?php echo asset('backend/js/vendor/redactor/redactor.css'); ?>">
     <link rel="stylesheet" type="text/css" href="<?php echo asset('backend/css/jquery-ui.min.css');?>">
     <link rel="stylesheet" type="text/css" href="<?php echo asset('backend/css/chosen.css');?>">
     <link rel="stylesheet" type="text/css" href="<?php echo asset('backend/css/chosen-bootstrap.css');?>">
@@ -42,6 +19,11 @@
     <link rel="stylesheet" type="text/css" href="<?php echo asset('backend/css/admin.css');?>">
     <link rel="stylesheet" type="text/css" href="<?php echo asset('backend/css/types.css');?>">
     <link rel='stylesheet' type='text/css' href="<?php echo asset('backend/plugins/form-nestable/jquery.nestable.css');?>" />
+
+    @if(isset($isNewsletter))
+        @include('newsletter::Style.main', ['campagne' => isset($campagne) ? : null])
+        @include('newsletter::Style.redactor')
+    @endif
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
@@ -116,7 +98,6 @@
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
 <script src="<?php echo asset('backend/js/validation/messages_fr.js');?>"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/r/bs/dt-1.10.9/datatables.min.js"></script>
 
 <!-- Filter plugin -->
@@ -127,12 +108,6 @@
 <script type="text/javascript" src="<?php echo asset('backend/js/jquery.cookie.js');?>"></script>
 <script type="text/javascript" src="<?php echo asset('backend/js/jquery.nicescroll.min.js');?>"></script>
 
-<!-- redactor -->
-<script type="text/javascript" src="<?php echo asset('backend/js/vendor/redactor/redactor.js');?>"></script>
-<script type="text/javascript" src="<?php echo asset('backend/js/vendor/redactor/fr.js');?>"></script>
-<script type="text/javascript" src="<?php echo asset('backend/js/vendor/redactor/imagemanager.js');?>"></script>
-<script type="text/javascript" src="<?php echo asset('backend/js/vendor/redactor/filemanager.js');?>"></script>
-
 <!-- Form plugins -->
 <script type="text/javascript" src="<?php echo asset('backend/js/placeholdr.js');?>"></script>
 <script type='text/javascript' src="<?php echo asset('backend/plugins/form-multiselect/js/jquery.multi-select.js');?>"></script>
@@ -140,16 +115,18 @@
 <script type='text/javascript' src="<?php echo asset('backend/plugins/form-datepicker/js/bootstrap-datepicker.js');?>"></script>
 <script type='text/javascript' src="<?php echo asset('backend/js/jqColorPicker.min.js');?>"></script>
 
-<!-- Modal plugins -->
-<script type='text/javascript' src="<?php echo asset('backend/plugins/bootbox/bootbox.min.js');?>"></script>
-
 <!-- Scripts -->
 <script type="text/javascript" src="<?php echo asset('backend/js/application.js');?>"></script>
 <script type="text/javascript" src="<?php echo asset('backend/js/datatables.js');?>"></script>
 <script type="text/javascript" src="<?php echo asset('backend/js/admin.js');?>"></script>
 
+@include('newsletter::Script.config')
+
 @if(isset($isNewsletter))
-    @include('backend.newsletter.scripts')
+    @include('newsletter::Script.date')
+    @include('newsletter::Script.redactor')
+    @include('newsletter::Script.angular')
+    @include('newsletter::Script.main')
 @endif
 
 </body>

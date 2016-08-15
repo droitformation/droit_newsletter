@@ -6,15 +6,14 @@
 
                 @foreach($analyses as $analyse)
 
-                    <?php  $cats = implode(' ',$analyse->allcats); ?>
-                    <div class="analyse arret <?php echo $cats; ?> clear">
+                    <div class="analyse arret {{ $analyse->filter }} y{{ $analyse->pub_date->year }} clear">
                         <div class="post">
                             <div class="post-title">
                                 <a class="anchor_top" name="analyse_{{ $analyse->id }}"></a>
                                 <h3 class="title">Analyse de {{ $analyse->authors }}</h3>
-                                @if(!$analyse->analyses_arrets->isEmpty())
+                                @if(!$analyse->arrets->isEmpty())
                                     <ul>
-                                        @foreach($analyse->analyses_arrets as $arret)
+                                        @foreach($analyse->arrets as $arret)
                                             <li>
                                                 <a href="#{{ $arret->reference }}">{{ $arret->reference.' du '.$arret->pub_date->formatLocalized('%d %B %Y') }}</a>
                                             </li>
@@ -24,7 +23,7 @@
                                 <p class="italic">{!! $analyse->abstract !!}</p>
                             </div><!--END POST-TITLE-->
                             <div class="post-entry">
-                                @if(!empty($analyse->file ))
+                                @if($analyse->document)
                                     <p>
                                         <a target="_blank" href="{{ asset('files/analyses/'.$analyse->file) }}">
                                             Télécharger cette analyse en PDF &nbsp;&nbsp;<i class="fa fa-file-pdf-o"></i>
@@ -43,7 +42,7 @@
         </div>
 
         <div class="col-md-3 last listCat listAnalyse">
-            <img border="0" alt="Analyses" src="<?php echo asset('newsletter/pictos') ?>/analyse.png">
+            <img style="max-width: 140px;" border="0" alt="Analyses" src="<?php echo asset('files/pictos/analyse.png') ?>">
         </div>
     </div>
     <div class="divider-border-nofloat"></div>

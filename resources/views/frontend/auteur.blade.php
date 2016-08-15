@@ -23,12 +23,12 @@
                         <h5><strong>{{ ($auteur->analyses->count() > 1 ? 'Analyses des arrêts' : 'Analyse de l\'arrêt') }}:</strong></h5>
                         <ul class="analyse_auteur">
                             @foreach($auteur->analyses as $analyse)
-                                <?php $analyse->load('analyses_arrets'); ?>
-                                @if(isset($analyse->analyses_arrets) && $analyse->analyses_arrets->count() > 0)
+                                <?php $analyse->load('arrets'); ?>
+                                @if(isset($analyse->arrets) && $analyse->arrets->count() > 0)
                                     <li>
                                         <p>
                                             <a href="{{ url('jurisprudence#analyse_'.$analyse->id) }}">
-                                                {{ $analyse->analyses_arrets->first()->reference }}</a>
+                                                {{ $analyse->arrets->first()->reference }}</a>
                                             <i>{{ $analyse->remarque }}</i>
                                         </p>
                                     </li>

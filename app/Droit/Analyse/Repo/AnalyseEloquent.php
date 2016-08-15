@@ -14,14 +14,14 @@ class AnalyseEloquent implements AnalyseInterface{
 	{
 		$this->analyse = $analyse;
 	}
+    
+    public function getAll($exclude = []){
 
-    public function getAll($include = []){
+        $analyse = $this->analyse->with(['authors','categories','arrets']);
 
-        $analyse = $this->analyse->with( array('analyse_authors','analyses_categories','analyses_arrets'));
-
-        if(!empty($include))
+        if(!empty($exclude))
         {
-            $analyse->whereIn('id', $include);
+            $analyse->whereNotIn('id', $exclude);
         }
 
         return $analyse->orderBy('pub_date', 'DESC')->get();
@@ -29,7 +29,7 @@ class AnalyseEloquent implements AnalyseInterface{
 
 	public function find($id){
 				
-		return $this->analyse->with(array('analyse_authors','analyses_categories','analyses_arrets'))->find($id);
+		return $this->analyse->with(array('authors','categories','arrets'))->find($id);
 	}
 
 	public function create(array $data){
@@ -40,8 +40,6 @@ class AnalyseEloquent implements AnalyseInterface{
             'pub_date'   => $data['pub_date'],
             'abstract'   => $data['abstract'],
             'file'       => $data['file'],
-            'categories' => (isset($data['categories']) ? count($data['categories']) : 0),
-            'arrets'     => (isset($data['arrets']) ? count($data['arrets']) : 0),
 			'created_at' => date('Y-m-d G:i:s'),
 			'updated_at' => date('Y-m-d G:i:s')
 		));
@@ -54,18 +52,18 @@ class AnalyseEloquent implements AnalyseInterface{
         if(isset($data['categories']))
         {
             // Insert related categories
-            $analyse->analyses_categories()->sync($data['categories']);
+            $analyse->categories()->sync($data['categories']);
         }
 
         if(isset($data['arrets']))
         {
             // Insert related arrets
-            $analyse->analyses_arrets()->sync($data['arrets']);
+            $analyse->arrets()->sync($data['arrets']);
         }
 
         if(isset($data['author_id']) && !empty($data['author_id']))
         {
-            $analyse->analyse_authors()->sync($data['author_id']);
+            $analyse->authors()->sync($data['author_id']);
         }
 		
 		return $analyse;
@@ -93,20 +91,18 @@ class AnalyseEloquent implements AnalyseInterface{
         if(isset($data['categories']))
         {
             // Insert related categories
-            $analyse->categories = count($data['categories']);
-            $analyse->analyses_categories()->sync($data['categories']);
+            $analyse->categories()->sync($data['categories']);
         }
 
         if(isset($data['arrets']))
         {
             // Insert related arrets
-            $analyse->arrets = count($data['arrets']);
-            $analyse->analyses_arrets()->sync($data['arrets']);
+            $analyse->arrets()->sync($data['arrets']);
         }
 
         if(isset($data['author_id']) && !empty($data['author_id']))
         {
-            $analyse->analyse_authors()->sync($data['author_id']);
+            $analyse->authors()->sync($data['author_id']);
         }
 
 		$analyse->save();

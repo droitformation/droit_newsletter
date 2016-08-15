@@ -27,17 +27,11 @@
                 </div><!--END POST-->
             </div>
             <div class="col-md-3 listCat">
-                <?php
-                if(!$arret->arrets_categories->isEmpty() )
-                {
-                    foreach($arret->arrets_categories as $categorie)
-                    {
-                        if($categorie->id != $bloc->categorie){
-                            echo '<a target="_blank" href="'.url('jurisprudence').'#'.$arret->reference.'"><img width="130" border="0" alt="Loyer" src="'.asset('newsletter/pictos/'.$categorie->image).'"></a>';
-                        }
-                    }
-                }
-                ?>
+                @if(!$arret->categories->isEmpty())
+                    @foreach($arret->categories as $categorie)
+                        <img style="max-width: 140px;" border="0" alt="{{ $categorie->title }}" src="<?php echo asset('files/pictos/'.$categorie->image) ?>">
+                    @endforeach
+                @endif
             </div>
         </div>
 

@@ -21,18 +21,18 @@
                 {!! csrf_field() !!}
 
             <div class="panel-heading">
-                <h4>&Eacute;diter l'analyse de {!! $analyse->authors  !!}</h4>
+                <h4>&Eacute;diter l'analyse de</h4>
             </div>
             <div class="panel-body event-info" ng-app="selection">
 
                 <div class="form-group">
                     <label for="message" class="col-sm-3 control-label">Auteurs</label>
                     <div class="col-sm-3">
-                        {!! Form::text('authors', $analyse->authors , array('class' => 'form-control') )  !!}
+                        {!! Form::text('authors', $analyse->author , array('class' => 'form-control') )  !!}
                     </div>
                 </div>
 
-                <?php $authors = (isset($analyse->analyse_authors) ? $analyse->analyse_authors->lists('id')->all() : []); ?>
+                <?php $authors = (isset($analyse->authors) ? $analyse->authors->lists('id')->all() : []); ?>
 
                 <div class="form-group">
                     <label for="message" class="col-sm-3 control-label">Auteurs</label>

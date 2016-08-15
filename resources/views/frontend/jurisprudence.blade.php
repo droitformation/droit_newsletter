@@ -20,8 +20,8 @@
 
                         <h4 class="title-section-top"><i class="fa fa-university"></i> &nbsp;&nbsp;Jurisprudence</h4>
 
-                        @foreach($arrets as $post)
-                            @include('frontend.content.post')
+                        @foreach($arrets as $arret)
+                            @include('frontend.content.post', ['arret' => $arret])
                         @endforeach
                     @endif
 

@@ -8,38 +8,47 @@ use App\Http\Requests\SendMessageRequest;
 use App\Http\Controllers\Controller;
 
 use App\Droit\Author\Repo\AuthorInterface;
-use App\Droit\Newsletter\Repo\NewsletterInterface;
-use App\Droit\Newsletter\Repo\NewsletterCampagneInterface;
+use designpond\newsletter\Newsletter\Repo\NewsletterInterface;
+use designpond\newsletter\Newsletter\Repo\NewsletterCampagneInterface;
 use App\Droit\Content\Repo\ContentInterface;
+use App\Droit\Arret\Repo\ArretInterface;
 use App\Droit\Page\Repo\PageInterface;
 
 class HomeController extends Controller
 {
     protected $author;
+    protected $arret;
     protected $newsletter;
     protected $campagne;
     protected $helper;
     protected $content;
     protected $page;
 
-    public function __construct(AuthorInterface $author, ContentInterface $content,PageInterface $page,  NewsletterInterface $newsletter, NewsletterCampagneInterface $campagne)
+    public function __construct(
+        AuthorInterface $author,
+        ContentInterface $content,
+        PageInterface $page,
+        ArretInterface $arret,
+        NewsletterInterface $newsletter,
+        NewsletterCampagneInterface $campagne
+    )
     {
         $this->author     = $author;
         $this->newsletter = $newsletter;
         $this->campagne   = $campagne;
         $this->content    = $content;
+        $this->arret      = $arret;
         $this->page       = $page;
         $this->helper     = new \App\Droit\Helper\Helper();
 
-        $newsletters = $this->newsletter->getAll();
+        $this->newsworker = \App::make('newsworker');
 
-        $sidebar = $this->content->findyByPosition(array('sidebar'));
-        $sidebar = $sidebar->groupBy('type');
-        $pages   = $this->page->getAll();
+        $exclude = $this->newsworker->arretsToHide([3]);
+        $sidebar = $this->content->findyByPosition(['sidebar']);
 
-        view()->share('pages', $pages);
-        view()->share('sidebar', $sidebar);
-        view()->share('newsletters', $newsletters);
+        view()->share('pages', $this->page->getAll());
+        view()->share('sidebar', $sidebar->groupBy('type'));
+        view()->share('latest', $this->arret->getLatest($exclude));
 
         setlocale(LC_ALL, 'fr_FR.UTF-8');
     }

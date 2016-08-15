@@ -1,5 +1,5 @@
 <div class="widget">
-    <h4>Derniers actualités</h4>
+    <h4>Derniers arrêts commentés</h4>
     <ul class="bra_recent_entries">
 
         @if(isset($latest) && !$latest->isEmpty())

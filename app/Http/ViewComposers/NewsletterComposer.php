@@ -3,7 +3,7 @@
 namespace App\Http\ViewComposers;
 
 use Illuminate\View\View;
-use App\Droit\Newsletter\Repo\NewsletterInterface;
+use designpond\newsletter\Newsletter\Repo\NewsletterInterface;
 
 class NewsletterComposer
 {
@@ -13,6 +13,7 @@ class NewsletterComposer
      * @var UserRepository
      */
     protected $newsletter;
+    protected $newsworker;
 
     /**
      * Create a new profile composer.
@@ -24,6 +25,7 @@ class NewsletterComposer
     {
         // Dependencies automatically resolved by service container...
         $this->newsletter = $newsletter;
+        $this->newsworker = \App::make('newsworker');
     }
 
     /**
@@ -35,7 +37,9 @@ class NewsletterComposer
     public function compose(View $view)
     {
         $newsletters = $this->newsletter->find(3);
+        $year_news   = $this->newsworker->getArchives(3,date('Y'));
 
         $view->with('newsletters', $newsletters);
+        $view->with('year_news', $year_news);
     }
 }

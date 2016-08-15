@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Frontend;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Droit\Newsletter\Repo\NewsletterCampagneInterface;
-use App\Droit\Newsletter\Repo\NewsletterTypesInterface;
-use App\Droit\Newsletter\Repo\NewsletterContentInterface;
+use designpond\newsletter\Newsletter\Repo\NewsletterCampagneInterface;
+use designpond\newsletter\Newsletter\Repo\NewsletterTypesInterface;
+use designpond\newsletter\Newsletter\Repo\NewsletterContentInterface;
 use App\Droit\Arret\Repo\GroupeInterface;
-use App\Droit\Newsletter\Worker\CampagneInterface;
-use App\Droit\Newsletter\Worker\MailjetInterface;
+use designpond\newsletter\Newsletter\Worker\CampagneInterface;
+use designpond\newsletter\Newsletter\Worker\MailjetInterface;
 
 class CampagneController extends Controller
 {
