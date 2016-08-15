@@ -5,14 +5,17 @@
     <!-- Categorie title -->
 
     @foreach($bloc->groupe->arrets as $arret)
-
-        <!-- Analyses -->
-        @include('newsletter::Email.send.partials.analyses', ['arret' => $arret])
-        <!-- End Analyses -->
-        <tr bgcolor="ffffff"><td height="35"></td></tr><!-- space -->
+        @if(isset($arret))
         <!-- Bloc content-->
         <table border="0" width="600" align="center" cellpadding="0" cellspacing="0" class="resetTable">
             <tr bgcolor="ffffff"><td height="35"></td></tr><!-- space -->
+            <tr>
+                <td class="resetMarge">
+                    <!-- Analyses -->
+                    @include('newsletter::Email.send.partials.analyses', ['arret' => $arret])
+                    <!-- End Analyses -->
+                </td>
+            </tr>
             <tr>
                 <td class="resetMarge">
                     <!-- Bloc content-->
@@ -43,6 +46,6 @@
             <tr bgcolor="ffffff"><td height="35" class="blocBorder"></td></tr><!-- space -->
         </table>
         <!-- Bloc content-->
-
+        @endif
     @endforeach
 @endif

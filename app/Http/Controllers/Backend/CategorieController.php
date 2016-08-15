@@ -60,7 +60,7 @@ class CategorieController extends Controller {
 	public function store(CategorieRequest $request)
 	{
         $data = $request->except('file');
-        $file = $this->upload->upload( $request->file('file') , 'newsletter/pictos' , 'categorie');
+        $file = $this->upload->upload( $request->file('file') , 'files/pictos' , 'categorie');
 
         $data['image'] = $file['name'];
 
@@ -97,7 +97,7 @@ class CategorieController extends Controller {
 
         if($_file)
         {
-            $file = $this->upload->upload( $_file , 'newsletter/pictos' , 'categorie');
+            $file = $this->upload->upload( $_file , 'files/pictos' , 'categorie');
             $data['image'] = $file['name'];
         }
 

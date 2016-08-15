@@ -5,12 +5,12 @@ $( function() {
         maxHeight: 450,
         focus: true,
         lang: 'fr',
-        plugins: ['advanced','imagemanager','filemanager'],
+        plugins: ['imagemanager','filemanager','source','iconic','alignment'],
         fileUpload : 'admin/uploadFileRedactor?_token=' + $('meta[name="_token"]').attr('content'),
         imageUpload: 'admin/uploadRedactor?_token=' + $('meta[name="_token"]').attr('content'),
         imageManagerJson: 'admin/imageJson',
         fileManagerJson: 'admin/fileJson',
-        buttons    : ['html','|','formatting','bold','italic','|','unorderedlist','orderedlist','outdent','indent','|','image','file','link','alignment']
+        buttons    : ['format','bold','italic','|','lists','|','image','file','link','alignment']
     });
 
     $('.redactorSimple').redactor({
@@ -18,7 +18,7 @@ $( function() {
         maxHeight: 100,
         lang: 'fr',
         focus    : true,
-        buttons  : ['formatting','bold','italic','|','unorderedlist']
+        buttons  : ['format','bold','italic','|','lists']
     });
 
     $.fn.datepicker.dates['fr'] = {

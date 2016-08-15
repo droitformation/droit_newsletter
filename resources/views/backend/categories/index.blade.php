@@ -40,7 +40,7 @@
                                     <tr>
                                         <td><a class="btn btn-sky btn-sm" href="{{ url('admin/categorie/'.$categorie->id) }}">&Eacute;diter</a></td>
                                         <td><strong>{{ $categorie->title }}</strong></td>
-                                        <td><img height="60" src="{{ asset('newsletter/pictos/'.$categorie->image) }}" alt="{{ $categorie->title }}" /></td>
+                                        <td><img height="60" src="{{ asset('files/pictos/'.$categorie->image) }}" alt="{{ $categorie->title }}" /></td>
                                         <td class="text-right">
                                             {!! Form::open(array('id' => 'deleteCategorieForm_'.$categorie->id, 'route' => array('admin.categorie.destroy', $categorie->id), 'method' => 'delete')) !!}
                                             {!! Form::close() !!}

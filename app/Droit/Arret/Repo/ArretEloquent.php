@@ -78,7 +78,7 @@ class ArretEloquent implements ArretInterface{
             'abstract'   => $data['abstract'],
             'pub_text'   => $data['pub_text'],
             'categories' => (isset($data['categories']) ? count($data['categories']) : 0),
-            'file'       => $data['file'],
+            'file'       => isset($data['file']) ? $data['file'] : '',
             'dumois'     => (isset($data['dumois']) && $data['dumois'] == 1 ? 1 : 0),
 			'created_at' => date('Y-m-d G:i:s'),
 			'updated_at' => date('Y-m-d G:i:s')

@@ -25,7 +25,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('archive', 'Frontend\NewsletterController@archive');
     Route::resource('newsletter', 'Frontend\NewsletterController');
     Route::get('newsletter/campagne/{id}', 'Frontend\NewsletterController@campagne');
-    Route::get('campagne/{id}', 'Frontend\CampagneController@show');
+   // Route::get('campagne/{id}', 'Frontend\CampagneController@show');
 
     /*
     |--------------------------------------------------------------------------

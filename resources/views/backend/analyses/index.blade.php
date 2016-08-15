@@ -32,7 +32,7 @@
                             @foreach($analyses as $analyse)
                             <tr>
                                 <td><a class="btn btn-sky btn-sm" href="{{ url('admin/analyse/'.$analyse->id) }}">éditer</a></td>
-                                <td><strong>{{ $analyse->authors }}</strong></td>
+                                <td><strong>{{ $analyse->authors->implode('name', ', ') }}</strong></td>
                                 <td>{{ $analyse->pub_date->formatLocalized('%d %B %Y') }}</td>
                                 <td>{{ $analyse->abstract }}</td>
                                 <td>

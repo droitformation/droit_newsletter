@@ -38,7 +38,7 @@
                     <div class="col-sm-3">
                         <div class="list-group">
                             <div class="list-group-item text-center">
-                                <a href="#"><img height="120" src="{!! asset('newsletter/pictos/'.$categorie->image) !!}" alt="$categorie->title" /></a>
+                                <a href="#"><img height="120" src="{!! asset('files/pictos/'.$categorie->image) !!}" alt="$categorie->title" /></a>
                             </div>
                         </div>
                     </div>

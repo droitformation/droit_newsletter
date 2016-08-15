@@ -21,7 +21,7 @@
                 {!! csrf_field() !!}
 
             <div class="panel-heading">
-                <h4>&Eacute;diter l'analyse de</h4>
+                <h4>&Eacute;diter l'analyse</h4>
             </div>
             <div class="panel-body event-info" ng-app="selection">
 
