@@ -11,3 +11,4 @@ public/files/
 public/newsletter/pictos/
 tests/_output/*
 public/newsletter
+config/newsletter.php
