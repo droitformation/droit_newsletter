@@ -9,6 +9,7 @@
     <meta name="author" content="Cindy Leschaud | @DesignPond">
     <meta name="_token" content="<?php echo csrf_token(); ?>">
 
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo asset('backend/css/styles.css?=121');?>">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/bs/dt-1.10.9/datatables.min.css"/>
@@ -114,6 +115,9 @@
 <script type='text/javascript' src="<?php echo asset('backend/plugins/form-multiselect/js/jquery.quicksearch.js');?>"></script>
 <script type='text/javascript' src="<?php echo asset('backend/plugins/form-datepicker/js/bootstrap-datepicker.js');?>"></script>
 <script type='text/javascript' src="<?php echo asset('backend/js/jqColorPicker.min.js');?>"></script>
+
+<!-- Modal plugins -->
+<script type='text/javascript' src="<?php echo asset('backend/plugins/bootbox/bootbox.min.js');?>"></script>
 
 <!-- Scripts -->
 <script type="text/javascript" src="<?php echo asset('backend/js/application.js');?>"></script>
