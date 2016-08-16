@@ -87,35 +87,12 @@ $(document).ready(function() {
         }
     });
 
-    var table = $('.abonnes_table').DataTable({
+ /*   var table = $('.abonnes_table').DataTable({
         "serverSide": true,
-        "ajax": {
-            "url": "admin/subscribers"
-        },
-        "columns": [
-            {
-                data: 'id',
-                title: 'Editer'
-            },
-            {
-                data: 'status'
-            },
-            {
-                data: 'activated_at',
-                title: 'Activé le'
-            },
-            {
-                data: 'email'
-            },
-            {
-                data: 'abo'
-            },
-            {
-                data: 'delete'
-            }
-        ],
+        "ajax": {"url": "admin/subscribers"},
+        "columns": [{data: 'id', title: 'Editer'}, {data: 'status'}, {data: 'activated_at', title: 'Activé le'}, {data: 'email'}, {data: 'abo'}, {data: 'delete'}],
         language: langues
-    });
+    });*/
 
     $('.dataTables_filter input').addClass('form-control').attr('placeholder','Recherche...');
     $('.dataTables_length select').addClass('form-control');
