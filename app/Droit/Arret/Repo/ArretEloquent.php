@@ -14,7 +14,7 @@ class ArretEloquent implements ArretInterface{
 
     public function getAll($nbr = null)
     {
-        $arrets = $this->arret->with(['categories','analyses'])->orderBy('pub_date', 'DESC');
+        $arrets = $this->arret->with(['categories','analyses'])->orderBy('reference', 'ASC');
 
         if($nbr){
             $arrets->take(5);
