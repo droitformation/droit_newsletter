@@ -77,7 +77,6 @@ class ArretEloquent implements ArretInterface{
             'pub_date'   => $data['pub_date'],
             'abstract'   => $data['abstract'],
             'pub_text'   => $data['pub_text'],
-            'categories' => (isset($data['categories']) ? count($data['categories']) : 0),
             'file'       => isset($data['file']) ? $data['file'] : '',
             'dumois'     => (isset($data['dumois']) && $data['dumois'] == 1 ? 1 : 0),
 			'created_at' => date('Y-m-d G:i:s'),
@@ -118,7 +117,6 @@ class ArretEloquent implements ArretInterface{
         // Insert related categories
         if(isset($data['categories']))
         {
-            $arret->categories = count($data['categories']);
             // Insert related categories
             $arret->categories()->sync($data['categories']);
         }
