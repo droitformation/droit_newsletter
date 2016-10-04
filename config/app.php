@@ -149,6 +149,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+        Vinkla\Alert\AlertServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Torann\Registry\RegistryServiceProvider::class,
@@ -216,6 +217,7 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
         'Str'       => Illuminate\Support\Str::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Alert'      => Vinkla\Alert\Facades\Alert::class
     ],
 
 ];
