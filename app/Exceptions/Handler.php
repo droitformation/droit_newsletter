@@ -49,10 +49,22 @@ class Handler extends ExceptionHandler
             $e = new NotFoundHttpException($e->getMessage(), $e);
         }
 
-        if ($e instanceof \App\Exceptions\CampagneCreationException)
+        if ($e instanceof \designpond\newsletter\Exceptions\CampagneCreationException)
             return redirect()->back()->with(array('status' => 'warning' , 'message' => 'Problème avec la création de campagne sur mailjet'));
 
-        if ($e instanceof \App\Exceptions\ContentCreationException)
+        if ($e instanceof \designpond\newsletter\Exceptions\TestSendException)
+        {
+            alert()->warning($e->getMessage());
+            return redirect()->back();
+        }
+
+        if ($e instanceof \designpond\newsletter\Exceptions\CampagneUpdateException)
+        {
+            alert()->warning($e->getMessage());
+            return redirect()->back();
+        }
+
+        if ($e instanceof \designpond\newsletter\Exceptions\ContentCreationException)
             return redirect()->back()->with(array('status' => 'warning' , 'message' => 'Problème avec la création du contenu pour la campagne'));
 
         if ($e instanceof \App\Exceptions\FileUploadException)
