@@ -49,10 +49,17 @@ class Handler extends ExceptionHandler
             $e = new NotFoundHttpException($e->getMessage(), $e);
         }
 
-        if ($e instanceof \designpond\newsletter\Exceptions\CampagneCreationException)
-            return redirect()->back()->with(array('status' => 'warning' , 'message' => 'Problème avec la création de campagne sur mailjet'));
+        if ($e instanceof \designpond\newsletter\Exceptions\BadFormatException){
+            alert()->warning($e->getMessage());
+            return redirect()->back();
+        }
 
-        if ($e instanceof \designpond\newsletter\Exceptions\TestSendException)
+        if ($e instanceof \designpond\newsletter\Exceptions\CampagneCreationException){
+            alert()->warning($e->getMessage());
+            return redirect()->back();
+        }
+
+        if ($e instanceof \designpond\newsletter\Exceptions\CampagneSendException)
         {
             alert()->warning($e->getMessage());
             return redirect()->back();
@@ -65,22 +72,52 @@ class Handler extends ExceptionHandler
         }
 
         if ($e instanceof \designpond\newsletter\Exceptions\ContentCreationException)
-            return redirect()->back()->with(array('status' => 'warning' , 'message' => 'Problème avec la création du contenu pour la campagne'));
+        {
+            alert()->warning($e->getMessage());
+            return redirect()->back();
+        }
 
-        if ($e instanceof \App\Exceptions\FileUploadException)
-            return redirect()->back()->with(array('status' => 'warning' , 'message' => 'Problème avec l\'upload '.$e->getMessage() ));
+        if ($e instanceof \designpond\newsletter\Exceptions\DeleteUserException)
+        {
+            alert()->warning($e->getMessage());
+            return redirect()->back();
+        }
 
-        if ($e instanceof \App\Exceptions\SubscribeUserException)
-            return redirect('/')->with(array('status' => 'warning' , 'message' => 'Erreur synchronisation email vers mailjet'));
+        if ($e instanceof \designpond\newsletter\Exceptions\FileUploadException)
+        {
+            alert()->warning($e->getMessage());
+            return redirect()->back();
+        }
 
-        if ($e instanceof \App\Exceptions\CampagneSendException)
-            return redirect('/')->with(array('status' => 'warning' , 'message' => 'Erreur avec l\'envoi de la newsletter, mailjet à renvoyé une erreur'));
+        if ($e instanceof \designpond\newsletter\Exceptions\ListNotSetException)
+        {
+            alert()->warning($e->getMessage());
+            return redirect()->back();
+        }
 
-        if ($e instanceof \App\Exceptions\DeleteUserException)
-            return redirect('/')->with(array('status' => 'warning' , 'message' => 'Erreur avec la suppression de l\'abonnés sur mailjet'));
+        if ($e instanceof \designpond\newsletter\Exceptions\MultiSiteException)
+        {
+            alert()->warning($e->getMessage());
+            return redirect()->back();
+        }
 
-        if ($e instanceof \App\Exceptions\UserNotExistException)
-            return redirect()->back()->with(array('status' => 'warning' , 'message' => 'Cet email n\'existe pas'));
+        if ($e instanceof \designpond\newsletter\Exceptions\SubscribeUserException)
+        {
+            alert()->warning($e->getMessage());
+            return redirect()->back();
+        }
+
+        if ($e instanceof \designpond\newsletter\Exceptions\TestSendException)
+        {
+            alert()->warning($e->getMessage());
+            return redirect()->back();
+        }
+
+        if ($e instanceof \designpond\newsletter\Exceptions\UserNotExistException)
+        {
+            alert()->warning($e->getMessage());
+            return redirect()->back();
+        }
 
         return parent::render($request, $e);
     }
