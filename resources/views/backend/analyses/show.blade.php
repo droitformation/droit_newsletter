@@ -25,13 +25,6 @@
             </div>
             <div class="panel-body event-info" ng-app="selection">
 
-                <div class="form-group">
-                    <label for="message" class="col-sm-3 control-label">Auteurs</label>
-                    <div class="col-sm-3">
-                        {!! Form::text('author', $analyse->author , array('class' => 'form-control') )  !!}
-                    </div>
-                </div>
-
                 <?php $authors = (isset($analyse->authors) ? $analyse->authors->lists('id')->all() : []); ?>
 
                 <div class="form-group">

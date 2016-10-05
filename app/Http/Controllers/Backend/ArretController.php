@@ -5,6 +5,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Http\Requests\ArretRequest;
+use App\Http\Requests\ArretUpdateRequest;
+
 use App\Droit\Arret\Repo\ArretInterface;
 use App\Droit\Categorie\Repo\CategorieInterface;
 use App\Droit\Categorie\Repo\ParentInterface;
@@ -79,7 +82,7 @@ class ArretController extends Controller {
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(ArretRequest $request)
     {
         $data  = $request->except('file');
         $_file = $request->file('file',null);
@@ -105,7 +108,7 @@ class ArretController extends Controller {
      *
      * @return Response
      */
-    public function update(Request $request)
+    public function update(ArretUpdateRequest $request)
     {
         $data  = $request->except('file');
         $_file = $request->file('file',null);

@@ -23,13 +23,6 @@
             <div class="panel-body event-info" ng-app="selection">
 
                 <div class="form-group">
-                    <label for="message" class="col-sm-3 control-label">Auteur</label>
-                    <div class="col-sm-3">
-                        {!! Form::text('author', null , array('class' => 'form-control') ) !!}
-                    </div>
-                </div>
-
-                <div class="form-group">
                     <label for="message" class="col-sm-3 control-label">Auteurs</label>
                     <div class="col-sm-3">
                         <select multiple class="form-control" id="author" name="author_id[]">
