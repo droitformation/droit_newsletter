@@ -30,7 +30,7 @@ class AnalyseRequest extends Request
     {
         return [
             'file'        => 'required',
-            'author_id[]' => 'required',
+            'author_id' => 'required',
             'pub_date'    => 'required',
             'abstract'    => 'required'
         ];
@@ -40,7 +40,7 @@ class AnalyseRequest extends Request
     {
         return [
             'file.required'         => 'Le fichier est requis',
-            'author_id[].required'  => 'Un auteur est requis',
+            'author_id.required'  => 'Un auteur est requis',
             'pub_date.required'     => 'La date est requise',
             'abstract.required'     => 'Le résumé est requis',
         ];

@@ -29,7 +29,7 @@ class AnalyseUpdateRequest extends Request
     public function rules()
     {
         return [
-            'author_id[]' => 'required',
+            'author_id' => 'required',
             'pub_date' => 'required',
             'abstract' => 'required'
         ];
@@ -38,7 +38,7 @@ class AnalyseUpdateRequest extends Request
     public function messages()
     {
         return [
-            'author_id[].required'  => 'Un auteur est requis',
+            'author_id.required'  => 'Un auteur est requis',
             'pub_date.required'     => 'La date est requise',
             'abstract.required'     => 'Le résumé est requis',
         ];
