@@ -46,7 +46,7 @@ return [
         'categorie' => 'files/pictos/',
         'arret'     => 'files/arrets/',
         'analyse'   => 'files/analyses/',
-        'author'    => 'files/authors/',
+        'author'    => 'authors/',
         'upload'    => 'files/',
     ],
 
