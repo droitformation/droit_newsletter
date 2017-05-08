@@ -14,10 +14,10 @@
                         @if(!$analyse->authors->isEmpty())
                             @foreach($analyse->authors as $author)
                                 <div class="row">
-                                    <div class="col-md-3">
-                                        <img style="width: 60px;" width="60" border="0" alt="{{ $author->name }}" src="{{ asset(config('newsletter.path.author').$author->author_photo) }}">
+                                    <div class="col-md-2">
+                                        <img width="65px" style="margin-top: 10px;" alt="{{ $author->name }}" src="{{ asset(config('newsletter.path.author').$author->author_photo) }}">
                                     </div>
-                                    <div class="col-md-9">
+                                    <div class="col-md-10">
                                         <h3 style="text-align: left;font-family: sans-serif; color:#000; font-size: 13px; font-weight: bold;">{{ $author->name }}</h3>
                                         <p style="font-family: sans-serif;">{{  $author->occupation }}</p>
                                     </div>
