@@ -80,8 +80,8 @@ class UploadController extends Controller
         if($files)
         {
             $array = [
-                'filelink' => url('/').'/files/'.$files['name'],
-                'filename' => $files['name']
+                'url' => url('/').'/files/'.$files['name'],
+                'name' => $files['name']
             ];
 
             return response()->json($array,200 );
@@ -104,7 +104,7 @@ class UploadController extends Controller
             {
                 if(!in_array($file,$except))
                 {
-                    $data[] = ['image' => url('/') . '/uploads/' . $file, 'thumb' => url('/') . '/uploads/' . $file, 'title' => $file];
+                    $data[] = ['url' => url('/') . '/uploads/' . $file, 'thumb' => url('/') . '/uploads/' . $file, 'title' => $file];
                 }
             }
         }
@@ -124,7 +124,7 @@ class UploadController extends Controller
             {
                 if(!in_array($file,$except))
                 {
-                    $data[] = ['name' => $file, 'link' => url('/').'/files/'.$file, 'title' => $file];
+                    $data[] = ['name' => $file, 'url' => url('/').'/files/'.$file, 'title' => $file];
                 }
             }
         }
