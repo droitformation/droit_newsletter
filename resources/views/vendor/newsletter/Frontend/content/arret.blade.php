@@ -1,4 +1,4 @@
-@if(!$bloc->arret->analyses->isEmpty())
+@if(isset($bloc->arret) && !$bloc->arret->analyses->isEmpty())
 
     <!-- Bloc content-->
     <div class="row">
@@ -41,6 +41,7 @@
     </div>
 @endif
 
+@if(isset($bloc->arret))
 <div class="row">
     <div class="col-md-9">
         <h2>{{ $bloc->arret->reference }} du {{ $bloc->arret->pub_date->formatLocalized('%d %B %Y') }}</h2>
@@ -62,3 +63,4 @@
     </div>
 </div>
 
+@endif
