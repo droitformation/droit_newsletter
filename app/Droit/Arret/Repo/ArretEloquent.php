@@ -42,7 +42,7 @@ class ArretEloquent implements ArretInterface{
 
     public function getLatest($exclude = [])
     {
-        return $this->arret->whereNotIn('id', $exclude)->has('analyses')->with(['analyses'])->orderBy('id', 'ASC')->get()->take(5);
+        return $this->arret->whereNotIn('id', $exclude)->has('analyses')->with(['analyses'])->orderBy('id', 'DESC')->get()->take(5);
     }
 
 	public function find($id){
