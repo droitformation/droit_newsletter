@@ -11,6 +11,7 @@
              <button class="btn btn-default grey" type="submit">Envoyer</button>
           </span>
         </div><!-- /input-group -->
+        <input type="text" name="honey" value="" style="visibility: hidden;height: 0;line-height: 0;border: none;">
     </form>
 </div><!--END WIDGET-->
 
