@@ -48,6 +48,7 @@
             <section>
 
                 @include('partials.message')
+                @include('alert::alert')
 
                 <!-- Contenu -->
                 @yield('content')
