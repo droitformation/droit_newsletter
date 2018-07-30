@@ -141,6 +141,28 @@ Route::group(['middleware' => ['web']], function () {
 |--------------------------------------------------------------------------
 */
 
+Route::get('clean_list', function()
+{
+    $clean = new \App\Droit\CleanWorker(1589063,3,'rca');
+   $clean->save();
+
+    // Filter pubdroit => mailjet
+    $subscribers = $clean->filter();
+    //$clean->deleteUnconfirmed();
+    //$clean->setMissing();
+
+    // Filter Mailjet DB
+    //$subscribers = $clean->missingDB();
+    //$clean->addSubscriber($subscribers,3/);
+    $clean->emptyAbo();
+
+    echo '<pre>';
+    //print_r($clean->subscribers);
+    //print_r($subscribers);
+    print_r(implode('<br>',$clean->subscribers['ok']));
+    echo '</pre>';exit();
+});
+
 Route::get('testcampagne', function()
 {
 

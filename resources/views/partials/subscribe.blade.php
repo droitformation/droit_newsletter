@@ -11,7 +11,6 @@
              <button class="btn btn-default grey" type="submit">Envoyer</button>
           </span>
         </div><!-- /input-group -->
-
     </form>
 </div><!--END WIDGET-->
 
