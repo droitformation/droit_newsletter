@@ -155,6 +155,7 @@ return [
         Torann\Registry\RegistryServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         designpond\newsletter\newsletterServiceProvider::class,
+        Msurguy\Honeypot\HoneypotServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -217,7 +218,8 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
         'Str'       => Illuminate\Support\Str::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-        'Alert'      => Vinkla\Alert\Facades\Alert::class
+        'Alert'      => Vinkla\Alert\Facades\Alert::class,
+        'Honeypot' => Msurguy\Honeypot\HoneypotFacade::class
     ],
 
 ];
