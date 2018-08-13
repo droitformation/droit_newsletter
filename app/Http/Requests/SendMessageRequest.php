@@ -24,7 +24,9 @@ class SendMessageRequest extends Request {
 		return [
             'nom'      => 'required',
             'email'    => 'required|email',
-            'remarque' => 'required'
+            'remarque' => 'required',
+            'my_name'  => 'honeypot',
+            'my_time'  => 'required|honeytime:5'
 		];
 	}
 

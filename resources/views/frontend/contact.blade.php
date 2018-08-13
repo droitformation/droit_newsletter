@@ -23,12 +23,13 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label">Email</label>
+                <label class="col-sm-2 control-label">Message</label>
                 <div class="col-sm-10">
                     <textarea name="remarque" required class="form-control" rows="3"></textarea>
                 </div>
             </div>
             <input value="Envoyer" class="btn btn-default" type="submit" />
+            {!! Honeypot::generate('my_name', 'my_time') !!}
         </form><!--END CONTACT FORM-->
     </div>
     <div class="col-md-4">
